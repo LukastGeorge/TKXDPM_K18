@@ -1,0 +1,223 @@
+{
+  "date": "2026-11-04",
+  "scope": "documentation_static_validation_not_application_tests",
+  "feature_definitions": 152,
+  "expanded_cases": 219,
+  "pending_definitions": 111,
+  "pending_cases": 160,
+  "rules": 48,
+  "gherkin_parse_errors": 0,
+  "diagrams": 37,
+  "uml_diagrams": 35,
+  "dfd_diagrams": 2,
+  "native_drawio": {
+    "CL01": {
+      "nodes": 9,
+      "relationships": 9,
+      "native_cells": 157
+    },
+    "CL02": {
+      "nodes": 8,
+      "relationships": 6,
+      "native_cells": 190
+    },
+    "CL03": {
+      "nodes": 9,
+      "relationships": 8,
+      "native_cells": 209
+    },
+    "CL04": {
+      "nodes": 9,
+      "relationships": 8,
+      "native_cells": 168
+    },
+    "CL05": {
+      "nodes": 8,
+      "relationships": 7,
+      "native_cells": 258
+    },
+    "CL06": {
+      "nodes": 9,
+      "relationships": 7,
+      "native_cells": 143
+    },
+    "CL07": {
+      "nodes": 8,
+      "relationships": 8,
+      "native_cells": 216
+    }
+  },
+  "internal_links_checked": 634,
+  "image_dimensions": {
+    "AD01": [
+      552,
+      1204
+    ],
+    "AD02": [
+      552,
+      1744
+    ],
+    "AD03": [
+      741,
+      1551
+    ],
+    "AD04": [
+      552,
+      2462
+    ],
+    "AD05": [
+      552,
+      1934
+    ],
+    "AD06": [
+      552,
+      1672
+    ],
+    "AD07": [
+      552,
+      1445
+    ],
+    "AD08": [
+      552,
+      1788
+    ],
+    "AD08B": [
+      800,
+      1047
+    ],
+    "AD09": [
+      552,
+      1565
+    ],
+    "SQ01": [
+      1389,
+      1380
+    ],
+    "SQ02": [
+      1424,
+      1811
+    ],
+    "SQ03": [
+      1037,
+      1243
+    ],
+    "SQ04": [
+      1565,
+      2358
+    ],
+    "SQ04B": [
+      891,
+      973
+    ],
+    "SQ05": [
+      1296,
+      1880
+    ],
+    "SQ06": [
+      1481,
+      1595
+    ],
+    "SQ06B": [
+      1392,
+      1511
+    ],
+    "SQ07": [
+      1503,
+      1963
+    ],
+    "SQ08": [
+      1812,
+      2070
+    ],
+    "SQ08B": [
+      1539,
+      2204
+    ],
+    "SQ09": [
+      1882,
+      1923
+    ],
+    "ST01": [
+      971,
+      847
+    ],
+    "ST02": [
+      1228,
+      759
+    ],
+    "ST03": [
+      654,
+      609
+    ],
+    "CP01": [
+      1519,
+      1210
+    ],
+    "DFD01": [
+      1275,
+      605
+    ],
+    "DFD02": [
+      1462,
+      690
+    ],
+    "SQ02B": [
+      1312,
+      1386
+    ],
+    "SQ06C": [
+      895,
+      1013
+    ],
+    "CL01": [
+      979,
+      1080
+    ],
+    "CL02": [
+      722,
+      1157
+    ],
+    "CL03": [
+      1084,
+      1227
+    ],
+    "CL04": [
+      878,
+      972
+    ],
+    "CL05": [
+      1271,
+      1086
+    ],
+    "CL06": [
+      1302,
+      998
+    ],
+    "CL07": [
+      1222,
+      1721
+    ]
+  },
+  "static_errors": [],
+  "application_code_created": false,
+  "business_tests_run": false,
+  "visual_review": {
+    "contact_sheets": "All 37 rendered diagrams inspected for overall layout; long sequences require SVG zoom for reading",
+    "full_size_checked": [
+      "CL01",
+      "CL02",
+      "CL03",
+      "CL04",
+      "CL05",
+      "CL06",
+      "CL07",
+      "SQ04",
+      "SQ06C"
+    ],
+    "fixes": [
+      "CL05/CL07 label overlaps: changed orthogonal to polyline routing",
+      "Legend realization pipe replaced by plain text"
+    ],
+    "drawio_app_opened": false
+  }
+}

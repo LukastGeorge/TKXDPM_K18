@@ -1,0 +1,32 @@
+@startuml
+!include style.iuml
+title AD06 - Hủy đơn trước bàn giao
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Khách/admin gửi orderId, cancelKey, lý do;
+:Kiểm session, quyền hủy và chủ đơn;
+if (Được phép?) then (không)
+ :Không trả dữ liệu đơn khác; không ghi;
+ stop
+endif
+:BEGIN D01; khóa/so version đơn;
+if (Đã hủy với cùng nội dung?) then (có)
+ :Trả kết quả cũ; không giải phóng thêm;
+ :Kết thúc giao dịch đọc, nhả khóa;
+ stop
+endif
+if (Chưa bàn giao và chưa thu tiền?) then (không)
+ :ROLLBACK; yêu cầu quy trình khác;\nkhông tự nhập hàng hoặc hoàn tiền;
+ stop
+endif
+:QD-01: giải phóng lượng giữ của đơn;\nkhông cộng vào tồn thực tế;
+:P-PRICE-DETAIL: giải phóng lượt chưa tiêu;
+:Lưu Đã hủy, lý do, version và cancelKey;
+if (Ghi đủ tất cả?) then (không)
+ :ROLLBACK tất cả; trạng thái ban đầu giữ nguyên;
+ stop
+endif
+:COMMIT; trả kết quả cho chủ đơn/admin;
+stop
+footer TC_ORDER_SC073 | TC_INV_KHO08
+@enduml

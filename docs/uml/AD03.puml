@@ -1,0 +1,32 @@
+@startuml
+!include style.iuml
+title AD03 - Tính giá các hình thức bán
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Backend nhận dòng hàng và thời điểm từ clock;
+:Đọc giá và cấu hình ưu đãi phía server;
+:Kiểm tra combo/món chính-món kèm;\nkhông tin đơn giá từ frontend;
+if (Cấu hình và quan hệ hợp lệ?) then (không)
+ :Trả lỗi; không tiêu lượt mã;
+ stop
+endif
+if (Dòng là combo?) then (có)
+ :Dùng giá bộ, lưu công thức thành phần;
+elseif (Dòng mua kèm?) then (có)
+ :Kiểm tra món chính và tỷ lệ; dùng giá kèm;
+else (sách đơn)
+ :So giá thường/giảm trong hạn/giá sỉ;\nP-PRICE-DETAIL chọn mức hợp lệ thấp nhất;
+endif
+:Cộng thành tiền các dòng;
+if (Có mã?) then (có)
+ if (Đúng chủ, thời hạn, ngưỡng,\nlượt và chính sách cộng dồn?) then (không)
+  :Trả lỗi giá/mã;\ncaller giữ dữ liệu trước đó;
+  stop
+ endif
+ :QD-02: tối đa 1 mã;\ntính giảm, làm tròn VND theo đề xuất;
+endif
+:Trả Quote gồm version, dòng, tiền giảm,\nphí cấu hình, tổng >= 0 và điều kiện;
+:Chưa giữ kho hoặc giữ/tiêu lượt mã;
+stop
+footer TC_PRICE_BH01 | TC_PRICE_BH02
+@enduml

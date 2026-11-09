@@ -1,0 +1,60 @@
+@startuml
+!include style.iuml
+title SQ08 - Tài khoản xác minh mail và tác vụ gửi
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Guest as U
+boundary Controller as C
+control Identity as A
+database "Account/Token/SendJob ports" as D
+control "MailWorker (D02)" as W
+participant "Mail provider\n[DỊCH VỤ NGOÀI]" as M
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: đăngKý(name, email, password, confirm)
+C -> A: RegisterRequest(validated fields)
+group transaction tài khoản + token + yêu cầu gửi (D02)
+ A -> D: kiểm email duy nhất; tạo customer chưa xác minh, token, SendJob
+ D --> A: accountId hoặc lỗi, không ghi dở
+end
+alt đăng ký lỗi hoặc chưa cam kết
+ A -> OUT: present(RegisterError; không có tài khoản/yêu cầu gửi mới)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else đã cam kết
+ A -> OUT: present(tài khoản chưa xác minh; trạng thái yêu cầu gửi)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: kết quả đăng ký; không lộ password/token nội bộ
+... sau cam kết, tác vụ riêng ...
+opt có yêu cầu gửi đã cam kết
+W -> D: lấy yêu cầu gửi đang chờ
+D --> W: email + liên kết được phép gửi
+W -> M: gửiThư(email, verificationLink)
+alt provider tạm lỗi
+ M --> W: lỗi
+ W -> D: giữ yêu cầu chờ/thử lại theo chính sách cấu hình
+else provider nhận gửi
+ M --> W: nhận yêu cầu gửi
+ W -> D: ghi kết quả gửi, không tự xác minh email
+end
+end
+opt người dùng mở liên kết xác minh
+U -> C: mởLiênKết(token)
+C -> A: VerifyEmailRequest(token, serverNow)
+A -> D: kiểm đúng tài khoản, hạn và chưa dùng; tiêu token + xác minh cùng cam kết
+D --> A: verified / hết hạn / đã dùng / sai
+A -> OUT: present(VerifyResponse)
+OUT --> A: void
+A --> C: void
+C -> OUT: viewModel()
+OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+C --> U: kết quả xác minh
+end
+note over A,D: Mỗi thao tác đặt đơn kiểm lại email đã xác minh; đăng xuất thu hồi session phía server.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_AUTH_SC020 | TC_AUTH_SC021
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+!include style.iuml
+title SQ06 - Hủy và giải phóng một lần
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor "Chủ đơn / admin" as U
+boundary Controller as C
+control CancelOrder as A
+control AuthPolicy as P
+database "Order/Stock/Promo UoW" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: hủy(orderId, cancelKey, reason)
+C -> A: CancelRequest(subject, payload)
+A -> P: kiểm role/owner trước trả dữ liệu đơn
+P --> A: cho phép / từ chối
+alt sai quyền
+ A -> OUT: present(từ chối; không lộ đơn khác)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else được phép
+ group BEGIN D01
+  A -> D: khóa/so version đơn + khóa hủy
+  alt đã hủy, cùng nội dung
+   D --> A: kết quả cũ; không giải phóng nữa
+   A -> D: END read-only, nhả khóa
+  else chưa hủy
+   alt đã giao hoặc đã thu / không đủ điều kiện
+    A -> D: ROLLBACK; không hoàn tồn/tiền tự động
+   else được hủy theo P-STATE
+    A -> D: giải phóng đúng reservation chưa xuất và lượt chưa tiêu
+    alt lỗi trước cam kết hủy
+     A -> D: ROLLBACK trạng thái, giữ kho, lượt và khóa hủy
+    else mọi ghi đạt
+     A -> D: lưu Đã hủy, reason, cancelKey; COMMIT
+    end
+   end
+  end
+ end
+ A -> OUT: present(CancelResponse(status, releasedAmounts, reason))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: kết quả cho đúng chủ/admin
+note over A,D: Hủy chỉ giảm R; H không tăng. Lỗi ghi: rollback cả trạng thái lẫn giải phóng.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_ORDER_SC073 | TC_INV_KHO08
+@enduml

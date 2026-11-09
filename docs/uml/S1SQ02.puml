@@ -1,0 +1,54 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1SQ02 — Đọc danh sách hoặc chi tiết sách
+actor Guest
+participant BookshopController as ctl
+participant CatalogInteractor as uc
+participant CatalogReadPort as cat
+participant CatalogPresenter as presenter
+participant CartQueryInteractor as query
+participant CartPort as carts
+participant PricingService as price
+participant CartPresenter as out
+Guest -> ctl : GET /books hoặc /books/{sku}
+ctl -> uc : execute(CatalogRequest)
+alt request.sku == null
+ uc -> cat : listVisible()
+ cat --> uc : List<Book>, có thể rỗng
+else có SKU
+ uc -> cat : find(sku)
+ cat --> uc : Optional<Book>
+end
+uc -> presenter : present(CatalogResponse) qua OutputBoundary
+ctl -> presenter : response()
+presenter --> ctl : kết quả danh mục
+alt không thấy sách / ngừng hiển thị
+ ctl --> Guest : 404; không có form mua
+else tìm thấy / danh sách kể cả rỗng
+ ctl -> query : execute(CartQueryRequest(session.getId()))
+ query -> carts : open(owner)
+ carts --> query : giỏ hiện có hoặc giỏ rỗng mới
+ query -> price : quote(cart)
+ price -> cat : find(sku) cho từng dòng
+ cat --> price : giá hiện tại
+ price --> query : CartSnapshot
+ query -> out : present(OK, snapshot) qua OutputBoundary
+ ctl -> out : response()
+ out --> ctl : id/version/lines/total, không có owner
+ ctl --> Guest : 200 HTML; sách và form CSRF/id/version
+end
+note over ctl,out
+Lỗi đọc DB trả 503. GET catalog có thể tạo giỏ rỗng
+để form thêm có id/version; không đổi sách hoặc giữ hàng.
+end note
+
+@enduml

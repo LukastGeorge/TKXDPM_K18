@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+state "Đang giữ\nHELD" as H
+state "Đã xuất\nISSUED" as I
+state "Đã giải phóng\nRELEASED" as R
+[*] --> H : đặt đơn / R += n
+H --> I : bàn giao / H -= n và R -= n
+H --> R : hủy trước giao / R -= n
+I --> I : lặp bàn giao / không xuất thêm
+R --> R : lặp hủy / không hoàn thêm
+
+@enduml

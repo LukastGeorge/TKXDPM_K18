@@ -1,0 +1,76 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL02 - Danh mục và giỏ — đối tượng có trách nhiệm
+caption Thiết kế đề xuất; chưa có code. P-EDITION/P-MERGE và cardinality còn là đề xuất; QD-01 không giữ hàng tại giỏ
+top to bottom direction
+class BookEdition <<entity>> #F0F6ED {
+  - sku: Sku
+  - title: String
+  - editionLabel: String
+  - visible: boolean
+  --
+  + changeDetails(details: BookDetails): void
+  + stopSelling(): void
+}
+class Category <<entity>> #F0F6ED {
+  - id: CategoryId
+  - name: String
+  --
+  + rename(name: String): void
+}
+class CatalogQuery <<application service>> #F0F6ED {
+  + list(criteria: SearchCriteria): BookPage
+  + detail(sku: Sku): BookDetailsResult
+}
+interface CatalogReadPort <<interface>> #DCEEFF {
+  + findVisible(criteria: SearchCriteria): BookPage
+  + findSellable(sku: Sku): BookDetailsResult
+}
+class Cart <<aggregate root>> #F0F6ED {
+  - id: CartId
+  - owner: CartOwner
+  - version: long
+  --
+  + changeLine(selection: LineSelection, qty: int): void
+  + removeLine(id: LineId): void
+}
+class CartLine <<entity>> #F0F6ED {
+  - id: LineId
+  - selection: LineSelection
+  - quantity: int
+  - parentLineId: LineId [0..1]
+}
+class LineSelection <<value object>> #E4F3E9 {
+  offerId: OfferId
+  kind: SaleMode
+  sku: Sku [0..1]
+}
+class CartTransfer <<entity / proposed>> #F0F6ED {
+  - guestCartId: CartId
+  - customerId: AccountId
+  - status: TransferStatus
+  --
+  + markTransferred(target: CartId): void
+}
+BookEdition --> Category : phân loại; số lượng chờ duyệt
+CatalogQuery --> CatalogReadPort : đọc
+CatalogReadPort ..> BookEdition : ánh xạ dữ liệu đọc
+Cart *-- CartLine : 1 — 0..*
+CartLine *-- LineSelection : 1 — 1
+CartTransfer ..> Cart : nguồn / đích
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

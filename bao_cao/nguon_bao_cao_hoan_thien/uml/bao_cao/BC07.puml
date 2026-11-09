@@ -1,0 +1,38 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+start
+:Đọc lựa chọn, số lượng, owner và thời gian;
+if (Sách lẻ?) then (có)
+ :Xác định giá thường, giảm sản phẩm, sỉ hợp lệ;
+ :Chọn đơn giá thấp nhất;
+else (combo hoặc mua kèm)
+ :Đọc giá cấu hình và recipe;
+ :Kiểm sản phẩm chính và tỷ lệ mua kèm;
+endif
+:Tính từng dòng và cộng tổng tiền sách;
+:Cộng nhu cầu SKU từ mọi dòng;
+if (Có mã?) then (có)
+ if (Giỏ toàn giá thường và mã hợp lệ?) then (có)
+  :Kiểm thời gian, chủ mã, ngưỡng và lượt;
+  :Tính giảm, làm tròn xuống và chặn âm;
+ else (không)
+  :Trả lỗi mã; không giữ lượt hoặc hàng;
+  stop
+ endif
+endif
+:Cộng phí cấu hình;
+:Trả SaleQuote và fingerprint;
+stop
+@enduml

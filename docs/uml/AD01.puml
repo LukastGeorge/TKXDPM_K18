@@ -1,0 +1,29 @@
+@startuml
+!include style.iuml
+title AD01 - Tìm kiếm và xem sách
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Guest/customer nhập từ khóa, bộ lọc, trang;
+if (Định dạng/khoảng giá hợp lệ?) then (không)
+ :Trả lỗi trường nhập;\nkhông sửa danh mục/giỏ;
+ stop
+endif
+if (Truy vấn quản trị?) then (có)
+ if (Có quyền admin?) then (không)
+  :Từ chối; không đọc dữ liệu quản trị;
+  stop
+ endif
+endif
+:Đọc phạm vi danh mục được phép;\nchỉ sách công khai cho khách;
+if (Yêu cầu chi tiết?) then (có)
+ if (Sách tồn tại và được hiển thị?) then (không)
+  :Trả không tìm thấy/đã ngừng bán;
+  stop
+ endif
+ :Trả chi tiết và giá hiển thị;
+else (danh sách)
+ :Lọc, phân trang;\ntrả danh sách hoặc kết quả trống;
+endif
+stop
+footer TC_CATALOG_NEW001 | TC_CATALOG_NEW002
+@enduml

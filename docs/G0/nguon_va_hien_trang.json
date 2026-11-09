@@ -1,0 +1,2198 @@
+{
+  "date": "2026-11-04",
+  "stage": "G0",
+  "approval": "Chờ duyệt",
+  "student": {
+    "name": "Nguyễn Duy Trường",
+    "id": "24150180",
+    "work_mode": "individual"
+  },
+  "confirmed_stack": [
+    "Java",
+    "Spring Boot",
+    "PostgreSQL via Docker",
+    "JUnit Jupiter"
+  ],
+  "confirmed_external_integrations": [
+    "real email service",
+    "real Facebook authentication"
+  ],
+  "sources": [
+    {
+      "id": "SRC01",
+      "name": "DanhSachDeTai_Final (1).docx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\DanhSachDeTai_Final (1).docx",
+      "exists": true,
+      "size": 17094,
+      "sha256": "26440fbcfc0c1ccdf04cbbd019b5c6402ca690f4045b438dd11485a7ff0d9143",
+      "paragraph_blocks": 31,
+      "tables": 0,
+      "reading_status": "Đã đọc",
+      "read_scope": "Toàn bộ 2 trang Word render; 31 khối đoạn văn; vai trò ở trang 1, đề tài 05 ở trang 2.",
+      "unread_or_limits": "Không còn phần nội dung chưa đọc."
+    },
+    {
+      "id": "SRC02",
+      "name": "TKXDPM_Cấu trúc nội dung tiểu luận cuối kỳ.docx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\TKXDPM_Cấu trúc nội dung tiểu luận cuối kỳ.docx",
+      "exists": true,
+      "size": 19114,
+      "sha256": "ed0907714659fcc6b4e13b9a1dfca38b92a24b30ec4a1ab4c2056c2c9a22f6a4",
+      "paragraph_blocks": 39,
+      "tables": 0,
+      "reading_status": "Đã đọc",
+      "read_scope": "Toàn bộ nội dung và 3 trang render; trang 3 trắng. Nội dung yêu cầu ở trang 2, mục lục ở trang 1.",
+      "unread_or_limits": "Không còn phần nội dung chưa đọc. Nguồn ghi SOLD; trong hồ sơ dùng SOLID theo yêu cầu người dùng."
+    },
+    {
+      "id": "SRC03",
+      "name": "PHIEU CHAM TIEU LUAN_TK&XDPM.docx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\PHIEU CHAM TIEU LUAN_TK&XDPM.docx",
+      "exists": true,
+      "size": 21542,
+      "sha256": "33b76eae8badaaeb1512160881eae604e633be4cda69cd0c50044fc97b95b9d7",
+      "paragraph_blocks": 13,
+      "tables": 2,
+      "reading_status": "Đã đọc",
+      "read_scope": "Toàn bộ 1 trang, cả hai bảng. Bảng chấm có 1, 2, 3 và các mục 3.1–3.5.",
+      "unread_or_limits": "Cột điểm trống; nguồn không cho trọng số hoặc ngưỡng đạt."
+    },
+    {
+      "id": "SRC04",
+      "name": "Mẫu trình bày tiểu luận (1).doc",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\Mẫu trình bày tiểu luận (1).doc",
+      "exists": true,
+      "size": 114688,
+      "sha256": "f092ac8f3c8e97c1409824f525572071ea629197cb57cbd968df96533c6833d6",
+      "reading_status": "Đã đọc",
+      "read_scope": "Toàn bộ DOC gốc bằng Word ở chế độ chỉ đọc; đã xem đủ 3 trang: bìa, phiếu mẫu và trang nội dung.",
+      "unread_or_limits": "Không suy ngược cỡ chữ thân bài từ chú thích cỡ chữ trên bìa."
+    },
+    {
+      "id": "SRC05",
+      "name": "1791603626813_6247971322596699413_g1290464710492436296_3e00511f960de81a7929a5098fe777a0.jpg",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\1791603626813_6247971322596699413_g1290464710492436296_3e00511f960de81a7929a5098fe777a0.jpg",
+      "exists": true,
+      "size": 89442,
+      "sha256": "e4a69abfd5f52f229a91d07636fac9b988e8c5c362287764cb46b032c97ddc24",
+      "reading_status": "Đã đọc hình",
+      "read_scope": "Toàn bộ ảnh sáu nhóm nghiệp vụ, bao gồm các cách bán và email/Facebook/COD.",
+      "unread_or_limits": "Ảnh không quy định thuật toán giá, điều kiện giữ/xuất tồn hay mức tích hợp thật."
+    },
+    {
+      "id": "SRC06",
+      "name": "Software Architecture (1).pptx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\Software Architecture (1).pptx",
+      "exists": true,
+      "size": 613256,
+      "sha256": "e8185f73b86acb8171251e737f5f50d2ad239e315d5e7804f4da10d9351e2112",
+      "slides": 18,
+      "image_slides": 1,
+      "reading_status": "Đã đọc",
+      "read_scope": "18/18 slide: chữ và notes; hình Clean Architecture tại slide 16 đã mở xem.",
+      "unread_or_limits": "Không còn slide nội dung chưa đọc."
+    },
+    {
+      "id": "SRC07",
+      "name": "ResquestResponseModel (1).pptx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\ResquestResponseModel (1).pptx",
+      "exists": true,
+      "size": 573743,
+      "sha256": "527c305013448f99691ec7be85ad51653de954afc16493e753c39022e979e2ee",
+      "slides": 10,
+      "image_slides": 5,
+      "reading_status": "Đã đọc",
+      "read_scope": "10/10 slide: chữ/notes; mở hình và mũi tên của slide 6–10, không kết luận slide ảnh là trống.",
+      "unread_or_limits": "Không còn slide nội dung chưa đọc."
+    },
+    {
+      "id": "SRC08",
+      "name": "Kiến_Trúc_Độc_Lập (1).pptx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\Kiến_Trúc_Độc_Lập (1).pptx",
+      "exists": true,
+      "size": 7266969,
+      "sha256": "a8594b79dfdcb0e33328a033b1d7d2fd63b2f95bf7e399d0993db7b5f1ad17b7",
+      "slides": 11,
+      "image_slides": 11,
+      "reading_status": "Đã đọc hình",
+      "read_scope": "11/11 slide đều là ảnh. Đã mở từng ảnh nguyên gốc; không có crop trong slide XML.",
+      "unread_or_limits": "Không còn slide nội dung chưa đọc."
+    },
+    {
+      "id": "SRC09",
+      "name": "Đạn_Vạch_Đường_Lập_Trình_Trúng_Đích_Trong_Bóng_Đêm (1).pptx",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\Đạn_Vạch_Đường_Lập_Trình_Trúng_Đích_Trong_Bóng_Đêm (1).pptx",
+      "exists": true,
+      "size": 15621684,
+      "sha256": "b2cb13d3bf8be68bb52c56e284eaa64aa36184e8c1d1943e395efb8a93f72eb6",
+      "slides": 13,
+      "image_slides": 13,
+      "reading_status": "Đã đọc hình",
+      "read_scope": "13/13 slide đều là ảnh. Đã mở từng ảnh; không có crop.",
+      "unread_or_limits": "Khuyến khích bắt đầu sớm được áp dụng sau cổng cho phép code, không vượt quy trình G0–G3."
+    },
+    {
+      "id": "SRC10",
+      "name": "The_TDD_BDD_Blueprint.pdf",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\The_TDD_BDD_Blueprint.pdf",
+      "exists": true,
+      "size": 16461403,
+      "sha256": "eb423be42c7aa4948a18babedadf9e591c76085d0fd5ccf5b262bd7042c96af9",
+      "pages": 13,
+      "text_pages": 0,
+      "page_labels": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13"
+      ],
+      "reading_status": "Đã đọc hình",
+      "read_scope": "13/13 trang PDF đều không có lớp text hữu ích; đã render và mở đủ 13 trang.",
+      "unread_or_limits": "Đoạn code, log xanh/đỏ trên hình là ví dụ trong tài liệu, không phải bằng chứng website đã chạy."
+    },
+    {
+      "id": "SRC11",
+      "name": "2025_Clean Architecture with Python_ Implement scalable and maintainable applications using proven architectural principles (2025, Packt Publishing) - libgen.li (1).pdf",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\2025_Clean Architecture with Python_ Implement scalable and maintainable applications using proven architectural principles (2025, Packt Publishing) - libgen.li (1).pdf",
+      "exists": true,
+      "size": 7224415,
+      "sha256": "4cc2bedf622ff569d1b58cb8fcf84347cdefeb238a11ae302c9d3622f1fae234",
+      "pages": 362,
+      "text_pages": 351,
+      "page_labels": [
+        "Cover",
+        "i",
+        "ii",
+        "iii",
+        "iv",
+        "v",
+        "vi",
+        "vii",
+        "viii",
+        "ix",
+        "x",
+        "xi",
+        "xii",
+        "xiii",
+        "xiv",
+        "xv",
+        "xvi",
+        "xvii",
+        "xviii",
+        "xix",
+        "xx",
+        "xxi",
+        "xxii",
+        "xxiii",
+        "xxiv",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123",
+        "124",
+        "125",
+        "126",
+        "127",
+        "128",
+        "129",
+        "130",
+        "131",
+        "132",
+        "133",
+        "134",
+        "135",
+        "136",
+        "137",
+        "138",
+        "139",
+        "140",
+        "141",
+        "142",
+        "143",
+        "144",
+        "145",
+        "146",
+        "147",
+        "148",
+        "149",
+        "150",
+        "151",
+        "152",
+        "153",
+        "154",
+        "155",
+        "156",
+        "157",
+        "158",
+        "159",
+        "160",
+        "161",
+        "162",
+        "163",
+        "164",
+        "165",
+        "166",
+        "167",
+        "168",
+        "169",
+        "170",
+        "171",
+        "172",
+        "173",
+        "174",
+        "175",
+        "176",
+        "177",
+        "178",
+        "179",
+        "180",
+        "181",
+        "182",
+        "183",
+        "184",
+        "185",
+        "186",
+        "187",
+        "188",
+        "189",
+        "190",
+        "191",
+        "192",
+        "193",
+        "194",
+        "195",
+        "196",
+        "197",
+        "198",
+        "199",
+        "200",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205",
+        "206",
+        "207",
+        "208",
+        "209",
+        "210",
+        "211",
+        "212",
+        "213",
+        "214",
+        "215",
+        "216",
+        "217",
+        "218",
+        "219",
+        "220",
+        "221",
+        "222",
+        "223",
+        "224",
+        "225",
+        "226",
+        "227",
+        "228",
+        "229",
+        "230",
+        "231",
+        "232",
+        "233",
+        "234",
+        "235",
+        "236",
+        "237",
+        "238",
+        "239",
+        "240",
+        "241",
+        "242",
+        "243",
+        "244",
+        "245",
+        "246",
+        "247",
+        "248",
+        "249",
+        "250",
+        "251",
+        "252",
+        "253",
+        "254",
+        "255",
+        "256",
+        "257",
+        "258",
+        "259",
+        "260",
+        "261",
+        "262",
+        "263",
+        "264",
+        "265",
+        "266",
+        "267",
+        "268",
+        "269",
+        "270",
+        "271",
+        "272",
+        "273",
+        "274",
+        "275",
+        "276",
+        "277",
+        "278",
+        "279",
+        "280",
+        "281",
+        "282",
+        "283",
+        "284",
+        "285",
+        "286",
+        "287",
+        "288",
+        "289",
+        "290",
+        "291",
+        "292",
+        "293",
+        "294",
+        "295",
+        "296",
+        "297",
+        "298",
+        "299",
+        "300",
+        "301",
+        "302",
+        "303",
+        "304",
+        "305",
+        "306",
+        "307",
+        "308",
+        "309",
+        "310",
+        "311",
+        "312",
+        "313",
+        "314",
+        "315",
+        "316",
+        "317",
+        "318",
+        "319",
+        "320",
+        "321",
+        "322",
+        "323",
+        "324",
+        "325",
+        "326",
+        "327",
+        "328",
+        "329",
+        "330",
+        "331",
+        "332",
+        "333",
+        "334",
+        "335",
+        "336",
+        "337"
+      ],
+      "reading_status": "Đọc chọn lọc",
+      "read_scope": "Sách 362 trang PDF. Đã đọc mục lục PDF 8–16; phần DDD PDF 104–110 (trang in 79–85), Request/Response và ports PDF 148–153 (trang in 123–128), unit testing PDF 216–219 (trang in 191–194); xem hình 4.1/4.2. Đã kiểm tra tên tác giả và copyright tại PDF 2–3.",
+      "unread_or_limits": "Chưa đọc trọn sách: các phần ngoài phạm vi vừa liệt kê, đặc biệt phần còn lại của SOLID, aggregates/invariants, composition, testing integration và chương 9–12. Trích xuất đủ trang chỉ phục vụ tìm vị trí, không được tính là đã đọc."
+    },
+    {
+      "id": "SRC12",
+      "name": "Clean Architecture_ a Craftsman's Guide to Software Structure and Design (2017, Prentice Hall) - libgen.li (1).pdf",
+      "path": "C:\\Users\\Truong Nguyen\\Downloads\\Clean Architecture_ a Craftsman's Guide to Software Structure and Design (2017, Prentice Hall) - libgen.li (1).pdf",
+      "exists": true,
+      "size": 6600216,
+      "sha256": "c071504a77402e16cffaea792ae530faaef0cb66e112f5395ae7fad87e4e86f5",
+      "pages": 429,
+      "text_pages": 367,
+      "page_labels": [
+        "Cover",
+        "i",
+        "ii",
+        "iii",
+        "iv",
+        "v",
+        "vi",
+        "vii",
+        "viii",
+        "ix",
+        "x",
+        "xi",
+        "xii",
+        "xiii",
+        "xiv",
+        "xv",
+        "xvi",
+        "xvii",
+        "xviii",
+        "xix",
+        "xx",
+        "xxi",
+        "xxii",
+        "xxiii",
+        "xxiv",
+        "xxv",
+        "xxvi",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "35",
+        "36",
+        "37",
+        "38",
+        "39",
+        "40",
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "55",
+        "56",
+        "57",
+        "58",
+        "59",
+        "60",
+        "61",
+        "62",
+        "63",
+        "64",
+        "65",
+        "66",
+        "67",
+        "68",
+        "69",
+        "70",
+        "71",
+        "72",
+        "73",
+        "74",
+        "75",
+        "76",
+        "77",
+        "78",
+        "79",
+        "80",
+        "81",
+        "82",
+        "83",
+        "84",
+        "85",
+        "86",
+        "87",
+        "88",
+        "89",
+        "90",
+        "91",
+        "92",
+        "93",
+        "94",
+        "95",
+        "96",
+        "97",
+        "98",
+        "99",
+        "100",
+        "101",
+        "102",
+        "103",
+        "104",
+        "105",
+        "106",
+        "107",
+        "108",
+        "109",
+        "110",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "120",
+        "121",
+        "122",
+        "123",
+        "124",
+        "125",
+        "126",
+        "127",
+        "128",
+        "129",
+        "130",
+        "131",
+        "132",
+        "133",
+        "134",
+        "135",
+        "136",
+        "137",
+        "138",
+        "139",
+        "140",
+        "141",
+        "142",
+        "143",
+        "144",
+        "145",
+        "146",
+        "147",
+        "148",
+        "149",
+        "150",
+        "151",
+        "152",
+        "153",
+        "154",
+        "155",
+        "156",
+        "157",
+        "158",
+        "159",
+        "160",
+        "161",
+        "162",
+        "163",
+        "164",
+        "165",
+        "166",
+        "167",
+        "168",
+        "169",
+        "170",
+        "171",
+        "172",
+        "173",
+        "174",
+        "175",
+        "176",
+        "177",
+        "178",
+        "179",
+        "180",
+        "181",
+        "182",
+        "183",
+        "184",
+        "185",
+        "186",
+        "187",
+        "188",
+        "189",
+        "190",
+        "191",
+        "192",
+        "193",
+        "194",
+        "195",
+        "196",
+        "197",
+        "198",
+        "199",
+        "200",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205",
+        "206",
+        "207",
+        "208",
+        "209",
+        "210",
+        "211",
+        "212",
+        "213",
+        "214",
+        "215",
+        "216",
+        "217",
+        "218",
+        "219",
+        "220",
+        "221",
+        "222",
+        "223",
+        "224",
+        "225",
+        "226",
+        "227",
+        "228",
+        "229",
+        "230",
+        "231",
+        "232",
+        "233",
+        "234",
+        "235",
+        "236",
+        "237",
+        "238",
+        "239",
+        "240",
+        "241",
+        "242",
+        "243",
+        "244",
+        "245",
+        "246",
+        "247",
+        "248",
+        "249",
+        "250",
+        "251",
+        "252",
+        "253",
+        "254",
+        "255",
+        "256",
+        "257",
+        "258",
+        "259",
+        "260",
+        "261",
+        "262",
+        "263",
+        "264",
+        "265",
+        "266",
+        "267",
+        "268",
+        "269",
+        "270",
+        "271",
+        "272",
+        "273",
+        "274",
+        "275",
+        "276",
+        "277",
+        "278",
+        "279",
+        "280",
+        "281",
+        "282",
+        "283",
+        "284",
+        "285",
+        "286",
+        "287",
+        "288",
+        "289",
+        "290",
+        "291",
+        "292",
+        "293",
+        "294",
+        "295",
+        "296",
+        "297",
+        "298",
+        "299",
+        "300",
+        "301",
+        "302",
+        "303",
+        "304",
+        "305",
+        "306",
+        "307",
+        "308",
+        "309",
+        "310",
+        "311",
+        "312",
+        "313",
+        "314",
+        "315",
+        "316",
+        "317",
+        "318",
+        "319",
+        "320",
+        "321",
+        "322",
+        "323",
+        "324",
+        "325",
+        "326",
+        "327",
+        "328",
+        "329",
+        "330",
+        "331",
+        "332",
+        "333",
+        "334",
+        "335",
+        "336",
+        "337",
+        "338",
+        "339",
+        "340",
+        "341",
+        "342",
+        "343",
+        "344",
+        "345",
+        "346",
+        "347",
+        "348",
+        "349",
+        "350",
+        "351",
+        "352",
+        "353",
+        "354",
+        "355",
+        "356",
+        "357",
+        "358",
+        "359",
+        "360",
+        "361",
+        "362",
+        "363",
+        "364",
+        "365",
+        "366",
+        "367",
+        "368",
+        "369",
+        "370",
+        "371",
+        "372",
+        "373",
+        "374",
+        "375",
+        "376",
+        "377",
+        "378",
+        "379",
+        "380",
+        "381",
+        "382",
+        "383",
+        "384",
+        "385",
+        "386",
+        "387",
+        "388",
+        "389",
+        "390",
+        "391",
+        "392",
+        "393",
+        "394",
+        "395",
+        "396",
+        "397",
+        "398",
+        "399",
+        "400",
+        "401",
+        "402"
+      ],
+      "reading_status": "Đọc chọn lọc",
+      "read_scope": "Sách 429 trang PDF. Đã đọc mục lục PDF 8–15; chương 19 PDF 210–214 (trang in 183–187); chương 20 PDF 216–221 (189–194); chương 22 PDF 228–236 (201–209); chương 23 PDF 238–242 (211–215); chương 28 PDF 276–280 (249–253). Xem hình 19.1–19.3, 20.1–20.2, 22.1–22.2. Đọc title/copyright PDF 4–5.",
+      "unread_or_limits": "Chưa đọc trọn sách: các chương khác và phụ lục. Nguồn ghi copyright 2018 Pearson, trong khi tên file ghi 2017; cần dùng thông tin ấn bản khi lập thư mục tham khảo, không chỉ chép tên file."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REQ-F01",
+      "classification": "Bắt buộc môn học",
+      "description": "Guest xem danh sách sách",
+      "source": "SRC01 tr.1, Guest dòng 1",
+      "br_candidates": [
+        "BR-002"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_SC001",
+        "TC_CATALOG_SC002",
+        "TC_CATALOG_SC004"
+      ],
+      "draft_diagrams": [
+        "AD01",
+        "SQ01"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F02",
+      "classification": "Bắt buộc môn học",
+      "description": "Guest xem chi tiết sách",
+      "source": "SRC01 tr.1, Guest dòng 2",
+      "br_candidates": [
+        "BR-001",
+        "BR-002"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_SC005",
+        "TC_CATALOG_SC006",
+        "TC_CATALOG_SC007"
+      ],
+      "draft_diagrams": [
+        "AD01",
+        "SQ01"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F03",
+      "classification": "Bắt buộc môn học",
+      "description": "Chọn mua từ cả danh sách và chi tiết",
+      "source": "SRC01 tr.1, Guest dòng 3",
+      "br_candidates": [
+        "BR-003",
+        "BR-016"
+      ],
+      "draft_scenarios": [
+        "TC_CART_SC008",
+        "TC_CART_SC009"
+      ],
+      "draft_diagrams": [
+        "AD02",
+        "SQ02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F04",
+      "classification": "Bắt buộc môn học",
+      "description": "Xem giỏ và sửa số lượng, số lượng 0 bỏ dòng",
+      "source": "SRC01 tr.1, Guest dòng 4–5",
+      "br_candidates": [
+        "BR-003",
+        "BR-016"
+      ],
+      "draft_scenarios": [
+        "TC_CART_SC014",
+        "TC_CART_SC016",
+        "TC_CART_SC017",
+        "TC_CART_SC018"
+      ],
+      "draft_diagrams": [
+        "AD02",
+        "SQ02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F05",
+      "classification": "Bắt buộc môn học",
+      "description": "Guest đăng ký tài khoản; hỗ trợ email và mạng xã hội",
+      "source": "SRC01 tr.1, Guest dòng 6; SRC05 Xác thực",
+      "br_candidates": [
+        "BR-026",
+        "BR-027"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_SC020",
+        "TC_AUTH_SC021",
+        "TC_AUTH_SC024",
+        "TC_AUTH_SC026",
+        "TC_AUTH_XT01",
+        "TC_AUTH_XT06",
+        "TC_AUTH_XT07"
+      ],
+      "draft_diagrams": [
+        "AD08",
+        "AD08B",
+        "SQ08",
+        "SQ08B"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F06",
+      "classification": "Bắt buộc môn học",
+      "description": "Customer có quyền Guest và đăng nhập/đăng xuất",
+      "source": "SRC01 tr.1, Customer",
+      "br_candidates": [
+        "BR-017",
+        "BR-028"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_SC027",
+        "TC_AUTH_SC028",
+        "TC_AUTH_SC029",
+        "TC_AUTH_SC030",
+        "TC_AUTH_SC031",
+        "TC_CHECKOUT_SC032"
+      ],
+      "draft_diagrams": [
+        "AD08",
+        "SQ02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F07",
+      "classification": "Bắt buộc môn học",
+      "description": "Customer đặt/thanh toán và xem trạng thái đơn",
+      "source": "SRC01 tr.1, Customer dòng 1–2",
+      "br_candidates": [
+        "BR-019",
+        "BR-025",
+        "BR-029"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC033",
+        "TC_CHECKOUT_SC034",
+        "TC_ORDER_SC047",
+        "TC_ORDER_SC048"
+      ],
+      "draft_diagrams": [
+        "AD04",
+        "SQ04",
+        "SQ06B",
+        "ST01",
+        "ST02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F08",
+      "classification": "Bắt buộc môn học",
+      "description": "Admin có quyền Customer và tìm sách/loại/tài khoản/đơn",
+      "source": "SRC01 tr.1, Admin mở đầu và dòng 1",
+      "br_candidates": [
+        "BR-028"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC032",
+        "TC_ADMIN_SC051",
+        "TC_ADMIN_SC052",
+        "TC_ADMIN_SC053"
+      ],
+      "draft_diagrams": [
+        "AD09",
+        "SQ09"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F09",
+      "classification": "Bắt buộc môn học",
+      "description": "Admin quản lý sách, loại sách, tài khoản, đơn",
+      "source": "SRC01 tr.1, Admin dòng 2–4",
+      "br_candidates": [
+        "BR-001",
+        "BR-002",
+        "BR-019",
+        "BR-028"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_SC054",
+        "TC_CATALOG_SC060",
+        "TC_AUTH_SC064",
+        "TC_ORDER_SC069"
+      ],
+      "draft_diagrams": [
+        "AD09",
+        "SQ09"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F10",
+      "classification": "Bắt buộc môn học",
+      "description": "Nghiệp vụ kho",
+      "source": "SRC05 dòng Kho",
+      "br_candidates": [
+        "BR-013",
+        "BR-014",
+        "BR-015",
+        "BR-023"
+      ],
+      "draft_scenarios": [
+        "TC_INV_KHO01",
+        "TC_INV_KHO02",
+        "TC_INV_KHO05",
+        "TC_INV_KHO06",
+        "TC_INV_KHO07",
+        "TC_INV_KHO08"
+      ],
+      "draft_diagrams": [
+        "AD07",
+        "SQ07",
+        "ST03"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F11",
+      "classification": "Bắt buộc môn học",
+      "description": "Bán bình thường",
+      "source": "SRC05 dòng Bán hàng",
+      "br_candidates": [
+        "BR-004"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH01"
+      ],
+      "draft_diagrams": [
+        "AD03",
+        "SQ03"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F12",
+      "classification": "Bắt buộc môn học",
+      "description": "Bán giảm giá",
+      "source": "SRC05 dòng Bán hàng",
+      "br_candidates": [
+        "BR-005",
+        "BR-008"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH02",
+        "TC_PRICE_BH03",
+        "TC_PRICE_BH04"
+      ],
+      "draft_diagrams": [
+        "AD03",
+        "SQ03",
+        "AD09",
+        "SQ09"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F13",
+      "classification": "Bắt buộc môn học",
+      "description": "Voucher và coupon",
+      "source": "SRC05 dòng Bán hàng",
+      "br_candidates": [
+        "BR-006",
+        "BR-007",
+        "BR-008",
+        "BR-009"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH05",
+        "TC_PRICE_BH06",
+        "TC_PRICE_BH07",
+        "TC_PRICE_BH08",
+        "TC_PRICE_BH09",
+        "TC_PRICE_BH10",
+        "TC_PRICE_BH11"
+      ],
+      "draft_diagrams": [
+        "AD03",
+        "SQ03",
+        "SQ04"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F14",
+      "classification": "Bắt buộc môn học",
+      "description": "Bán sỉ",
+      "source": "SRC05 dòng Bán hàng",
+      "br_candidates": [
+        "BR-010"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH12",
+        "TC_PRICE_BH13",
+        "TC_PRICE_BH14"
+      ],
+      "draft_diagrams": [
+        "AD03",
+        "SQ03"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F15",
+      "classification": "Bắt buộc môn học; nghĩa bộ đã xác nhận",
+      "description": "Bán bộ là combo",
+      "source": "SRC05 dòng Bán hàng; SRC14",
+      "br_candidates": [
+        "BR-011"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH15",
+        "TC_PRICE_BH16",
+        "TC_PRICE_BH17"
+      ],
+      "draft_diagrams": [
+        "AD03",
+        "SQ03",
+        "SQ04",
+        "ST03"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F16",
+      "classification": "Bắt buộc môn học; nghĩa mua kèm đã xác nhận",
+      "description": "Bán đính kèm là sách/phụ kiện mua thêm có tính tiền",
+      "source": "SRC05 dòng Bán hàng; SRC14",
+      "br_candidates": [
+        "BR-012"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH18",
+        "TC_PRICE_BH19",
+        "TC_PRICE_BH20",
+        "TC_PRICE_BH21",
+        "TC_PRICE_BH22",
+        "TC_CART_GH01",
+        "TC_CART_GH02"
+      ],
+      "draft_diagrams": [
+        "AD02",
+        "AD03",
+        "SQ03",
+        "SQ04"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F17",
+      "classification": "Bắt buộc môn học; phương thức đã xác nhận",
+      "description": "Đơn hàng và COD",
+      "source": "SRC05 dòng Đơn hàng/Thanh toán; SRC14",
+      "br_candidates": [
+        "BR-019",
+        "BR-020",
+        "BR-021",
+        "BR-022"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC034",
+        "TC_PAY_TT01",
+        "TC_PAY_TT02",
+        "TC_PAY_TT03",
+        "TC_PAY_TT04",
+        "TC_PAY_TT05",
+        "TC_PAY_TT07"
+      ],
+      "draft_diagrams": [
+        "AD04",
+        "AD05",
+        "AD06",
+        "SQ04",
+        "SQ05",
+        "SQ06",
+        "ST01",
+        "ST02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F18",
+      "classification": "Quyết định đã xác nhận",
+      "description": "Email/mật khẩu; xác minh email trước đặt đơn",
+      "source": "SRC14, xác nhận 29/10 và tiếp tục có hiệu lực",
+      "br_candidates": [
+        "BR-026"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_XT01",
+        "TC_AUTH_XT02",
+        "TC_AUTH_XT03",
+        "TC_AUTH_XT04",
+        "TC_AUTH_XT05"
+      ],
+      "draft_diagrams": [
+        "AD08B",
+        "SQ08",
+        "SQ04"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F19",
+      "classification": "Quyết định đã xác nhận",
+      "description": "Email và Facebook tích hợp dịch vụ thật",
+      "source": "SRC14, xác nhận 04/11",
+      "br_candidates": [
+        "BR-026",
+        "BR-027",
+        "BR-030"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_NEW009",
+        "TC_AUTH_NEW010",
+        "TC_AUTH_XT06",
+        "TC_AUTH_XT07"
+      ],
+      "draft_diagrams": [
+        "SQ08",
+        "SQ08B"
+      ],
+      "gate": "G1/G3/G4"
+    },
+    {
+      "id": "REQ-F20",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Backend xác minh lại giá/tồn và lưu snapshot đơn",
+      "source": "SRC13 mục 2",
+      "br_candidates": [
+        "BR-018",
+        "BR-022"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC039",
+        "TC_CHECKOUT_NEW005",
+        "TC_ORDER_DH07"
+      ],
+      "draft_diagrams": [
+        "SQ03",
+        "SQ04",
+        "SQ06B",
+        "DFD02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F21",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Không bán vượt tồn hoặc tạo thêm đơn/hoàn tồn khi yêu cầu lặp",
+      "source": "SRC13 mục 2 và 6",
+      "br_candidates": [
+        "BR-023",
+        "BR-024"
+      ],
+      "draft_scenarios": [
+        "TC_INV_SC046",
+        "TC_ORDER_DH03",
+        "TC_ORDER_DH04",
+        "TC_ORDER_DH05",
+        "TC_ORDER_DH06",
+        "TC_CHECKOUT_NEW006",
+        "TC_CHECKOUT_NEW016",
+        "TC_ORDER_NEW017"
+      ],
+      "draft_diagrams": [
+        "SQ04",
+        "SQ04B",
+        "SQ06",
+        "ST03"
+      ],
+      "gate": "G1/G3/G4"
+    },
+    {
+      "id": "REQ-F22",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Chỉ xem đơn của mình, kiểm quyền quản trị",
+      "source": "SRC13 mục 2; SRC01 tr.1 phân vai",
+      "br_candidates": [
+        "BR-025",
+        "BR-028"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_SC048",
+        "TC_ORDER_SC049",
+        "TC_ADMIN_SC053",
+        "TC_CART_NEW008"
+      ],
+      "draft_diagrams": [
+        "SQ06B",
+        "SQ09",
+        "SQ02"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-F23",
+      "classification": "Yêu cầu bổ sung của người dùng trước",
+      "description": "Giới thiệu website và tìm kiếm/lọc sách công khai",
+      "source": "SRC16 mục 2, dòng 24; SRC15 nháp NEW001–004",
+      "br_candidates": [
+        "BR-002",
+        "BR-031"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_NEW001",
+        "TC_CATALOG_NEW002",
+        "TC_CATALOG_NEW003",
+        "TC_CATALOG_NEW004"
+      ],
+      "draft_diagrams": [
+        "AD01",
+        "SQ01"
+      ],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-A01",
+      "classification": "Bắt buộc môn học",
+      "description": "Gherkin mô tả các tính năng",
+      "source": "SRC02 tr.2 mục 1; SRC03 tr.1 mục 3.1",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G1/G4"
+    },
+    {
+      "id": "REQ-A02",
+      "classification": "Bắt buộc môn học",
+      "description": "Class UML và file draw.io riêng mỗi sinh viên, khớp code",
+      "source": "SRC02 tr.2 mục 2; SRC03 tr.1 mục 3.2",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G2/G4/G5"
+    },
+    {
+      "id": "REQ-A03",
+      "classification": "Bắt buộc môn học",
+      "description": "SOLID tại cấp kiến trúc và đúng hướng dependency",
+      "source": "SRC02 tr.2; SRC06 s.12,16,18; SRC08 s.2–9",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G2/G4"
+    },
+    {
+      "id": "REQ-A04",
+      "classification": "Bắt buộc môn học",
+      "description": "Thành phần được giải thích bằng policy và level",
+      "source": "SRC02 tr.2; SRC12 ch.19, tr.in 183–187",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G2/G4"
+    },
+    {
+      "id": "REQ-A05",
+      "classification": "Bắt buộc môn học",
+      "description": "Mỗi tính năng là lát cắt dọc hẹp, dùng Tracer Bullet",
+      "source": "SRC02 tr.2; SRC08 s.6–8; SRC09 s.5–8",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G1/G2/G4"
+    },
+    {
+      "id": "REQ-A06",
+      "classification": "Bắt buộc môn học",
+      "description": "Tư duy DDD có thuật ngữ, trách nhiệm và invariant phù hợp",
+      "source": "SRC02 tr.2; SRC11 tr.in 79–85",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G1/G2/G4"
+    },
+    {
+      "id": "REQ-A07",
+      "classification": "Bắt buộc môn học",
+      "description": "Request/Response và Input/Output Boundary rõ",
+      "source": "SRC02 tr.2; SRC07 s.4–10",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [
+        "CP01"
+      ],
+      "gate": "G2/G4"
+    },
+    {
+      "id": "REQ-A08",
+      "classification": "Bắt buộc môn học",
+      "description": "Patterns phù hợp với vấn đề; giải thích phương án đơn giản hơn",
+      "source": "SRC02 tr.2; SRC13 mục 5",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G2/G4"
+    },
+    {
+      "id": "REQ-A09",
+      "classification": "Bắt buộc môn học",
+      "description": "Để mở các tùy chọn có cơ sở",
+      "source": "SRC02 tr.2; SRC06 s.7; SRC08 s.11",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G2/G3"
+    },
+    {
+      "id": "REQ-A10",
+      "classification": "Quyết định đã xác nhận",
+      "description": "Java, Spring Boot, PostgreSQL qua Docker; Jupiter viết test",
+      "source": "SRC14 ngày 04/11",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G3/G4"
+    },
+    {
+      "id": "REQ-Q01",
+      "classification": "Bắt buộc môn học",
+      "description": "Glue code và unit tests, có ảnh thật",
+      "source": "SRC02 tr.2 mục 3.1–3.2; SRC03 tr.1 mục 3.3",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G3/G4/G5"
+    },
+    {
+      "id": "REQ-Q02",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "BDD/TDD: red, green, refactor; business logic ngoài glue",
+      "source": "SRC13 mục 6; SRC10 PDF 4,6–12",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G3/G4"
+    },
+    {
+      "id": "REQ-Q03",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Phân biệt unit/integration/E2E và không suy fake test thành transaction DB thật",
+      "source": "SRC13 mục 6; SRC11 tr.in 191–194",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G3/G4"
+    },
+    {
+      "id": "REQ-Q04",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Truy vết REQ → BR → Scenario → UML → Test → Code → Bằng chứng",
+      "source": "SRC13 mục 7",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G1–G5"
+    },
+    {
+      "id": "REQ-D01",
+      "classification": "Bắt buộc môn học",
+      "description": "Bố cục báo cáo, hình thức/chính tả, trích nguồn",
+      "source": "SRC03 tr.1 mục 1–2; SRC04 tr.1–3",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G3/G5"
+    },
+    {
+      "id": "REQ-D02",
+      "classification": "Bắt buộc môn học",
+      "description": "Một báo cáo/tài liệu sống duy nhất; ảnh từng feature",
+      "source": "SRC02 tr.2 mục 4; SRC03 tr.1 mục 3.4",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G1/G4/G5"
+    },
+    {
+      "id": "REQ-D03",
+      "classification": "Bắt buộc môn học",
+      "description": "Chương trình đáp ứng chức năng đề tài",
+      "source": "SRC03 tr.1 mục 3.5; SRC01",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G4/G5"
+    },
+    {
+      "id": "REQ-D04",
+      "classification": "Yêu cầu kiểm soát của người dùng",
+      "description": "Duyệt tuần tự G0–G5, chỉ code lát cắt được cho phép",
+      "source": "SRC13 mục 3 và 8",
+      "br_candidates": [],
+      "draft_scenarios": [],
+      "draft_diagrams": [],
+      "gate": "G0–G5"
+    }
+  ],
+  "business_rule_candidates": [
+    {
+      "id": "BR-001",
+      "topic": "Định danh sách/ấn bản",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F02",
+        "REQ-F09"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_SC005"
+      ]
+    },
+    {
+      "id": "BR-002",
+      "topic": "Tác giả/NXB/thể loại và công khai",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F01",
+        "REQ-F02",
+        "REQ-F09"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_SC005",
+        "TC_CATALOG_SC007"
+      ]
+    },
+    {
+      "id": "BR-003",
+      "topic": "Số lượng giỏ",
+      "status": "Đã có căn cứ cho 0; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F03",
+        "REQ-F04"
+      ],
+      "draft_scenarios": [
+        "TC_CART_SC016",
+        "TC_CART_SC017"
+      ]
+    },
+    {
+      "id": "BR-004",
+      "topic": "Giá thường và tiền tệ",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F11"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH01"
+      ]
+    },
+    {
+      "id": "BR-005",
+      "topic": "Giảm giá sản phẩm",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F12"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH02",
+        "TC_PRICE_BH03",
+        "TC_PRICE_BH04"
+      ]
+    },
+    {
+      "id": "BR-006",
+      "topic": "Ý nghĩa coupon",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F13"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH05",
+        "TC_PRICE_BH07"
+      ]
+    },
+    {
+      "id": "BR-007",
+      "topic": "Ý nghĩa voucher",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F13"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH06",
+        "TC_PRICE_BH10"
+      ]
+    },
+    {
+      "id": "BR-008",
+      "topic": "Thứ tự/cộng dồn ưu đãi",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F12",
+        "REQ-F13"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH08",
+        "TC_PRICE_BH09",
+        "TC_PRICE_BH10"
+      ]
+    },
+    {
+      "id": "BR-009",
+      "topic": "Hạn/lượt/khách/hủy mã",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F13",
+        "REQ-F21"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH11",
+        "TC_ORDER_DH05",
+        "TC_ORDER_DH06"
+      ]
+    },
+    {
+      "id": "BR-010",
+      "topic": "Giá sỉ",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F14"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH12",
+        "TC_PRICE_BH13",
+        "TC_PRICE_BH14"
+      ]
+    },
+    {
+      "id": "BR-011",
+      "topic": "Combo",
+      "status": "Đã xác nhận nghĩa; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F15"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH15",
+        "TC_PRICE_BH16",
+        "TC_PRICE_BH17"
+      ]
+    },
+    {
+      "id": "BR-012",
+      "topic": "Mua kèm",
+      "status": "Đã xác nhận nghĩa; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F16"
+      ],
+      "draft_scenarios": [
+        "TC_PRICE_BH18",
+        "TC_PRICE_BH19",
+        "TC_PRICE_BH20",
+        "TC_PRICE_BH21",
+        "TC_PRICE_BH22"
+      ]
+    },
+    {
+      "id": "BR-013",
+      "topic": "Tồn kho",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F10"
+      ],
+      "draft_scenarios": [
+        "TC_INV_KHO01",
+        "TC_INV_KHO05"
+      ]
+    },
+    {
+      "id": "BR-014",
+      "topic": "Giữ và xuất",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F10"
+      ],
+      "draft_scenarios": [
+        "TC_INV_KHO06",
+        "TC_INV_KHO07"
+      ]
+    },
+    {
+      "id": "BR-015",
+      "topic": "Hủy và hoàn tồn",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F10",
+        "REQ-F17"
+      ],
+      "draft_scenarios": [
+        "TC_INV_KHO08",
+        "TC_ORDER_DH02",
+        "TC_ORDER_NEW017"
+      ]
+    },
+    {
+      "id": "BR-016",
+      "topic": "Chủ giỏ Guest/Customer",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F03",
+        "REQ-F04"
+      ],
+      "draft_scenarios": [
+        "TC_CART_SC019",
+        "TC_CART_NEW008"
+      ]
+    },
+    {
+      "id": "BR-017",
+      "topic": "Gộp giỏ khi đăng nhập",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F06"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_SC031"
+      ]
+    },
+    {
+      "id": "BR-018",
+      "topic": "Giá/tồn thay đổi",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F20"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC039",
+        "TC_CHECKOUT_NEW005"
+      ]
+    },
+    {
+      "id": "BR-019",
+      "topic": "Trạng thái đơn/tiền",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F07",
+        "REQ-F17"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_SC070",
+        "TC_ORDER_SC072",
+        "TC_PAY_TT06"
+      ]
+    },
+    {
+      "id": "BR-020",
+      "topic": "Ghi nhận COD",
+      "status": "Phương thức đã xác nhận; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F17"
+      ],
+      "draft_scenarios": [
+        "TC_PAY_TT01",
+        "TC_PAY_TT02",
+        "TC_PAY_TT03",
+        "TC_PAY_TT07"
+      ]
+    },
+    {
+      "id": "BR-021",
+      "topic": "Hủy sau thu/hoàn tiền",
+      "status": "Chờ xác nhận phạm vi tại G1",
+      "requirements": [
+        "REQ-F17"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_SC073"
+      ]
+    },
+    {
+      "id": "BR-022",
+      "topic": "Snapshot đơn",
+      "status": "Chờ duyệt G1",
+      "requirements": [
+        "REQ-F20"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_DH07"
+      ]
+    },
+    {
+      "id": "BR-023",
+      "topic": "Hai khách mua hàng cuối",
+      "status": "Yêu cầu kiểm soát đã nêu; cơ chế chờ G2/G3",
+      "requirements": [
+        "REQ-F21"
+      ],
+      "draft_scenarios": [
+        "TC_INV_SC046",
+        "TC_ORDER_DH05"
+      ]
+    },
+    {
+      "id": "BR-024",
+      "topic": "Yêu cầu lặp",
+      "status": "Yêu cầu kiểm soát đã nêu; chi tiết chờ G1/G2",
+      "requirements": [
+        "REQ-F21"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_DH03",
+        "TC_ORDER_DH04",
+        "TC_ORDER_DH06",
+        "TC_CHECKOUT_NEW016"
+      ]
+    },
+    {
+      "id": "BR-025",
+      "topic": "Xem đơn đúng chủ",
+      "status": "Căn cứ SRC13; chi tiết lỗi chờ G1",
+      "requirements": [
+        "REQ-F22"
+      ],
+      "draft_scenarios": [
+        "TC_ORDER_SC048",
+        "TC_ORDER_SC049"
+      ]
+    },
+    {
+      "id": "BR-026",
+      "topic": "Email/mật khẩu/xác minh",
+      "status": "Phạm vi đã xác nhận; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F05",
+        "REQ-F18",
+        "REQ-F19"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_XT01",
+        "TC_AUTH_XT02",
+        "TC_AUTH_XT03",
+        "TC_AUTH_XT04",
+        "TC_AUTH_XT05"
+      ]
+    },
+    {
+      "id": "BR-027",
+      "topic": "Facebook thật",
+      "status": "Phạm vi đã xác nhận; chi tiết chờ G1/G3",
+      "requirements": [
+        "REQ-F05",
+        "REQ-F19"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_XT06",
+        "TC_AUTH_XT07"
+      ]
+    },
+    {
+      "id": "BR-028",
+      "topic": "Phân vai",
+      "status": "Có căn cứ SRC01; hợp đồng lỗi chờ G1",
+      "requirements": [
+        "REQ-F06",
+        "REQ-F08",
+        "REQ-F09",
+        "REQ-F22"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC032",
+        "TC_ADMIN_SC053"
+      ]
+    },
+    {
+      "id": "BR-029",
+      "topic": "Không guest checkout",
+      "status": "Có căn cứ SRC01/SRC13",
+      "requirements": [
+        "REQ-F07"
+      ],
+      "draft_scenarios": [
+        "TC_CHECKOUT_SC033"
+      ]
+    },
+    {
+      "id": "BR-030",
+      "topic": "Lỗi dịch vụ mail thật",
+      "status": "Chờ duyệt G1/G2",
+      "requirements": [
+        "REQ-F19"
+      ],
+      "draft_scenarios": [
+        "TC_AUTH_NEW009",
+        "TC_AUTH_NEW010"
+      ]
+    },
+    {
+      "id": "BR-031",
+      "topic": "Giới thiệu/tìm lọc công khai",
+      "status": "Phạm vi giữ lại; chi tiết chờ G1",
+      "requirements": [
+        "REQ-F23"
+      ],
+      "draft_scenarios": [
+        "TC_CATALOG_NEW001",
+        "TC_CATALOG_NEW002",
+        "TC_CATALOG_NEW003",
+        "TC_CATALOG_NEW004"
+      ]
+    }
+  ],
+  "baseline": {
+    "root": "E:\\Workspace\\TKXDPM_K18_2\\Website giới thiệu, bán sách trực tuyến",
+    "files": 94,
+    "application_source_files": 0,
+    "drawio_files": 0,
+    "feature_definitions": 138,
+    "feature_pending_definitions": 117,
+    "hashes_before_G0": {
+      "README.md": "f6ff72b86ae6c3814f48e7043d0b133dd2b889c485b0b0a2991a8774d76f67a5",
+      "docs/review_dac_ta_web_ban_sach.md": "efe1c942f93dac7edf1e7ca6df814afc38a426fafb02fb1226ac073a3d657131",
+      "docs/review_luong_du_lieu.md": "dbf116c222f177d8a3c1594ba79c1e81e38265334e8e38f1a5303cf9bf596c27",
+      "docs/verification_result.json": "098f7cb834c66716e391f252594882c7c9665c849a1703099b5a23030e425ddc",
+      "features/web_ban_sach_tinh_nang.feature": "ce7ab3d755b260eae2d3fe63f92a7d1fb38c27f05632ec3be37a63a4d4d2dc90",
+      "docs/uml/AD01.png": "66cbd6efdc2623a1f6f6219c68e963e7623e033f6c742e42e954f8fd1d2a5db8",
+      "docs/uml/AD01.puml": "83fd939c5b20c2ca436e93c9b3e54ff7f9e010b7bdeec24f0f10791961a20b8b",
+      "docs/uml/AD01.svg": "37a8d7dd84881efc30c496efaa8e7ac4efe40e2a2887ce362194e3a0a5b0f7d3",
+      "docs/uml/AD02.png": "692e092d0a3ad4c33f24be684783261b0f685e08c266db67af38b639751971b4",
+      "docs/uml/AD02.puml": "6c62c436228a9eb08ad625517e93f786f68dbd330bac5bd966fb6b279037d258",
+      "docs/uml/AD02.svg": "166de40ad3e71fca61402f97ca889d4d818e8795a8d740e26d862b4487e18d96",
+      "docs/uml/AD03.png": "41b0977b216815a33961ffea3a6a65a7a13b04012531afec6b3b3181b11d62fe",
+      "docs/uml/AD03.puml": "369e69751476cde1d8f2ebc0c2a34b00771541a6fe7f00f20f153f5b1ce18ecb",
+      "docs/uml/AD03.svg": "060276bcb478dc1a2f43cc1b8d90027aae274ce7a247ce6a491be3ebd63a3a45",
+      "docs/uml/AD04.png": "ee6714896672888fcf07f9f34ea3cb1abdbe553205343442a65a2a47d94aaf63",
+      "docs/uml/AD04.puml": "f802923986ce7f0164892dcdaa2a27204f69e978fcf2d9f6b836ba3e756c0913",
+      "docs/uml/AD04.svg": "89d74c05fd936a40098f293daf3fc169534aae0ee5fdce2569a605f38dacff7e",
+      "docs/uml/AD05.png": "b2f27c97af48df047f3f7310b936ec83d461bc79e1e88615f834ed5ca8714a81",
+      "docs/uml/AD05.puml": "ec9bc6d6daa8f48e6d3abe048c4ac7827b2a376ba255e783a63b4c6d95a75362",
+      "docs/uml/AD05.svg": "f7bd010fe01bb16d04536b11a05998c529d082e9518383716958db8d6ae3c84c",
+      "docs/uml/AD06.png": "f5a3a3a403c076d2450286570c91c4e44b68010ff629ab444f1dc7ac7fc2f957",
+      "docs/uml/AD06.puml": "925af55846886777d9c8d733ce46da5b30ea2194a9448c5c6d99ee6ff6fe44e3",
+      "docs/uml/AD06.svg": "2fa0890c37ad662d4556d1b2e6e0575cc082889ed79aba986845fa96d1a30b88",
+      "docs/uml/AD07.png": "1b1e8fdd400373f9fca42953b8bce47702b96f1a037a195710dd4dc26cf1214b",
+      "docs/uml/AD07.puml": "2d8b6ba78f72e3816dea1b52401233b261e142ab46d9b585bc082969f9af785d",
+      "docs/uml/AD07.svg": "1286b56557c02d142f22946b847729f2e1da552e4a2035b78ada00b1cd19781c",
+      "docs/uml/AD08.png": "89510f1c1aae41da79e2b96e2b61bd31a64d9c0ebda10e5776143da03c5b12e7",
+      "docs/uml/AD08.puml": "e4bc79d443e9dbcb2a2c77590c28732fd52f3feeda1fb5fabe8007c67079e1be",
+      "docs/uml/AD08.svg": "967e19e5686ab18be80176e3cf2ac584cb85679eaff58a0443d2a26e9dacd911",
+      "docs/uml/AD08B.png": "2275dd125bcf4859a66ac728b7a4d5821cd795dae21fb65e13c35457bfc0bdb4",
+      "docs/uml/AD08B.puml": "15b7d749650efd66161e4579b4056456134ab71e24d294efd95ac1e0cbe95615",
+      "docs/uml/AD08B.svg": "754e60252d7346c840f62f7a2169f07aa217a8c273404adb6694d60f99682edd",
+      "docs/uml/AD09.png": "9eaf6a90e1d2669ad4c517d929024b960d7dc3251458e838b5df7df95e020f44",
+      "docs/uml/AD09.puml": "15d90a0d7c18ec8c579b4af10b6fb92b0b6f1ff3a96b84c5cac0c3afd2721978",
+      "docs/uml/AD09.svg": "180a05abd806ee3923d047140ca291e6e7ce7e342f3171ea07ed4ad9a74ed742",
+      "docs/uml/case_walkthrough.csv": "fdd713494fe074aae088a0e1a3c0a6ad07a7b04273f971a290089c469a12df45",
+      "docs/uml/CP01.png": "96c17e0035ef2bba4c10f7e43cd1a8dbd79c6ff928a53843d08054d715104c2d",
+      "docs/uml/CP01.puml": "333483acd7c8c4f4a22890b4033ecee7f461e103623148eda49ee121d3270332",
+      "docs/uml/CP01.svg": "5cb9ddb906eb1ba2cd31bf31847169db2e06f8766c26da278e3a3a4b94a31fb2",
+      "docs/uml/DFD01.png": "4e1576f0b312f8453ba0f2ecb1ce4e21d41433bf219133fc2c2098392ab109d7",
+      "docs/uml/DFD01.puml": "289dadca4a1166197dc65370554171171a95912ecf9001932a1c1fc21d7f63e3",
+      "docs/uml/DFD01.svg": "52b825cec45fbeebc379792f9779718a9728860e0cef0abcf55860e90895f81b",
+      "docs/uml/DFD02.png": "3fb7b05b1fcb29645c7e78b745f70d910f09d3e488721def993ff0df93ba735a",
+      "docs/uml/DFD02.puml": "43c1e8b4e65d5041ecfc9afa1f9621111629aa9010f98f529bf62fe00caa87c3",
+      "docs/uml/DFD02.svg": "8de170c012c2dc6b4ec50af60b9be17ac5e6fb33dba458230fe334b2bbe0babe",
+      "docs/uml/index.html": "b7b53e27e2467aaf24a28243d877c207b198472cc5f294220fd29478529d9055",
+      "docs/uml/README.md": "d84dcbfe35a8e68861cdfb819a0c9d6346fbb6080e9a4026b2c4a1f81d684aa0",
+      "docs/uml/SQ01.png": "f569508a6392009627ba8625d77fca29abf18846889b8b98f1b369ea49c6f7d4",
+      "docs/uml/SQ01.puml": "6e60c95a0bead25953676f7e726ef99808bddf1142813e09dad98e0e79af54b0",
+      "docs/uml/SQ01.svg": "bade585bc6f976a5748654010546484c64157bf481084b5b1573982f2bc095fb",
+      "docs/uml/SQ02.png": "dd381e475239b9766a28e537751072de9c423e09436eaa3408a128a7d3a02c6d",
+      "docs/uml/SQ02.puml": "ad913f66edd43355ae87c045ad768d35bb4a7eb2ce89d589f29056f4cf684fe5",
+      "docs/uml/SQ02.svg": "42981b9aa6a12eea11f9bd9def761a407dc58906fae63d28e3fec939cbf548f3",
+      "docs/uml/SQ03.png": "7a17bf17f4c19c9e11a2605700bff57b8857b7d2d93e16a73ff996c7fa40b64c",
+      "docs/uml/SQ03.puml": "2d0f0e62c328cc6b5aeae6c3455f774373284422fe56ba63a6efc0a95da57421",
+      "docs/uml/SQ03.svg": "2fa47c103535a0d3dcc20e591968bba69e892d40f2708cbfbf15c1fc16d0b201",
+      "docs/uml/SQ04.png": "9628ee3650f1a798992fce2c0320ab3bf998138236e7ea39a5186c7ab6215f05",
+      "docs/uml/SQ04.puml": "98b90cc20b3571167848b4a20152ab820b805a516b3bd5193bc1ad05bd976afd",
+      "docs/uml/SQ04.svg": "114d930f7e6dc679437fd8e778f5f76ef8333d5ec5c40046e120f3b1b2858535",
+      "docs/uml/SQ04B.png": "f025d693a38b338935df734ee06f5e655eb31bf13f345486641bfaecc61f4be1",
+      "docs/uml/SQ04B.puml": "beca20f1254f85e560014caa30d96d5ce6d0d60781713e4009c1701077d37a25",
+      "docs/uml/SQ04B.svg": "fe16d11c9a04e29c52ea84a1db85a8961a2cb24517fafb3746acf3b536851773",
+      "docs/uml/SQ05.png": "fd62ecbfb725e860d2b22885d1b216c7a4bcacc3dbd0793b333e0a9d23f580f5",
+      "docs/uml/SQ05.puml": "51b8a84d8b1728281b9ae0c4ba4281fd46f60150b3e78c9cf7e0568b90e573a5",
+      "docs/uml/SQ05.svg": "0803bc20db5068d4f374005299bac0a8129e12b68d24ecb57548ee7af08b066e",
+      "docs/uml/SQ06.png": "340714e2891f5012f9e8eed7295db6e29ef1beb988809f55a9b72e4ff5dedc1c",
+      "docs/uml/SQ06.puml": "ff7cfbd4bdef2722f082019d90cbd3b9774c3be3fde00e165c221c5f7838e63a",
+      "docs/uml/SQ06.svg": "0d4d4029435f9c3c3283dbe662cb717d6b99492817c101f150c3261a7785ecba",
+      "docs/uml/SQ06B.png": "519e168f3187e24e3217341fd3acaf02d2150386a81c9bd5b2a6beb74492119b",
+      "docs/uml/SQ06B.puml": "ebb411145afca3712be25aa02be13caae558d102cf2f874e04059ed743116832",
+      "docs/uml/SQ06B.svg": "1e7159c9884dd7eb499b3428e26215f2d288b9a623c9b091e7fbf6a526eaab41",
+      "docs/uml/SQ07.png": "35ff94ce5c720dfaaeab9370fbb2653f108cc5fa59153d8c49dc3f47eb909cdd",
+      "docs/uml/SQ07.puml": "96f1835d7f26315c1fdd9d138650e0db2ab83d67f68319e3abb2ee8b3c9cfe55",
+      "docs/uml/SQ07.svg": "028dbffb9e1c1f2d37845989a039aee67424ba67ec6fd07905430927ed7209e6",
+      "docs/uml/SQ08.png": "d73a7b6b2efabe34da0023c1152717d1fb19b6931f1effad49612c255c6e415f",
+      "docs/uml/SQ08.puml": "942e5db379a83d598d6e5ef39df951b2ae30adf27c0a6e595b59bbe32bed7de9",
+      "docs/uml/SQ08.svg": "5ebc3d66afc5e6544b649ab7d8c615029f4dadb2dc03689d544b790381772adc",
+      "docs/uml/SQ08B.png": "0b3a313528beb45d8da97260863364a872cb193fb959248daa60609425affbf7",
+      "docs/uml/SQ08B.puml": "74b62ab2f1d7a0c40b2d3a7eb7f6de487fb3326a35b84d352c0db88fcaff276a",
+      "docs/uml/SQ08B.svg": "b7269b2bcc184a6ac9a4ed5fb47aaf7205e13783299e2f4fa5a6f3c5987d16cc",
+      "docs/uml/SQ09.png": "f6be5c057da4551d816130687dee814fd4d93293f22ce83110a042a38fc25693",
+      "docs/uml/SQ09.puml": "08bb9f6ebb51560fac13a70406869c8c9c4da6e4cf1dfa25aa3b4ecb57333158",
+      "docs/uml/SQ09.svg": "bdf6432618b9feb91e509fd5d87f69d851910216b7e7891dfcb17506b11fa442",
+      "docs/uml/ST01.png": "ac6d09ae61c0e3d560a96194adae24fde22429c08074b25c7940f65d1bdb6ff2",
+      "docs/uml/ST01.puml": "6b0a6bf748fbd55fde7de3e47c1ee4002593a2890fba1caf6e9914ef3350b2f3",
+      "docs/uml/ST01.svg": "8066ed92020f8ae35729668a16c4a0a72c3f04e54e134e20789c526789c55b28",
+      "docs/uml/ST02.png": "496d982a040b9b9acd124c45b8d7efcc2f8de5fdd55b62ea49df63907c2f5e49",
+      "docs/uml/ST02.puml": "c5a4aee0dbf6ce6dafef8d5bd7a6eb0ca31039e036a69dbbc81649bab19765ef",
+      "docs/uml/ST02.svg": "cb78ca3c0be92fc6878bda376439d6b65023cf9be47354ab66e0584352c7ae4e",
+      "docs/uml/ST03.png": "ff5e4dfa0c6623a5f8d0fd7e90bd2e9a5a622b5b9fbdeb638173e224cc074f75",
+      "docs/uml/ST03.puml": "3544c18dac74cdb3e64a64604ed123a3cc5e44f135b867afd903ae51a43cdc4a",
+      "docs/uml/ST03.svg": "8506f388e5cd446cb3acf03ff3e82a27242da4ac8eac6a85227db1f4799ae6c5",
+      "docs/uml/style.iuml": "6051c4155093f4321e5898d8c9b567c928d67b77d03bcf7e1fb61b1743b95fa3",
+      "docs/uml/traceability.json": "8e65c9fb8a00bb91514ee27af46a74ae09deb560e22e68d83dfc7e10761e0b6f"
+    }
+  },
+  "application_code_created": false,
+  "automated_application_tests_created": false,
+  "build_or_business_tests_executed": false
+}

@@ -1,0 +1,42 @@
+@startuml
+!include style.iuml
+title AD08 - Đăng nhập Facebook và phân quyền
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Guest chọn tài khoản/email hoặc Facebook;
+if (Facebook?) then (có)
+ :Kiểm state của phiên trước gọi provider;
+ :Gọi dịch vụ Facebook ngoài transaction;
+ if (Xác thực trả về hợp lệ?) then (không)
+  :Từ chối, không tạo tài khoản/phiên;
+  stop
+ endif
+ :Nhận định danh provider;\nkhông tự gộp chỉ vì email giống;
+else (tài khoản/email)
+ :Kiểm format và mật khẩu tài khoản;
+ if (Thông tin đúng và tài khoản hoạt động?) then (không)
+  :Từ chối; không cấp phiên/quyền;
+  stop
+ endif
+endif
+:Kiểm lại tài khoản hoạt động và quyền\ncủa định danh vừa xác thực;
+if (Tài khoản được phép đăng nhập?) then (không)
+ :Từ chối; không cấp phiên kể cả Facebook hợp lệ;
+ stop
+endif
+:Cấp phiên với quyền thực tế;\nchưa xác minh email vẫn không được đặt đơn;
+if (Yêu cầu đặt đơn?) then (có)
+ if (Email đã xác minh?) then (không)
+  :Yêu cầu xác minh; không giữ hàng/tạo đơn;
+  stop
+ endif
+endif
+:Mỗi thao tác kiểm lại role và owner phía backend;
+if (Người dùng yêu cầu đăng xuất?) then (có)
+ :Thu hồi phiên; phiên cũ không được dùng lại;
+else (không)
+ :Giữ phiên theo chính sách có hiệu lực;
+endif
+stop
+footer TC_AUTH_SC027 | TC_AUTH_SC029
+@enduml

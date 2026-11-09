@@ -1,0 +1,85 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL07 - Tài khoản và hợp đồng lưu xác minh
+caption Thiết kế đề xuất; chưa có code. D02 gửi thư sau commit là đề xuất; không coi gửi thư là đã xác minh
+top to bottom direction
+class Account <<aggregate root>> #F0F6ED {
+  - id: AccountId
+  - email: EmailAddress
+  - passwordHash: SecretHash [0..1]
+  - emailVerified: boolean
+  - status: AccountStatus
+  - roles: RoleSet
+  --
+  + verifyEmail(proof: VerifiedEmailProof): void
+  + lock(): void
+  + unlock(): void
+}
+class VerificationToken <<entity>> #F0F6ED {
+  - accountId: AccountId
+  - tokenHash: SecretHash
+  - expiresAt: Instant
+  - consumed: boolean
+  --
+  + consume(now: Instant): VerifiedEmailProof
+}
+class ExternalIdentityLink <<entity>> #F0F6ED {
+  - provider: Provider
+  - subject: String
+  - accountId: AccountId
+}
+class Session <<entity>> #F0F6ED {
+  - idHash: SecretHash
+  - accountId: AccountId
+  - active: boolean
+  --
+  + revoke(): void
+}
+class MailJob <<entity / proposed>> #F0F6ED {
+  - id: MailJobId
+  - accountId: AccountId
+  - state: SendState
+  - attempts: int
+  --
+  + recordAttempt(result: MailSendResult): void
+}
+interface AccountPort <<interface>> #DCEEFF {
+  + findByEmail(email: EmailAddress): AccountResult
+  + saveVerified(account: Account, token: VerificationToken): SaveResult
+  + createPending(account: Account, token: VerificationToken, job: MailJob): SaveResult
+}
+interface MailJobPort <<interface>> #DCEEFF {
+  + nextPending(): MailJobResult
+  + saveAttempt(job: MailJob): SaveResult
+}
+class PostgresIdentityAdapter <<adapter>> #EEF0F4 {
+  + findByEmail(email: EmailAddress): AccountResult
+  + saveVerified(account: Account, token: VerificationToken): SaveResult
+  + createPending(account: Account, token: VerificationToken, job: MailJob): SaveResult
+  + nextPending(): MailJobResult
+  + saveAttempt(job: MailJob): SaveResult
+}
+VerificationToken --> Account : 0..* — 1
+ExternalIdentityLink --> Account : 0..* — 1
+Session --> Account : 0..* — 1
+MailJob --> Account : 0..* — 1
+AccountPort ..> Account : hợp đồng nguyên tử
+MailJobPort ..> MailJob : gửi sau commit
+PostgresIdentityAdapter ..|> AccountPort
+PostgresIdentityAdapter ..|> MailJobPort
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

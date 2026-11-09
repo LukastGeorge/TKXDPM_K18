@@ -1,0 +1,41 @@
+@startuml
+!include style.iuml
+title SQ01 - Truy vấn danh mục và quyền quản trị
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor "Khách / admin" as U
+boundary "Input adapter" as C
+control "DanhMucUseCase\n(đề xuất)" as A
+control "AuthPolicy" as P
+database "CatalogReadPort" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: traCuu(query, filters, page, bookId?)
+C -> C: kiểm định dạng/khoảng giá
+alt dữ liệu sai
+ C --> U: lỗi trường; không ghi dữ liệu
+else hợp lệ
+ C -> A: CatalogRequest(subject, query, filters, bookId?)
+ opt truy vấn quản trị
+  A -> P: kiểm role và phạm vi(subject, resource)
+  P --> A: cho phép / từ chối
+ end
+ alt không đủ quyền
+  A -> OUT: present(Forbidden, không có dữ liệu quản trị)
+  OUT --> A: void
+  A --> C: void
+  C -> OUT: viewModel()
+  OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ else được phép
+  A -> D: đọc theo phạm vi và trạng thái hiển thị
+  D --> A: sách/chi tiết hoặc tập rỗng
+  A -> OUT: present(CatalogResponse(items, paging, reason?))
+  OUT --> A: void
+  A --> C: void
+  C -> OUT: viewModel()
+  OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ end
+ C --> U: dữ liệu được phép hoặc thông báo
+end
+note over A,D: Chỉ đọc. Dữ liệu public không có tài khoản/đơn riêng tư.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_CATALOG_NEW002 | TC_CATALOG_NEW004
+@enduml

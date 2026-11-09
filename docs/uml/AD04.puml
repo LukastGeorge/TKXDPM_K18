@@ -1,0 +1,46 @@
+@startuml
+!include style.iuml
+title AD04 - Đặt COD và giữ hàng
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Khách gửi requestKey, cartVersion, quoteRef,\nthông tin nhận hàng, phương thức COD;
+:Backend kiểm format, session, email, owner;
+if (Hợp lệ?) then (không)
+ :Từ chối; không ghi dữ liệu;
+ stop
+endif
+:BEGIN D01 - ranh giới cam kết lôgic;
+if (RequestKey của owner đã cam kết?) then (có)
+ if (Fingerprint giống?) then (có)
+  :Trả đúng đơn cũ, không giữ thêm;
+ else (không)
+  :Trả xung đột khóa; không sửa đơn cũ;
+ endif
+ :Kết thúc giao dịch đọc, nhả khóa;
+ stop
+endif
+:Đọc lại giỏ/giá/ưu đãi từ backend;
+if (Giỏ, version, báo giá và ưu đãi hợp lệ?) then (không)
+ :ROLLBACK; yêu cầu xác nhận giá/sửa giỏ;
+ stop
+endif
+:Gộp SKU mua lẻ + bộ + món kèm;\nkhóa/so phiên bản tài nguyên theo thứ tự D03;
+if (Đủ tồn khả dụng và lượt mã?) then (không)
+ :ROLLBACK; kho, giỏ, lượt giữ nguyên;
+ stop
+endif
+:QD-01/P-PRICE-DETAIL: giữ toàn bộ hàng/lượt;\ntạo snapshot đơn, COD Chưa thu\n(0 VND: Không cần thu), ghi requestKey;
+:Xóa đúng dòng giỏ đã đặt;
+if (Tất cả ghi thành công?) then (không)
+ :ROLLBACK toàn bộ; cho phép thử lại;
+ stop
+endif
+:COMMIT D01;
+if (Kết quả cam kết chưa biết do mất kết nối?) then (có)
+ :Không khẳng định đã rollback;\ntra lại requestKey hoặc cho retry cùng key;
+ stop
+endif
+:Trả đơn; nếu mất phản hồi, retry cùng key\nđọc lại đơn đã cam kết;
+stop
+footer TC_CHECKOUT_SC034 | TC_CHECKOUT_SC037
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 22
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam wrapWidth 320
+skinparam nodesep 35
+skinparam ranksep 40
+hide empty members
+top to bottom direction
+title CL06 trích lược ranh giới Facebook
+class IdentityInteractor <<use case>> #E2EFFC {
+  + facebookCallback(request: FacebookCallbackRequest): void
+}
+interface IdentityOutputBoundary <<interface>> #DCEEFF {
+  + present(response: IdentityResponse): void
+}
+class IdentityPresenter <<adapter>> #EEF0F4 {
+  + present(response: IdentityResponse): void
+}
+interface FacebookIdentityPort <<interface>> #DCEEFF {
+  + exchange(code: String): ExternalIdentityResult
+}
+class FacebookAdapter <<adapter>> #EEF0F4 {
+  + exchange(code: String): ExternalIdentityResult
+}
+IdentityInteractor --> IdentityOutputBoundary : output
+IdentityPresenter ..|> IdentityOutputBoundary
+IdentityInteractor --> FacebookIdentityPort : gọi ngoài transaction
+FacebookAdapter ..|> FacebookIdentityPort
+footer Thiết kế đề xuất — trích đúng lớp và chữ ký từ CL06; đã lược thành viên khác
+@enduml

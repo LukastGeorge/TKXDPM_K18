@@ -1,0 +1,82 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL03 - Tính giá thường, sỉ, combo, mua kèm và mã
+caption Thiết kế đề xuất; chưa có code. QD-02 đã chốt; chọn giá thấp nhất, rounding, quota: đề xuất chưa duyệt
+top to bottom direction
+class PricingService <<application service>> #F0F6ED {
+  - catalog: PriceCatalogPort
+  --
+  + quote(context: PricingContext): QuoteResult
+}
+interface PriceCatalogPort <<interface>> #DCEEFF {
+  + readCurrent(selection: LineSelection): OfferSnapshot
+}
+class PricePolicy <<domain service>> #F0F6ED {
+  + calculate(context: PricingContext, offers: OfferSnapshotList): QuoteResult
+}
+class PriceQuote <<value object>> #E4F3E9 {
+  lines: QuoteLine [1..*]
+  discount: Money
+  fees: Money
+  total: Money
+  version: QuoteVersion
+}
+class QuoteLine <<value object>> #E4F3E9 {
+  selection: LineSelection
+  quantity: int
+  unitPrice: Money
+  amount: Money
+  components: SkuQuantity [1..*]
+}
+class PromotionCode <<entity>> #F0F6ED {
+  - code: String
+  - kind: CodeKind
+  - assignedTo: AccountId [0..1]
+  - value: Decimal
+  - conditions: CodeConditions
+  --
+  + check(context: PricingContext): EligibilityResult
+}
+class ComboOffer <<entity>> #F0F6ED {
+  - id: OfferId
+  - bundlePrice: Money
+  - components: SkuQuantity [1..*]
+}
+class AddOnOffer <<entity>> #F0F6ED {
+  - id: OfferId
+  - mainSku: Sku
+  - extraSku: Sku
+  - extraPrice: Money
+  - maxPerMain: int
+}
+class Money <<value object>> #E4F3E9 {
+  amount: Decimal
+  currency: Currency
+  --
+  + add(other: Money): Money
+  + multiply(qty: int): Money
+}
+PricingService --> PriceCatalogPort : đọc phiên bản
+PricingService ..> PricePolicy : tính lại phía backend
+PricePolicy ..> PromotionCode : kiểm mã
+PricePolicy ..> ComboOffer : giá bộ / recipe
+PricePolicy ..> AddOnOffer : món chính / tỷ lệ
+PricePolicy ..> PriceQuote : tạo kết quả
+PriceQuote *-- QuoteLine : 1 — 1..*
+PriceQuote ..> Money : tiền có đơn vị
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

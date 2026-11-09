@@ -1,0 +1,44 @@
+@startuml
+!include style.iuml
+title CP01 - Phụ thuộc mã nguồn hướng vào chính sách
+caption Thiết kế Java/Spring Boot; PostgreSQL qua Docker; chưa có code
+left to right direction
+package "Delivery / Interface adapters" {
+ component "Web controllers" as C
+ component "Presenters\nViewModels" as P
+}
+package "Application - sở hữu hợp đồng" {
+ interface "Input Boundary" as I
+ component "Interactors\nRequest / Response Models" as A
+ interface "Output Boundary" as O
+ interface "Persistence / transaction ports\nMail / Facebook identity ports" as Ports
+}
+package "Domain - quy tắc nghiệp vụ" {
+ component "Cart / PriceQuote / Order\nStockBalance / Reservation / Account" as Domain
+}
+package "Infrastructure" {
+ component "PostgreSQL adapters" as DB
+ component "Mail + Facebook adapters\nDịch vụ thật" as Ext
+}
+component "Composition root\nSpring configuration" as Root
+C ..> I : execute(Request)
+C ..> P : lấy ViewModel theo request
+A ..|> I
+A ..> O : present(Response)
+P ..|> O
+A ..> Ports
+A ..> Domain
+DB ..|> Ports : port dữ liệu tương ứng
+Ext ..|> Ports : port dịch vụ tương ứng
+Root ..> C
+Root ..> A
+Root ..> P
+Root ..> DB
+Root ..> Ext
+note bottom of A
+ Input/Output Boundary là nhóm interface theo từng use case,
+ không phải một interface tổng quát cho tất cả nghiệp vụ.
+ Core không tham chiếu Spring, HTTP, JPA hoặc concrete adapter.
+ Mũi tên là dependency/realization, không phải chiều dữ liệu.
+end note
+@enduml

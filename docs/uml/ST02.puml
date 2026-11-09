@@ -1,0 +1,26 @@
+@startuml
+!include style.iuml
+title ST02 - Trạng thái thanh toán COD
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+state "Chưa thu" as Pending
+state "Đã thu" as Paid
+state "Không cần thu" as Free
+state "Phân loại số phải thu" as AmountChoice <<choice>>
+[*] --> AmountChoice : tạo đơn với total >= 0
+AmountChoice --> Pending : [total > 0]
+AmountChoice --> Free : [total = 0]
+Pending --> Pending : xác nhận/bàn giao/giao thất bại\n/ không coi là đã thanh toán
+Pending --> Paid : đang giao + giao thành công\n+ số tiền khớp + quyền admin + receiptKey hợp lệ
+Paid --> Paid : cùng key và fingerprint\n/ không ghi thêm khoản thu
+Free --> Free : giao thành công / không tạo tiền mặt giả
+note right of Pending
+ Nhập sai số tiền bị từ chối, không có chuyển Paid.
+ Customer không được tự đặt trạng thái Paid.
+ COD không có callback thành công từ frontend.
+end note
+note bottom of Paid
+ Không có luồng hoàn tiền đã xác nhận.
+ Trạng thái tiền tách khỏi trạng thái đơn.
+end note
+footer TC_CHECKOUT_SC034 | TC_PAY_TT01
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+!include style.iuml
+title ST01 - Vòng đời đơn hàng
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+state "Chờ xác nhận" as New
+state "Đã xác nhận" as Confirmed
+state "Đang giao" as Shipping
+state "Hoàn tất" as Done
+state "Đã hủy" as Cancelled
+[*] --> New : tạo đơn COD hợp lệ / giữ hàng (QD-01)
+New --> Confirmed : admin xác nhận / chưa thu COD
+Confirmed --> Shipping : bàn giao hợp lệ / H-=n, R-=n
+Shipping --> Done : giao thành công và thu đủ\nhoặc đơn Không cần thu
+New --> Cancelled : chủ đơn/admin hủy hợp lệ\n/ giải phóng R, không tăng H
+Confirmed --> Cancelled : hủy trước bàn giao, chưa thu\n/ giải phóng đúng một lần
+Shipping --> Shipping : ghi lần giao thất bại\n/ chưa thu, chưa nhập trả
+Done --> Done : cùng receiptKey/nội dung\n/ kết quả cũ, không thu thêm
+Cancelled --> Cancelled : hủy lặp\n/ không giải phóng thêm
+note right of Shipping
+ Không có cạnh ngược về Đã xác nhận.
+ Không có cạnh tắt Chờ xác nhận -> Hoàn tất.
+ Hủy sau bàn giao cần nghiệp vụ khác chưa duyệt.
+ Trạng thái kết thúc nghiệp vụ vẫn lưu để trả retry.
+end note
+footer TC_CHECKOUT_SC034 | TC_ORDER_SC070
+@enduml

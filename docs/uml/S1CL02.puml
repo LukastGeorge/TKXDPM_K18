@@ -1,0 +1,91 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1CL02 — Đọc danh mục và báo giá thường
+interface CatalogInputBoundary {
++execute(request: CatalogRequest): void
+}
+class CatalogInteractor {
++execute(request: CatalogRequest): void
+}
+class CatalogRequest {
+sku: String
+}
+interface CatalogOutputBoundary {
++present(response: CatalogResponse): void
+}
+class CatalogResponse {
+found: boolean
+books: List<Book>
+selected: Book
+message: String
+}
+class CatalogPresenter {
++present(response: CatalogResponse): void
++response(): CatalogResponse
+}
+interface CatalogReadPort {
++listVisible(): List<Book>
++find(sku: String): Optional<Book>
+}
+class PostgresCatalogAdapter {
++listVisible(): List<Book>
++find(sku: String): Optional<Book>
+}
+class Book {
+sku: String
+title: String
+priceVnd: BigDecimal
+onHand: int
+reserved: int
+visible: boolean
++available(): int
+}
+class PricingService {
++quote(cart: Cart): CartSnapshot
+}
+class CartSnapshot {
+id: UUID
+version: long
+lines: List<CartLineSnapshot>
+totalVnd: BigDecimal
+}
+class CartLineSnapshot {
+sku: String
+title: String
+quantity: int
+unitPriceVnd: BigDecimal
+totalVnd: BigDecimal
+available: int
+sellable: boolean
+}
+CatalogInteractor ..|> CatalogInputBoundary
+CatalogInputBoundary ..> CatalogRequest : parameter
+CatalogInteractor --> CatalogReadPort : catalog
+CatalogInteractor --> CatalogOutputBoundary : output
+CatalogOutputBoundary ..> CatalogResponse : parameter
+CatalogPresenter ..|> CatalogOutputBoundary
+PostgresCatalogAdapter ..|> CatalogReadPort
+CatalogReadPort ..> Book : returns
+PricingService --> CatalogReadPort : current prices
+PricingService ..> CartSnapshot : creates
+CartSnapshot *-- CartLineSnapshot : lines
+note bottom of Book
+Record; metadata lược bớt trên hình.
+CatalogResponse đang dùng Book bất biến;
+đây là coupling có chủ đích trong S1.
+end note
+legend bottom
+S1 đã triển khai; lược bỏ getter và Spring bean methods.
+Nét đứt + tam giác: implements. Nét đứt + mũi tên: dependency.
+Nét liền: giữ tham chiếu. Đây là chiều phụ thuộc mã nguồn.
+endlegend
+@enduml

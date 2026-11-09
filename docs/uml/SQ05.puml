@@ -1,0 +1,54 @@
+@startuml
+!include style.iuml
+title SQ05 - COD giao thành công và thu tiền
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Admin as U
+boundary Controller as C
+control "CODUseCase" as A
+control AuthPolicy as P
+database "Order/Receipt/Promo UoW" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: ghiNhậnGiao(orderId, receiptKey, deliveryResult, amount)
+C -> C: kiểm định dạng amount/key/deliveryResult
+C -> A: CODReceiptRequest(subject, payload)
+A -> P: kiểm quyền quản trị
+P --> A: cho phép / từ chối
+alt sai quyền hoặc dữ liệu
+ A -> OUT: present(lỗi; không ghi)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else hợp lệ
+ group giao dịch D01
+  A -> D: đọc/khóa đơn và receiptKey
+  alt key đã dùng
+   D --> A: cùng nội dung: kết quả cũ; khác: conflict
+   A -> D: END read-only, nhả khóa
+  else chưa dùng
+   alt đơn không Đang giao
+    A -> D: ROLLBACK
+   else giao thất bại
+    A -> D: lưu lần giao thất bại + key/fingerprint/kết quả; chưa thu (D03)
+    A -> D: COMMIT
+   else giao thành công
+    alt số tiền không khớp số phải thu, kể cả đơn 0
+     A -> D: ROLLBACK; báo chênh lệch cần xử lý
+    else đúng số tiền, kể cả 0
+     A -> D: khoản thu nếu >0; Hoàn tất; Đã thu/Không cần thu; tiêu lượt; key/fingerprint/kết quả (D03)
+     A -> D: COMMIT
+    end
+   end
+  end
+ end
+ A -> OUT: present(CODResponse(statuses, amountRecorded, reason))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: kết quả ghi nhận
+note over A,D: Không giảm Stock. Key/kết quả khác khoản thu: ghi cả khi thất bại hoặc total=0.\nOnline chưa xác nhận; không có callback frontend.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_PAY_TT01 | TC_PAY_TT02
+@enduml

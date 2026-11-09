@@ -1,0 +1,23 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 22
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam wrapWidth 320
+skinparam nodesep 35
+skinparam ranksep 40
+hide empty members
+top to bottom direction
+title CL07 trích lược xác minh email
+class Account <<aggregate root>> #F0F6ED {
+  - emailVerified: boolean
+  + verifyEmail(proof: VerifiedEmailProof): void
+}
+class VerificationToken <<entity>> #F0F6ED {
+  - expiresAt: Instant
+  - consumed: boolean
+  + consume(now: Instant): VerifiedEmailProof
+}
+VerificationToken --> Account : 0..* — 1
+footer Thiết kế đề xuất — trích đúng lớp và chữ ký từ CL07; đã lược thành viên khác
+@enduml

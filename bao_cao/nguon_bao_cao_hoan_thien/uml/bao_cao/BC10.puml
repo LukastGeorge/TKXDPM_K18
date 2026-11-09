@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+state "Chờ xác nhận\nPENDING" as P
+state "Đã xác nhận\nCONFIRMED" as C
+state "Đang giao\nSHIPPING" as S
+state "Hoàn tất\nCOMPLETED" as F
+state "Đã hủy\nCANCELLED" as X
+[*] --> P : tạo đơn hợp lệ / giữ R
+P --> C : admin xác nhận
+C --> S : admin bàn giao / trừ H và R
+S --> F : admin ghi giao thành công\nvà số tiền khớp snapshot
+P --> X : chủ đơn hoặc admin hủy / giải phóng R
+C --> X : chủ đơn hoặc admin hủy / giải phóng R
+S --> S : giao thất bại có lý do / lưu lịch sử
+F --> [*]
+X --> [*]
+@enduml

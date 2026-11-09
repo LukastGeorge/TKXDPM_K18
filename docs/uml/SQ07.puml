@@ -1,0 +1,59 @@
+@startuml
+!include style.iuml
+title SQ07 - Nhập kiểm kê và xuất giao
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Admin as U
+boundary Controller as C
+control "WarehouseUseCase" as A
+control AuthPolicy as P
+database CatalogReadPort as K
+database "StockLedger/Order UoW" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: xửLýKho(type, documentKey, SKU/đơn, qty, reason)
+C -> A: WarehouseRequest(subject, payload)
+A -> P: kiểm quyền quản trị kho(subject)
+P --> A: cho phép / lỗi
+A -> A: kiểm qty nguyên, nhập > 0/kiểm kê >= 0, lý do
+alt lỗi quyền/dữ liệu
+ A -> OUT: present(lỗi; không tạo phiếu)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else hợp lệ
+ opt nhập hoặc kiểm kê theo SKU
+  A -> K: kiểm SKU đã có trong danh mục
+  K --> A: SKU tồn tại / notFound
+ end
+ alt nhập/kiểm kê và SKU không tồn tại
+  A -> A: tạo WarehouseResponse lỗi SKU; không ghi kho
+ else đủ dữ liệu
+ group BEGIN D01
+  A -> D: khóa documentKey + SKU/version + đơn nếu xuất giao
+  D --> A: H,R,version và reservation/snapshot của đơn nếu xuất
+  alt phiếu đã tồn tại
+   D --> A: cùng nội dung: phiếu cũ; khác: conflict
+   A -> D: END read-only, nhả khóa
+  else phiếu mới
+   alt nhập
+    A -> D: H += qty > 0; giữ R; thêm phiếu nhập
+   else kiểm kê
+    A -> D: kiểm H mới >= R, lý do; lưu chênh lệch hoặc rollback
+   else xuất giao
+    A -> D: kiểm trạng thái đơn; H -= n, R -= n; Đang giao; thêm phiếu xuất
+   end
+   A -> D: COMMIT nếu mọi điều kiện/ghi đều đạt; lỗi thì ROLLBACK
+  end
+ end
+ end
+ A -> OUT: present(WarehouseResponse(H,R,A,documentId/error))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: số lượng và lịch sử
+note over A,D: Số xuất n lấy từ reservation của đơn, không lấy qty tùy ý từ frontend.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_INV_KHO02 | TC_INV_KHO03
+@enduml

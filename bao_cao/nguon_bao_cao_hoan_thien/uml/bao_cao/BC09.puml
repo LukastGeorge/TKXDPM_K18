@@ -1,0 +1,27 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 19
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam maxMessageSize 220
+hide footbox
+boundary "OrderController /\nOrderPresenter" as W
+control OrderActionInteractor as I
+database OrderStore as D
+W -> I : execute(CANCEL, orderId, key, reason)
+group tx.run(change)
+ I -> D : actor; byId; receiptExists
+ D --> I : quyền, trạng thái, biên nhận
+ alt key cũ cùng nội dung
+  I -> I : REPLAY; không giải phóng thêm
+ else sai chủ / đã giao / key đổi nội dung
+  I -> I : lỗi; không sửa dữ liệu
+ else hủy hợp lệ theo OrderLifecycle
+  I -> D : release(reservation HELD)
+  I -> D : releaseCode; transition(CANCELLED)
+  I -> D : history; receipt
+  I -> I : commit; lỗi thì rollback
+ end
+end
+I -> W : present(OrderResponse)
+@enduml

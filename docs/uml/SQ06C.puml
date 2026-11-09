@@ -1,0 +1,28 @@
+@startuml
+!include style.iuml
+title SQ06C - Hủy và bàn giao cạnh tranh cùng đơn
+caption QD-01 đã chốt; quyền/trạng thái P-STATE và cơ chế khóa D03 là đề xuất
+actor "Chủ đơn" as U
+actor Admin as V
+control CancelOrderInteractor as C
+control HandoverInteractor as H
+database "Order / Reservation / Stock\ntransaction chung" as D
+par cùng DH01 đã xác nhận, giữ 2 S001
+ U -> C: cancel(DH01, keyC)
+else đồng thời
+ V -> H: handover(DH01, keyH)
+end
+note over C,H: Mỗi use case kiểm session/quyền trước dữ liệu; phản hồi qua OutputBoundary (rút gọn).
+alt hủy lấy quyền cập nhật trước
+ C -> D: khóa DH01; kiểm trạng thái; R -= 2; ghi đã hủy; commit
+ D --> C: H=10, R=0, đơn đã hủy
+ H -> D: khóa DH01 sau cam kết hủy; đọc lại trạng thái
+ D --> H: không bàn giao đơn đã hủy; không xuất kho
+else bàn giao lấy quyền cập nhật trước
+ H -> D: khóa DH01; kiểm trạng thái; H -= 2, R -= 2; ghi đang giao; commit
+ D --> H: H=8, R=0, đơn đang giao
+ C -> D: khóa DH01 sau cam kết bàn giao; đọc lại trạng thái
+ D --> C: không hủy trước giao nữa; không hoàn tồn
+end
+note over C,D: Cùng thứ tự khóa theo D03, rollback toàn bộ nếu lỗi trước commit.\nKhông chỉ kiểm trạng thái trước khi khóa rồi dùng dữ liệu cũ.
+@enduml

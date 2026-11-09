@@ -1,0 +1,53 @@
+@startuml
+!include style.iuml
+title SQ02 - Đổi giỏ và tính lại giá
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Khách as U
+boundary Controller as C
+control "ChangeCartInteractor" as A
+control "AuthPolicy" as P
+database "CartPort" as D
+control "PricingPort" as Q
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: đổiGiỏ(cartId, lineId/SKU, qty, cartVersion)
+C -> C: kiểm kiểu số nguyên >= 0
+C -> A: execute(ChangeCartRequest(subject, cartId, line, qty, version))
+A -> P: kiểm owner/session(subject, cartId)
+P --> A: cho phép / từ chối
+alt sai quyền hoặc dữ liệu
+ A -> OUT: present(lỗi; không đọc/sửa giỏ người khác)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else hợp lệ
+ A -> D: đọc giỏ của đúng chủ và version
+ D --> A: CartSnapshot
+ alt qty = 0
+  A -> A: bỏ dòng và món kèm phụ thuộc (P-PRICE-DETAIL)
+ else qty > 0
+  A -> A: kiểm sách/giới hạn; cập nhật dòng (P-PRICE-DETAIL)
+ end
+ A -> Q: báoGiáLại(lines, code?, serverClock)
+ Q --> A: Quote / lý do mất điều kiện
+ alt dòng/báo giá không hợp lệ
+  A -> A: bỏ thay đổi dự kiến; giữ giỏ đã lưu
+ else Quote hợp lệ, có thể kèm thông báo gỡ mã
+  A -> D: lưu nếu version còn đúng(cart mới, quote)
+  alt xung đột version hoặc lỗi
+   D --> A: chưa ghi; yêu cầu đọc lại
+  else cam kết
+   D --> A: cartVersion mới
+  end
+ end
+ A -> OUT: present(ChangeCartResponse(snapshot đã lưu / conflict / error))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: giỏ mới hoặc lỗi, không thu tiền
+note over A,Q: QD-01: không giữ hàng ở giỏ. Giá/món kèm theo chi tiết giá còn chờ duyệt ngoài QD-02.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_CART_SC008 | TC_CART_SC016
+@enduml

@@ -1,0 +1,50 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+top to bottom direction
+interface ChangeCartInputBoundary {
++execute(r: ChangeCartRequest): void
+}
+class ChangeCartInteractor {
+-carts: CartPort
+-prices: PricingService
++execute(r: ChangeCartRequest): void
+}
+interface ChangeCartOutputBoundary {
++present(r: ChangeCartResponse): void
+}
+class CartPresenter {
++present(r: ChangeCartResponse): void
++response(): ChangeCartResponse
+}
+interface CartPort {
++loadOwned(id: UUID, owner: String): Optional<Cart>
++save(cart: Cart, expectedVersion: long): boolean
+}
+class PostgresCartAdapter {
+
+}
+class Cart {
+-version: long
+-lines: Map<String, Integer>
++changeLine(sku: String, quantity: int): Cart
+}
+ChangeCartInteractor .up.|> ChangeCartInputBoundary
+ChangeCartInteractor -down-> CartPort : carts
+ChangeCartInteractor -right-> ChangeCartOutputBoundary : output
+CartPresenter .up.|> ChangeCartOutputBoundary
+PostgresCartAdapter .up.|> CartPort
+ChangeCartInteractor .down.> Cart : thay đổi bất biến
+
+@enduml

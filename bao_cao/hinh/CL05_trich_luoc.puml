@@ -1,0 +1,32 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 22
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam wrapWidth 320
+skinparam nodesep 35
+skinparam ranksep 40
+hide empty members
+top to bottom direction
+title CL05 trích lược các trách nhiệm chính
+class Order <<aggregate root>> #F0F6ED {
+  + cancelBeforeHandover(): void
+  + handover(): void
+}
+class StockBalance <<entity>> #F0F6ED {
+  + reserve(qty: int): void
+  + release(qty: int): void
+  + issueReserved(qty: int): void
+}
+class Reservation <<aggregate root>> #F0F6ED {
+  + markReleased(): void
+  + markIssued(): void
+}
+class CodSettlement <<entity>> #F0F6ED {
+  + record(receipt: CodReceipt): void
+}
+Reservation --> Order : 1 — 1; orderId
+Reservation ..> StockBalance : lượng giữ theo SKU
+CodSettlement --> Order : 1 — 1; orderId
+footer Thiết kế đề xuất — trích đúng lớp và chữ ký từ CL05; đã lược thành viên khác
+@enduml

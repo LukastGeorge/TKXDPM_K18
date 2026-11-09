@@ -1,0 +1,23 @@
+@startuml
+!include style.iuml
+title ST03 - Giữ chỗ tồn kho của một đơn
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+state "Chưa có reservation" as None
+state "Đang giữ (R tăng)" as Held
+state "Đã giải phóng" as Released
+state "Đã xuất" as Issued
+[*] --> None
+None --> Held : tạo đơn [mọi SKU đủ A]\n/ R += n cùng commit đơn
+None --> None : thiếu SKU/quota hoặc rollback\n/ không giữ dở
+Held --> Released : hủy trước xuất / R -= n; H không đổi
+Held --> Issued : bàn giao / H -= n; R -= n
+Released --> Released : hủy lặp / no-op
+Issued --> Issued : bàn giao lặp / no-op
+note right of Held
+ A = H - R; 0 <= R <= H.
+ n là số lượng đã gộp theo SKU:
+ mua lẻ + thành phần combo + món kèm.
+ Giữ/xuất/giải phóng thuộc một orderId.
+end note
+footer TC_CHECKOUT_SC034 | TC_INV_SC046
+@enduml

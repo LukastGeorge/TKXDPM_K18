@@ -1,0 +1,75 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL01 - Lát cắt sửa giỏ — Request và Output Boundary
+caption Thiết kế đề xuất; chưa có code. REQ-F03/F04/F22; BR-003/016/018; TC_CART_SC008/016/NEW008
+top to bottom direction
+class CartController <<adapter>> #EEF0F4 {
+  - input: ChangeCartInputBoundary
+  - presenter: CartPresenter
+  --
+  + change(payload: HttpPayload): HttpResponse
+}
+interface ChangeCartInputBoundary <<interface>> #DCEEFF {
+  + execute(request: ChangeCartRequest): void
+}
+class ChangeCartInteractor <<use case>> #E2EFFC {
+  - carts: CartPort
+  - prices: PricingService
+  - output: ChangeCartOutputBoundary
+  --
+  + execute(request: ChangeCartRequest): void
+}
+class ChangeCartRequest <<request>> #F0F6ED {
+  subject: Subject
+  cartId: CartId
+  line: LineSelection
+  quantity: int
+  expectedVersion: long
+}
+class ChangeCartResponse <<response>> #F0F6ED {
+  status: CartResultStatus
+  cart: CartSnapshot [0..1]
+  errors: ValidationError [0..*]
+}
+interface ChangeCartOutputBoundary <<interface>> #DCEEFF {
+  + present(response: ChangeCartResponse): void
+}
+class CartPresenter <<adapter>> #EEF0F4 {
+  - model: CartViewModel
+  --
+  + present(response: ChangeCartResponse): void
+  + viewModel(): CartViewModel
+}
+interface CartPort <<interface>> #DCEEFF {
+  + loadOwned(id: CartId, owner: Subject): Cart
+  + save(cart: Cart, version: long): SaveResult
+}
+class PostgresCartAdapter <<adapter>> #EEF0F4 {
+  + loadOwned(id: CartId, owner: Subject): Cart
+  + save(cart: Cart, version: long): SaveResult
+}
+CartController ..> ChangeCartInputBoundary : execute
+CartController --> CartPresenter : viewModel
+ChangeCartInteractor ..|> ChangeCartInputBoundary
+ChangeCartInteractor --> ChangeCartOutputBoundary : output
+CartPresenter ..|> ChangeCartOutputBoundary
+ChangeCartInteractor --> CartPort : carts
+PostgresCartAdapter ..|> CartPort
+ChangeCartInputBoundary ..> ChangeCartRequest : input
+ChangeCartOutputBoundary ..> ChangeCartResponse : output
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

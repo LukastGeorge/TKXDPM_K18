@@ -1,0 +1,24 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+state "Chưa thu\nUNPAID" as U
+state "Đã thu\nPAID" as P
+state "Không cần thu\nNONE" as N
+[*] --> U : tạo đơn phải thu > 0
+[*] --> N : tạo đơn phải thu = 0
+U --> P : đơn đang giao; admin xác nhận thành công\nreceived = payable; ghi một biên nhận
+U --> U : hủy trước giao / sai tiền / giao thất bại
+P --> P : retry cùng biên nhận / không ghi thêm
+N --> N : hoàn tất đơn 0 đồng / không tạo thu tiền
+@enduml

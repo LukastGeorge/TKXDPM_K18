@@ -1,0 +1,31 @@
+@startuml
+!include style.iuml
+title AD09 - Quản trị dữ liệu và bảo toàn lịch sử
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Admin gửi loại tài nguyên, thao tác,\nID/version và trường dữ liệu;
+:Kiểm session và quyền quản trị;
+if (Được phép?) then (không)
+ :Từ chối trước đọc dữ liệu riêng;
+ stop
+endif
+if (Chỉ tra cứu?) then (có)
+ :Định tuyến đọc theo module\ndanh mục/tài khoản/đơn/kho; trả dữ liệu được phép;
+ stop
+endif
+:Use case tương ứng kiểm trường được sửa,\nmã duy nhất, loại/sản phẩm tham chiếu;
+if (Dữ liệu hợp lệ?) then (không)
+ :Trả lỗi; không ghi dở;
+ stop
+endif
+:BEGIN; đọc version và liên kết lịch sử;
+if (Xóa làm mất dữ liệu lịch sử?) then (có)
+ :Ngừng hiển thị sách / từ chối xóa\nthể loại còn sách hoặc tài khoản có đơn;
+else (ghi hợp lệ)
+ :Lưu thông tin/cấu hình;\nkhóa tài khoản thì thu hồi quyền phiên;
+endif
+:COMMIT hoặc rollback nếu lỗi/xung đột;
+:Trả kết quả mới; đơn cũ giữ snapshot;
+stop
+footer TC_ADMIN_SC051 | TC_ADMIN_SC053
+@enduml

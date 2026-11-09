@@ -1,0 +1,33 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+top to bottom direction
+package "delivery\nSpring Boot và composition" as Delivery
+package "adapters.web\nController và Presenter" as Web
+package "infrastructure.persistence\nJDBC và PostgreSQL" as Infra
+package "application\nUse case, Request, Response, Port" as App
+package "domain\nCart, PriceRules, OrderLifecycle, Registration" as Domain
+Delivery ..> Web : khởi tạo và nối
+Delivery ..> Infra : cấu hình
+Delivery ..> App : lắp ghép use case
+Web ..> App : gọi input / thực hiện output
+Infra ..> App : thực hiện port
+App ..> Domain : dùng chính sách
+note bottom of App
+Feature: catalog, cart, pricing, auth,
+order, inventory, admin.
+Cart dùng catalog và pricing qua hợp đồng.
+Core không import Spring, JDBC hoặc Jupiter.
+end note
+@enduml

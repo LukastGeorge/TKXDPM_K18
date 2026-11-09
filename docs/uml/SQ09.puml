@@ -1,0 +1,51 @@
+@startuml
+!include style.iuml
+title SQ09 - Đọc ghi quản trị theo đúng module
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Admin as U
+boundary Controller as C
+control AuthPolicy as P
+control "Use case quản trị tương ứng\nCatalogAdmin / IdentityAdmin / PriceAdmin / Query" as A
+database "Port của đúng module\nCatalog / Account / OrderRead / StockRead / PriceConfig" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: quảnTrị(resourceType, action, id, version, criteria/fields)
+C -> C: kiểm format và danh sách trường đầu vào
+C -> P: kiểm quyền admin theo resource/action
+P --> C: cho phép / từ chối
+alt từ chối
+ C --> U: không có quyền; không trả dữ liệu riêng tư
+else được phép
+ C -> A: Request đã xác thực, subject từ server
+ A -> P: kiểm lại quyền nghiệp vụ theo subject/action
+ P --> A: quyền hiện hành
+ alt quyền đã mất trước xử lý
+  A -> A: tạo ResponseModel Forbidden; không đọc/ghi tài nguyên
+ else quyền vẫn hợp lệ
+ alt tra cứu
+  A -> D: tìm/lấy theo loại tài nguyên và phạm vi
+  D --> A: kết quả hoặc rỗng, không có password
+ else tạo/sửa/khóa/ngừng hiển thị danh mục hoặc tài khoản
+  A -> A: kiểm trường được sửa, tham chiếu/mã duy nhất; giá, phần trăm, khoảng hạn
+  group giao dịch ghi của module
+   A -> D: kiểm version và quan hệ lịch sử
+   alt không hợp lệ/xung đột
+    A -> D: rollback; giữ dữ liệu gốc
+   else hợp lệ
+    A -> D: lưu thay đổi; khóa tài khoản thì thu hồi hiệu lực session
+    A -> D: commit
+   end
+  end
+ end
+ end
+ A -> OUT: present(ResponseModel(data / validationErrors / conflict))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ C --> U: kết quả được phép hiển thị
+end
+note over A,D: Không phải một class dùng chung mọi nghiệp vụ. Chọn use case/port theo tài nguyên.
+note over A,D: Trạng thái đơn, kho và khoản thu không sửa bằng CRUD; dùng luồng chuyên biệt.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_ADMIN_SC051 | TC_CATALOG_SC054
+@enduml

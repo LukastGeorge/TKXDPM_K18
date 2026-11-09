@@ -1,0 +1,37 @@
+@startuml
+!include style.iuml
+title AD05 - Ghi nhận giao và thu COD
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Admin gửi orderId, receiptKey,\nkết quả giao, số tiền thực nhận khai báo;
+:Kiểm quyền, owner/phạm vi quản trị và format;
+if (Hợp lệ?) then (không)
+ :Từ chối; không ghi tiền/đơn/kho;
+ stop
+endif
+:BEGIN giao dịch lôgic; khóa/so version đơn;
+if (Mã thu đã có?) then (có)
+ :Cùng nội dung: trả kết quả cũ;\nkhác nội dung: báo xung đột;
+ :Kết thúc giao dịch đọc, nhả khóa;
+ stop
+endif
+if (Đơn đang giao?) then (không)
+ :ROLLBACK; từ chối chuyển trạng thái;
+ stop
+endif
+if (Giao thất bại?) then (có)
+ :Ghi lần giao thất bại; không ghi đã thu;\nkhông tự nhập hàng trả;
+else (giao thành công)
+ if (Số tiền khớp số phải thu,\nđơn 0 VND phải là 0?) then (không)
+  :ROLLBACK; báo chênh lệch cần xử lý;
+  stop
+ endif
+ :Lưu khoản thu nếu > 0; cập nhật đơn Hoàn tất;\nCOD Đã thu hoặc Không cần thu;
+ :Theo P-PRICE-DETAIL tiêu lượt đang giữ một lần;
+endif
+:Lưu receiptKey + fingerprint + kết quả,\nkể cả giao thất bại hoặc không cần thu (D03);
+:COMMIT; trả kết quả cho admin và chủ đơn;
+:Không xuất kho thêm lần nữa;
+stop
+footer TC_PAY_TT01 | TC_PAY_TT02
+@enduml

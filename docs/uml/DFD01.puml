@@ -1,0 +1,25 @@
+@startuml
+!include style.iuml
+title DFD01 - DFD ngữ cảnh website bán sách
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+left to right direction
+rectangle "E1 Khách\n(guest/customer)" as C
+rectangle "E2 Admin" as A
+usecase "0\nWebsite bán sách" as P
+rectangle "E3 Nhà cung cấp mail" as M
+rectangle "E4 Facebook" as F
+C --> P : truy vấn sách, dữ liệu giỏ/đặt/hủy,\nthông tin đăng nhập, token xác minh
+P --> C : sách/báo giá/đơn của mình,\nthông báo và trạng thái xác thực
+A --> P : dữ liệu danh mục/kho,\nxác nhận giao và thu COD
+P --> A : kết quả quản trị, lịch sử kho,\nđơn và khoản thu được phép xem
+P --> M : yêu cầu gửi thư + địa chỉ + liên kết
+M --> P : kết quả nhận gửi/lỗi
+P --> F : yêu cầu kiểm chứng xác thực
+F --> P : định danh/claims đã kiểm chứng hoặc lỗi
+legend bottom
+ DFD ngữ cảnh, không phải UML sequence.
+ Hộp E: thực thể ngoài; oval 0: tiến trình; mũi tên chỉ dữ liệu.
+ Không biểu diễn thứ tự thời gian; chưa có cổng online được duyệt.
+endlegend
+footer TC_CATALOG_NEW002 | TC_CHECKOUT_SC034
+@enduml

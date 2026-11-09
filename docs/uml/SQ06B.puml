@@ -1,0 +1,42 @@
+@startuml
+!include style.iuml
+title SQ06B - Xem trạng thái đơn đúng chủ
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Customer as U
+boundary Controller as C
+control OrderQuery as A
+control AuthPolicy as P
+database OrderReadPort as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: xemĐơn(orderId? hoặc danh sách cá nhân)
+C -> A: OrderQueryRequest(subject từ session, orderId?)
+A -> P: xác thực và phạm vi owner của yêu cầu
+P --> A: accountId + phạm vi / từ chối
+alt chưa đăng nhập
+ A -> OUT: present(yêu cầu đăng nhập; không trả dữ liệu)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else phiên hợp lệ
+ A -> D: đọc theo orderId VÀ accountId hoặc danh sách accountId
+ D --> A: đơn thuộc chủ / không tìm thấy / danh sách rỗng
+ alt không có trong phạm vi
+  A -> OUT: present(không tìm thấy/không có quyền; không lộ chủ khác)
+  OUT --> A: void
+  A --> C: void
+  C -> OUT: viewModel()
+  OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ else tìm thấy
+  A -> OUT: present(OrderResponse(snapshot, trạng thái đơn, trạng thái tiền))
+  OUT --> A: void
+  A --> C: void
+  C -> OUT: viewModel()
+  OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ end
+end
+C --> U: kết quả được phép
+note over A,D: Chỉ đọc, không đổi trạng thái hoặc kho. Admin toàn cục dùng SQ09 với quyền riêng.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_ORDER_SC047 | TC_ORDER_SC048
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 19
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam maxMessageSize 220
+hide footbox
+boundary "OrderController /\nOrderPresenter" as W
+control CheckoutInteractor as I
+database "OrderStore / CartPort" as D
+participant PricingService as P
+W -> I : execute(CheckoutRequest)
+group tx.run(place) — transaction chung
+ I -> D : actor; byKey(accountId, key)
+ D --> I : quyền và đơn đã cam kết
+ alt key cũ
+  I -> I : cùng nội dung: REPLAY\nkhác nội dung: CONFLICT
+ else key mới
+  I -> D : loadOwned(cartId, owner)
+  D --> I : Cart và version
+  I -> P : validateStock; full(cart)
+  P --> I : quote hoặc lỗi
+  alt giá đổi / dữ liệu không hợp lệ
+   I -> I : rollback; giữ nguyên giỏ
+  else đủ điều kiện
+   I -> D : create; reserve; holdCode
+   I -> D : save(giỏ rỗng); history
+   I -> I : UnitOfWork commit
+  end
+ end
+end
+I -> W : present(OrderResponse)\nsau kết quả transaction
+@enduml

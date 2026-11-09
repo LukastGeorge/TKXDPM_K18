@@ -1,0 +1,51 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1CP01 — Chiều phụ thuộc mã nguồn thực tế
+package "delivery / Spring Boot" {
+ [CompositionRoot] as root
+}
+package "adapters.web" {
+ [BookshopController] as ctl
+[CartPresenter / CatalogPresenter] as presenter
+}
+package "application (cart / catalog)" {
+ [InputBoundary] as input
+[Interactor / PricingService] as uc
+[OutputBoundary] as output
+[CartPort / CatalogReadPort] as ports
+}
+package "domain (cart / catalog)" {
+ [Cart / Book] as domain
+}
+package "infrastructure.persistence" {
+ [Postgres adapters] as db
+}
+root ..> ctl : wiring
+root ..> db : new
+root ..> uc : new
+root ..> presenter : request scope
+ctl ..> input : gọi hợp đồng
+ctl ..> presenter : đọc view response
+uc ..> input : implements
+uc ..> output : gọi hợp đồng
+uc ..> ports : đọc/ghi
+uc ..> domain : nghiệp vụ
+presenter ..> output : implements
+db ..> ports : implements
+db ..> domain : mapping
+note bottom of uc
+Core chỉ import Java và package core.
+Spring / JDBC / HTTP ở phía ngoài.
+DI là cách nối; DIP là chiều phụ thuộc này.
+end note
+
+@enduml

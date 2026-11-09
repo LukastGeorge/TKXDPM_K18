@@ -1,0 +1,44 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+top to bottom direction
+interface AuthInputBoundary {
++execute(r: AuthRequest): void
+}
+class AuthInteractor {
++execute(r: AuthRequest): void
+}
+interface AuthStore {
+
+}
+class PostgresAuthStore {
+
+}
+interface MailPort {
++send(recipient: String, link: String): void
+}
+interface AuthOutputBoundary {
++present(r: AuthResponse): void
+}
+class AuthPresenter {
++present(r: AuthResponse): void
+}
+AuthInteractor .up.|> AuthInputBoundary
+AuthInteractor -down-> AuthStore : store
+PostgresAuthStore .up.|> AuthStore
+AuthInteractor -down-> MailPort : mail
+AuthInteractor -right-> AuthOutputBoundary : output
+AuthPresenter .up.|> AuthOutputBoundary
+
+@enduml

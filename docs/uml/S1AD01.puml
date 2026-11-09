@@ -1,0 +1,54 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1AD01 — Thêm sửa bỏ dòng giỏ
+start
+:CSRF và parse HTTP;
+if (Hợp lệ?) then (không)
+ :400/403; không ghi;
+ stop
+endif
+:Request với owner từ session;
+:loadOwned(id, owner);
+if (Đúng chủ và version?) then (không)
+ :403/409; không lộ dữ liệu giỏ;
+ stop
+endif
+:Kiểm số nguyên; ADD cộng, SET thay;
+if (Lượng không hợp lệ?) then (có)
+ :400; giỏ giữ nguyên;
+ stop
+endif
+if (Lượng mới bằng 0?) then (có)
+ :Yêu cầu dòng tồn tại; bỏ dòng;
+else (không)
+ :Đọc sách đang bán và A = H - R;
+ if (Thiếu sách hoặc vượt A?) then (có)
+  :404/400; giữ nguyên;
+  stop
+ endif
+ :Tạo Cart mới với lượng đã kiểm;
+endif
+:Tính CartSnapshot giá backend;
+:save CAS và thay dòng trong transaction;
+if (Lỗi DB?) then (có)
+ :Rollback transaction; trả 503;
+ stop
+endif
+if (CAS trượt?) then (có)
+ :409; yêu cầu tải lại;
+ stop
+endif
+:OutputBoundary.present(OK, snapshot);
+:303 về giỏ; không thay H/R;
+stop
+
+@enduml

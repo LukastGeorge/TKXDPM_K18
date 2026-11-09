@@ -1,0 +1,43 @@
+@startuml
+!include style.iuml
+title SQ02B - Gộp giỏ sau đăng nhập
+caption P-MERGE là đề xuất chưa duyệt; TC_CART_REV006-008
+actor Khách as U
+boundary Controller as C
+control "Login / MergeCart Interactors" as A
+database "Session / Cart / Transfer ports" as D
+control PricingService as Q
+boundary "Presenter\nOutputBoundary" as O
+U -> C: đăng nhập và gộp giỏ guest của phiên hiện tại
+C -> A: request(thông tin xác thực, guestCartRef)
+A -> D: xác thực; cấp phiên KH01; xác minh quyền nguồn giỏ
+D --> A: subject KH01 + nguồn hợp lệ / lỗi
+alt không đủ quyền hoặc xác thực sai
+ A -> O: present(lỗi; không gộp)
+else có quyền
+ group transaction gộp giỏ D01
+  A -> D: khóa giỏ nguồn/đích; kiểm TransferRecord
+  alt nguồn đã chuyển cho đúng KH01
+   D --> A: giỏ đích đã lưu; không cộng lần nữa
+   A -> D: kết thúc đọc
+  else chưa chuyển
+   D --> A: hai giỏ và versions
+   A -> A: ghép theo SKU + chế độ + liên kết món chính (P-MERGE)
+   A -> Q: báo giá/kiểm khả dụng cho kết quả dự kiến
+   Q --> A: hợp lệ / vượt khả dụng / mất điều kiện
+   alt cần người dùng điều chỉnh hoặc lỗi ghi
+    A -> D: rollback phần gộp; giữ hai giỏ, phiên đăng nhập vẫn hợp lệ
+   else hợp lệ
+    A -> D: lưu giỏ đích + đánh dấu nguồn đã chuyển + commit
+   end
+  end
+ end
+ A -> O: present(MergeCartResponse(giỏ / cần điều chỉnh / lỗi))
+end
+O --> A: void
+A --> C: void
+C -> O: viewModel()
+O --> C: kết quả
+C --> U: hiển thị giỏ hoặc yêu cầu điều chỉnh
+note over A,D: Mất phản hồi sau commit: retry tra TransferRecord trước cộng số lượng.
+@enduml

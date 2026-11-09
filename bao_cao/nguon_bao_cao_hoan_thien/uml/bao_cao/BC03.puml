@@ -1,0 +1,52 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+top to bottom direction
+interface CheckoutInputBoundary {
++execute(r: CheckoutRequest): void
+}
+class CheckoutInteractor {
+-orders: OrderStore
+-tx: UnitOfWork
++execute(r: CheckoutRequest): void
+}
+interface OrderOutputBoundary {
++present(r: OrderResponse): void
+}
+class OrderPresenter {
++present(r: OrderResponse): void
+}
+interface OrderStore {
++create(order: OrderView): void
++reserve(order: OrderView): void
++holdCode(order: OrderView): void
+}
+class PostgresOrderStore {
+
+}
+interface UnitOfWork {
++run(work: Supplier<T>): T
+}
+class PostgresUnitOfWork {
+
+}
+CheckoutInteractor .up.|> CheckoutInputBoundary
+CheckoutInteractor -right-> OrderOutputBoundary : output
+OrderPresenter .up.|> OrderOutputBoundary
+CheckoutInteractor -down-> OrderStore : orders
+PostgresOrderStore .up.|> OrderStore
+CheckoutInteractor -down-> UnitOfWork : tx
+PostgresUnitOfWork .up.|> UnitOfWork
+
+@enduml

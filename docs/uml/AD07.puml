@@ -1,0 +1,31 @@
+@startuml
+!include style.iuml
+title AD07 - Nhập và kiểm kê kho
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Admin gửi SKU, mã phiếu, số lượng, lý do;
+:Kiểm quyền kho, SKU tồn tại và dữ liệu nguyên;\nnhập > 0; kiểm kê >= 0; phải có lý do;
+if (Hợp lệ?) then (không)
+ :Trả lỗi; không ghi phiếu/tồn;
+ stop
+endif
+:BEGIN giao dịch; khóa/so version SKU và mã phiếu;
+if (Mã phiếu đã có?) then (có)
+ :Cùng nội dung: trả phiếu cũ;\nkhác nội dung: xung đột;
+ :Kết thúc giao dịch đọc, nhả khóa;
+ stop
+endif
+if (Nhập hàng?) then (có)
+ :Yêu cầu số lượng > 0;\ntăng tồn thực tế, không đổi giữ chỗ;
+else (kiểm kê)
+ if (Có lý do và tồn mới >= lượng giữ?) then (không)
+  :ROLLBACK; cần xử lý chênh lệch/đơn giữ;
+  stop
+ endif
+ :Ghi chênh lệch kiểm kê có người thực hiện;
+endif
+:Ghi phiếu và cập nhật tồn trong cùng cam kết;
+:COMMIT; trả H, R, A và lịch sử;
+stop
+footer TC_INV_KHO02 | TC_INV_KHO03
+@enduml

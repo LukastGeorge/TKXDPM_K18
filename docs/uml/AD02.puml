@@ -1,0 +1,35 @@
+@startuml
+!include style.iuml
+title AD02 - Thêm sửa bỏ dòng giỏ
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+:Khách gửi cartId, lineId/SKU, số lượng, phiên;
+:Kiểm tra session và owner của giỏ;
+if (Đúng chủ giỏ và số lượng nguyên >= 0?) then (không)
+ :Từ chối; mọi giỏ giữ nguyên;
+ stop
+endif
+if (Số lượng bằng 0?) then (có)
+ :Bỏ dòng chính và món kèm phụ thuộc\n(chi tiết giá còn chờ duyệt ngoài QD-02);
+else (thêm/sửa)
+ :Đọc sách, quan hệ combo/mua kèm, giới hạn;
+ if (Bán được và số lượng hợp lệ?) then (không)
+  :Trả lý do; giỏ giữ nguyên;
+  stop
+ endif
+ :Gộp/sửa dòng; điều chỉnh món kèm\nvới thông báo theo P-PRICE-DETAIL;
+endif
+:Tính lại báo giá; bỏ mã mất điều kiện\nvới thông báo, chưa thu tiền;
+if (Dòng hàng và báo giá tính lại hợp lệ?) then (không)
+ :Không lưu giỏ dự kiến;\ntrả lỗi và giữ giỏ đã lưu;
+ stop
+endif
+:Lưu bằng phiên bản giỏ;\nxung đột thì đọc lại, không ghi đè mù;
+if (Cam kết phiên bản giỏ thành công?) then (không)
+ :Trả xung đột/lỗi; không báo đã lưu giỏ mới;
+ stop
+endif
+:Trả giỏ mới và tổng tiền;\nQD-01: giỏ không giữ hàng;
+stop
+footer TC_CART_SC008 | TC_CART_SC009
+@enduml

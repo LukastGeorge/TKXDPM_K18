@@ -1,0 +1,89 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1CL01 — Sửa giỏ qua hợp đồng application
+class BookshopController {
++change(id: String, sku: String, quantity: String,
+  version: String, mode: String, session: HttpSession,
+  model: Model, http: HttpServletResponse): String
+}
+interface ChangeCartInputBoundary {
++execute(request: ChangeCartRequest): void
+}
+class ChangeCartInteractor {
++execute(request: ChangeCartRequest): void
+}
+class ChangeCartRequest {
+cartId: UUID
+owner: String
+sku: String
+quantity: String
+expectedVersion: long
+mode: ChangeMode
+}
+interface ChangeCartOutputBoundary {
++present(response: ChangeCartResponse): void
+}
+class ChangeCartResponse {
+status: CartStatus
+message: String
+cart: CartSnapshot
+}
+class CartPresenter {
+-response: ChangeCartResponse
++present(response: ChangeCartResponse): void
++response(): ChangeCartResponse
+}
+interface CartPort {
++open(owner: String): Cart
++loadOwned(id: UUID, owner: String): Optional<Cart>
++save(cart: Cart, expectedVersion: long): boolean
+}
+class PostgresCartAdapter {
++open(owner: String): Cart
++loadOwned(id: UUID, owner: String): Optional<Cart>
++save(cart: Cart, expectedVersion: long): boolean
+}
+interface CatalogReadPort {
++find(sku: String): Optional<Book>
++listVisible(): List<Book>
+}
+class PricingService {
++quote(cart: Cart): CartSnapshot
+}
+class Cart {
+-id: UUID
+-owner: String
+-version: long
+-lines: Map<String, Integer>
++changeLine(sku: String, quantity: int): Cart
++withVersion(version: long): Cart
+}
+BookshopController --> ChangeCartInputBoundary : calls
+BookshopController --> CartPresenter : reads response
+BookshopController ..> ChangeCartRequest : creates
+ChangeCartInteractor ..|> ChangeCartInputBoundary
+ChangeCartInteractor --> ChangeCartOutputBoundary : output
+ChangeCartInteractor --> CartPort : carts
+ChangeCartInteractor --> CatalogReadPort : catalog
+ChangeCartInteractor --> PricingService : prices
+ChangeCartInteractor ..> Cart : immutable change
+ChangeCartOutputBoundary ..> ChangeCartResponse : parameter
+ChangeCartInputBoundary ..> ChangeCartRequest : parameter
+CartPresenter ..|> ChangeCartOutputBoundary
+PostgresCartAdapter ..|> CartPort
+
+legend bottom
+S1 đã triển khai; lược bỏ getter và Spring bean methods.
+Nét đứt + tam giác: implements. Nét đứt + mũi tên: dependency.
+Nét liền: giữ tham chiếu. Đây là chiều phụ thuộc mã nguồn.
+endlegend
+@enduml

@@ -1,0 +1,51 @@
+name: bookshop-s1-24150180
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: bookshop
+      POSTGRES_USER: ${BOOK_DB_USER:-bookshop}
+      POSTGRES_PASSWORD: ${BOOK_DB_PASSWORD:?Run scripts/Start-Database.ps1 first}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - bookshop_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  verify:
+    image: maven:3.9-eclipse-temurin-21
+    profiles: [tools]
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      BOOK_DB_URL: jdbc:postgresql://db:5432/bookshop
+      BOOK_DB_USER: ${BOOK_DB_USER:-bookshop}
+      BOOK_DB_PASSWORD: ${BOOK_DB_PASSWORD:?Run scripts/Start-Database.ps1 first}
+    depends_on:
+      db:
+        condition: service_healthy
+    command: [mvn, -B, -ntp, clean, verify]
+  web:
+    image: maven:3.9-eclipse-temurin-21
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - maven_cache:/root/.m2
+    environment:
+      BOOK_DB_URL: jdbc:postgresql://db:5432/bookshop
+      BOOK_DB_USER: ${BOOK_DB_USER:-bookshop}
+      BOOK_DB_PASSWORD: ${BOOK_DB_PASSWORD:?Run scripts/Start-Database.ps1 first}
+    ports:
+      - "127.0.0.1:${BOOK_HTTP_PORT:-8080}:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    command: [mvn, -B, -ntp, spring-boot:run]
+volumes:
+  maven_cache:
+  bookshop_data:

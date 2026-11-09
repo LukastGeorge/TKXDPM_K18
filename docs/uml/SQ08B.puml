@@ -1,0 +1,65 @@
+@startuml
+!include style.iuml
+title SQ08B - Facebook không tin email trùng
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Khách as U
+boundary Controller as C
+control "IdentityUseCase" as A
+participant "Facebook adapter/provider\n[DỊCH VỤ NGOÀI]" as F
+database "Account/Session ports" as D
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: bắtĐầuFacebook(session)
+C -> A: bắtĐầuXácThực(session)
+A -> D: lưu state một lần gắn phiên
+A -> OUT: present(yêu cầu xác thực)
+OUT --> A: void
+A --> C: void
+C -> OUT: viewModel()
+OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+C --> U: chuyển tới provider
+U -> C: kếtQuảFacebook(code, state)
+C -> A: ExternalAuthRequest(code, state, session)
+A -> D: kiểm và tiêu state đúng phiên/chưa dùng
+alt state sai hoặc đã dùng
+ A -> OUT: present(từ chối; không tạo account/session)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else hợp lệ
+ A -> F: đổi mã/kiểm chứng dữ liệu ngoài transaction
+ F --> A: verified providerSubject, emailClaims / lỗi-hủy
+ alt provider lỗi/hủy
+  A -> OUT: present(không cấp phiên; cho bắt đầu lại)
+  OUT --> A: void
+  A --> C: void
+  C -> OUT: viewModel()
+  OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+ else có định danh hợp lệ
+  A -> D: tra theo provider + subject
+  alt đã liên kết
+   D --> A: accountId hiện có, trạng thái, role
+  else định danh mới
+   A -> D: tạo customer nếu đủ điều kiện; không tự gộp email trùng
+   D --> A: accountId mới / email trùng / lỗi điều kiện
+  end
+  alt chưa có accountId hoặc tài khoản bị khóa/không đủ điều kiện
+   A -> OUT: present(từ chối, không cấp session)
+   OUT --> A: void
+   A --> C: void
+   C -> OUT: viewModel()
+   OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+  else tài khoản hoạt động
+   A -> D: cấp session theo role thực tế
+   A -> OUT: present(AuthResponse(accountId, role, verifiedEmail))
+   OUT --> A: void
+   A --> C: void
+   C -> OUT: viewModel()
+   OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+  end
+ end
+end
+C --> U: kết quả; email chưa xác minh không được đặt đơn
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_AUTH_SC024 | TC_AUTH_SC025
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+!include style.iuml
+title SQ03 - Giá thường sỉ bộ kèm và mã
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+control "Cart / Checkout Interactor" as C
+control "PricingService" as A
+database "Catalog/PromotionReadPort" as D
+control "PricePolicy\nP-PRICE-DETAIL" as P
+C -> A: quote(backendLines, optionalCode, subject, now)
+A -> D: đọc giá/quan hệ/thời hạn theo clock server
+D --> A: catalogVersion, pricePolicies, codeConditions
+loop từng dòng khách thực sự chọn
+ alt combo
+  A -> P: giáBộ(componentRecipe, qty)
+ else mua đính kèm
+  A -> P: kiểmMainVàTỷLệ(mainLine, addOn, qty)
+ else sách đơn
+  A -> P: chọnGiá(thường, giảmTrongHạn, sỉTheoNgưỡng)
+ end
+ P --> A: linePrice, components, error?
+end
+opt có coupon/voucher
+ A -> P: kiểmMộtMã(accountId, expiry, threshold, stacking, quota)
+ P --> A: discount hoặc lý do không đủ điều kiện
+end
+alt quan hệ/mã không hợp lệ
+ A --> C: PricingError(reason); caller giữ dữ liệu cũ
+else hợp lệ
+ A -> A: tổng VND, rounding, max(0), phí cấu hình
+ A --> C: Quote(lines, discounts, fees, total, versions, conditions)
+end
+note over A,D: Báo giá chưa giữ mã/kho. Checkout phải đọc/xác minh lại trước commit.
+note over C,A: Đây là lời gọi nội bộ trả QuoteResult.\nResponse ra delivery dùng OutputBoundary ở SQ02/SQ04.
+footer TC_PRICE_BH01 | TC_PRICE_BH02
+@enduml

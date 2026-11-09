@@ -1,0 +1,26 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 19
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam maxMessageSize 220
+hide footbox
+boundary "Controller / Presenter" as W
+control "CatalogInteractor /\nChangeCartInteractor" as I
+database "CatalogReadPort / CartPort" as P
+W -> I : execute(CatalogRequest)
+I -> P : listVisible()
+P --> I : List<Book>
+I -> I : lọc và phân trang
+I -> W : present(CatalogResponse)
+W -> I : execute(ChangeCartRequest)
+I -> P : loadOwned(cartId, owner)
+P --> I : Cart và version
+alt sai chủ / lượng sai / thiếu hàng
+ I -> W : present(lỗi); không ghi
+else hợp lệ
+ I -> P : save(Cart mới, version)
+ P --> I : thành công / xung đột
+ I -> W : present(ChangeCartResponse)
+end
+@enduml

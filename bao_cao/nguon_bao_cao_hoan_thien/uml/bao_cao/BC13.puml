@@ -1,0 +1,28 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 19
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam maxMessageSize 220
+hide footbox
+boundary "AdminController /\nActionPresenter" as W
+control InventoryInteractor as I
+database InventoryStore as D
+W -> I : execute(InventoryRequest)
+group tx.run(apply)
+ I -> D : actor; prior(key, fingerprint)
+ D --> I : quyền và biên nhận
+ alt sai quyền / key đổi nội dung
+  I -> I : lỗi; không ghi
+ else đã ghi cùng phiếu
+  I -> I : REPLAY
+ else phiếu mới
+  I -> D : stock(sku) FOR UPDATE
+  D --> I : H và R
+  I -> I : StockRules.adjusted(...)\nkiểm lượng, lý do, H mới >= R
+  I -> D : move và receipt nếu hợp lệ
+  I -> I : commit; lỗi thì rollback
+ end
+end
+I -> W : present(ActionResult)
+@enduml

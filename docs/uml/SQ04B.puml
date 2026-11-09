@@ -1,0 +1,26 @@
+@startuml
+!include style.iuml
+title SQ04B - Cạnh tranh quyển cuối và lượt mã
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor "Khách A" as A
+actor "Khách B" as B
+control "Checkout A" as X
+control "Checkout B" as Y
+database "Tài nguyên chung\nSKU/quota + order commit" as D
+par hai yêu cầu thực sự độc lập
+ A -> X: đặt(keyA, SKU cuối hoặc mã cuối)
+else đồng thời
+ B -> Y: đặt(keyB, cùng tài nguyên)
+end
+note over X,Y: Cả hai được xác thực và báo giá; cùng khóa/so version tài nguyên theo D03.
+X -> D: thử giữ và cam kết A nguyên tử
+D --> X: thắng: đơn A và giữ 1
+Y -> D: thử giữ theo dữ liệu hiện tại
+D --> Y: hết khả dụng; không có cam kết B
+X --> A: kết quả qua OutputBoundary: đơn A, COD Chưa thu
+Y --> B: kết quả qua OutputBoundary: thiếu hàng/hết lượt; không tạo đơn, giỏ B giữ nguyên
+note over D: Ai thắng không được cố định. Hình minh họa một lịch A thắng; đổi A/B vẫn cùng invariant.
+note over X,D: Lỗi giữa chừng: rollback order + stock + quota + cart + key; không chỉ rollback từng kho.
+note over A,Y: Sơ đồ cạnh tranh rút gọn adapter/port đầu ra; luồng đầy đủ xem SQ04.
+footer TC_INV_SC046 | TC_ORDER_DH05
+@enduml

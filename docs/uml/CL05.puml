@@ -1,0 +1,97 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL05 - Đơn, giữ chỗ và COD — invariant tách biệt
+caption Thiết kế đề xuất; chưa có code. QD-01 đã chốt; P-STATE, quyền ghi COD và lifecycle quota vẫn cần duyệt
+top to bottom direction
+class Order <<aggregate root>> #F0F6ED {
+  - id: OrderId
+  - owner: AccountId
+  - status: OrderStatus
+  - total: Money
+  - version: long
+  --
+  + confirm(): void
+  + cancelBeforeHandover(): void
+  + handover(): void
+  + complete(settlement: CodSettlement): void
+}
+class OrderLineSnapshot <<value object>> #E4F3E9 {
+  offer: OfferSnapshot
+  quantity: int
+  unitPrice: Money
+  discount: Money
+  skuRecipe: SkuQuantity [1..*]
+}
+class StockBalance <<entity>> #F0F6ED {
+  - sku: Sku
+  - onHand: int
+  - reserved: int
+  - version: long
+  --
+  + available(): int
+  + reserve(qty: int): void
+  + release(qty: int): void
+  + issueReserved(qty: int): void
+  + adjust(actual: int, reason: String): void
+}
+class Reservation <<aggregate root>> #F0F6ED {
+  - orderId: OrderId
+  - status: ReservationStatus
+  - quantities: SkuQuantityList
+  --
+  + markReleased(): void
+  + markIssued(): void
+}
+class StockMovement <<immutable record>> #F0F6ED {
+  documentKey: RequestKey
+  sku: Sku
+  deltaOnHand: int
+  deltaReserved: int
+  reason: String
+  actorId: AccountId
+}
+class CodSettlement <<entity>> #F0F6ED {
+  - orderId: OrderId
+  - amountDue: Money
+  - state: PaymentStatus
+  --
+  + record(receipt: CodReceipt): void
+}
+class CodReceipt <<immutable record>> #F0F6ED {
+  receiptKey: RequestKey
+  orderId: OrderId
+  amount: Money
+  recordedBy: AccountId
+}
+class RequestRecord <<entity>> #F0F6ED {
+  - owner: Subject
+  - action: String
+  - key: RequestKey
+  - fingerprint: Digest
+  - result: StoredResult
+  --
+  + replayIfSame(digest: Digest): ReplayResult
+}
+Order *-- OrderLineSnapshot : 1 — 1..*
+Reservation --> Order : 1 — 1; orderId
+Reservation ..> StockBalance : lượng giữ theo SKU
+StockMovement --> StockBalance : sổ biến động theo SKU
+CodSettlement --> Order : 1 — 1; orderId
+CodSettlement --> CodReceipt : 1 — 0..1
+RequestRecord ..> Order : lưu tham chiếu kết quả
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

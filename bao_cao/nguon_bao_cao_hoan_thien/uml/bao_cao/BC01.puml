@@ -1,0 +1,35 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 18
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #253E54
+skinparam classBackgroundColor #F0F5FA
+skinparam classBorderColor #253E54
+skinparam activityBackgroundColor #F0F5FA
+skinparam activityBorderColor #253E54
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+hide empty members
+left to right direction
+actor Guest
+actor Customer
+actor Admin
+Customer --|> Guest
+Admin --|> Customer
+rectangle "Website bán sách" {
+ usecase "Xem và tìm sách" as U1
+ usecase "Sửa giỏ\nChọn combo và mua kèm" as U2
+ usecase "Đăng ký và xác minh email" as U3
+ usecase "Đặt đơn COD\nXem và hủy đơn của mình" as U4
+ usecase "Quản trị danh mục\nKho và ưu đãi" as U5
+ usecase "Xử lý đơn\nGhi nhận COD" as U6
+}
+Guest --> U1
+Guest --> U2
+Guest --> U3
+Customer --> U4
+Admin --> U5
+Admin --> U6
+@enduml

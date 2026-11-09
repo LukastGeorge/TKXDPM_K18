@@ -1,0 +1,83 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 17
+skinparam backgroundColor #FFFFFF
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #173A59
+skinparam classBackgroundColor #F1F6FB
+skinparam classBorderColor #435568
+skinparam linetype ortho
+hide empty members
+title S1SQ01 — Ghi giỏ và trả phản hồi
+actor Guest
+participant "HTTP / Security" as web
+participant BookshopController as ctl
+participant ChangeCartInteractor as uc
+participant CartPort as cart
+participant CatalogReadPort as catalog
+participant PricingService as price
+participant ChangeCartOutputBoundary as out
+Guest -> web : POST /cart/{id}\nsku, quantity, mode, version, CSRF
+alt thiếu CSRF
+ web --> Guest : 403; không gọi use case
+else CSRF hợp lệ
+ web -> ctl : change(..., HttpSession, Model, response)
+ ctl -> ctl : parse UUID/version/mode\nowner = session.getId()
+ alt định dạng sai
+  ctl --> Guest : 400; không ghi
+ else request hợp lệ
+  ctl -> uc : execute(ChangeCartRequest)
+  uc -> cart : loadOwned(cartId, owner)
+  cart --> uc : Optional<Cart>
+  alt sai chủ hoặc thiếu giỏ
+   uc -> out : present(FORBIDDEN, cart=null)
+  else version cũ
+   uc -> out : present(CONFLICT, cart=null)
+  else số lượng sai
+   uc -> out : present(INVALID_INPUT, cart=null)
+  else lượng hợp lệ
+   opt lượng mới > 0
+    uc -> catalog : find(sku)
+    catalog --> uc : Optional<Book> với H, R
+   end
+   alt mã không bán / hết / vượt A
+    uc -> out : present(NOT_FOUND / OUT_OF_STOCK / EXCEEDS_STOCK)
+   else cho phép thay đổi
+    uc -> uc : Cart.changeLine(sku, quantity)
+    uc -> price : quote(changed.withVersion(v+1))
+    price -> catalog : find(sku) cho từng dòng
+    catalog --> price : giá thường hiện tại
+    price --> uc : CartSnapshot
+    group PostgreSQL transaction trong PostgresCartAdapter.save
+     uc -> cart : save(changed, expectedVersion)
+     cart -> cart : UPDATE version WHERE id/owner/version khớp
+     alt CAS thành công
+      cart -> cart : DELETE/INSERT lines; COMMIT
+     else CAS trượt
+      cart -> cart : không ghi; trả false
+     else SQL lỗi
+      cart -> cart : ROLLBACK toàn bộ; ném lỗi
+     end
+    end
+    cart --> uc : true / false / exception
+    uc -> out : present(OK / CONFLICT / UNAVAILABLE)
+   end
+  end
+  note over out
+   CartPresenter implements OutputBoundary.
+   Trên hình là lời gọi runtime qua port;
+   core không import CartPresenter.
+  end note
+  ctl -> out : CartPresenter.response() qua adapter reference
+  out --> ctl : ChangeCartResponse
+  ctl --> Guest : 303 về /cart hoặc 400/403/404/409/503
+ end
+end
+note over cart,catalog
+Không sửa H/R. Không retry ghi tự động.
+Yêu cầu lặp cùng version bị CONFLICT.
+Giá là báo giá giỏ; S3 phải tái kiểm tra khi đặt đơn.
+end note
+
+@enduml

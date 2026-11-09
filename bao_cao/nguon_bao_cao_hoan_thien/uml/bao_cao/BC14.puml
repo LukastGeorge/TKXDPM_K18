@@ -1,0 +1,29 @@
+@startuml
+skinparam defaultFontName Arial
+skinparam defaultFontSize 19
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam maxMessageSize 220
+hide footbox
+boundary "AuthController /\nAuthPresenter" as W
+control AuthInteractor as I
+database AuthStore as D
+participant "MailPort\nSMTP thật" as M
+W -> I : execute(REGISTER)
+I -> I : validate; hash; token
+I -> D : register(account, hash, expiry, mailJob)
+D --> I : commit / email trùng
+opt đăng ký thành công
+ I -> M : send(email, link)
+ alt SMTP nhận gửi
+  I -> D : sent(jobId)
+ else lỗi / chưa cấu hình
+  I -> I : giữ pending, verified=false
+ end
+end
+I -> W : present(AuthResponse)
+W -> I : execute(VERIFY, token)
+I -> D : verify(hash, now)
+D --> I : true nếu chưa dùng và còn hạn\nfalse nếu sai / dùng lại / hết hạn
+I -> W : present(kết quả xác minh)
+@enduml

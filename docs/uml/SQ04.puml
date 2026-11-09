@@ -1,0 +1,67 @@
+@startuml
+!include style.iuml
+title SQ04 - Tạo đơn COD trong một cam kết
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+actor Khách as U
+boundary Controller as C
+control PlaceOrderInteractor as A
+control "AuthPolicy" as Auth
+control "PricingPolicy" as Price
+database "UnitOfWork +\nOrder/Cart/Stock/Promo ports" as T
+boundary "Presenter tương ứng\nimplements OutputBoundary\n(application sở hữu)" as OUT
+U -> C: đặtCOD(key, cartVersion, quoteRef, delivery)
+C -> C: kiểm format delivery/key/quantity
+C -> A: execute(PlaceOrderRequest(subject, payload))
+A -> Auth: kiểm session/email/owner
+Auth --> A: cho phép hoặc từ chối
+alt từ chối
+ A -> OUT: present(lỗi quyền/xác minh; chưa bắt đầu giao dịch)
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+else được phép
+ group D01 BEGIN - không có dịch vụ ngoài trong giao dịch
+  A -> T: claimRequest(subject, key, fingerprint)
+  alt cùng key đã cam kết
+   T --> A: đơn cũ nếu cùng fingerprint; conflict nếu khác
+   A -> T: END read-only, nhả khóa
+  else yêu cầu mới
+   A -> T: đọc giỏ theo owner/version và catalog/promotion hiện tại
+   T --> A: dữ liệu nguồn từ backend
+   A -> Price: kiểm/báoGiáLại(lines, code, now)
+   Price --> A: giá + recipe SKU / lỗi hoặc cần xác nhận lại
+   alt giá/giỏ/quan hệ không hợp lệ
+    A -> T: ROLLBACK toàn bộ
+    T --> A: không có thay đổi đã cam kết
+   else có Quote và recipe hợp lệ
+    A -> T: khóa/so phiên bản SKU đã gộp và quota theo D03
+    T --> A: H,R,A và lượt khả dụng
+    alt thiếu tồn/lượt hoặc lỗi ghi
+     A -> T: ROLLBACK toàn bộ
+     T --> A: không có thay đổi đã cam kết
+    else đủ theo QD-01/P-PRICE-DETAIL
+     A -> T: giữ toàn bộ SKU + lượt; tạo snapshot COD; lưu key; bỏ dòng giỏ
+     A -> T: COMMIT toàn bộ
+     alt có kết quả cam kết
+      T --> A: orderId, amount, Chờ xác nhận, Chưa thu/Không cần thu
+     else mất kết quả cam kết
+      A -> T: tra lại requestKey trước quyết định retry
+      T --> A: đơn đã cam kết / chưa có kết quả ổn định
+     end
+    end
+   end
+  end
+ end
+ A -> OUT: present(PlaceOrderResponse(orderId? / error / requote))
+ OUT --> A: void
+ A --> C: void
+ C -> OUT: viewModel()
+ OUT --> C: dữ liệu hiển thị / lỗi đã định dạng
+end
+C --> U: trả kết quả; mất phản hồi thì retry cùng key
+note over A,T: Key được tra trước giỏ để retry sau commit vẫn lấy đơn dù giỏ đã xóa dòng.
+note over Price,T: Giữ SKU mua lẻ + thành phần bộ + món kèm được gộp; không giữ dở.
+note over A,OUT: A gọi OutputBoundary; A không import hoặc tự tạo concrete Presenter.\nPresenter giữ ViewModel theo từng request, không dùng singleton có trạng thái.
+footer TC_CHECKOUT_SC034 | TC_CHECKOUT_SC037
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+!include style.iuml
+title AD08B - Đăng ký gửi mail và xác minh email
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+start
+if (Yêu cầu mở liên kết xác minh?) then (có)
+ :Kiểm token đúng tài khoản, chưa dùng và hạn;
+ if (Hợp lệ?) then (không)
+  :Thông báo sai/hết hạn/đã dùng;\nkhông đổi quyền hoặc tự tạo phiên;
+  stop
+ endif
+ :Trong cùng cam kết: đánh dấu email\nđã xác minh và tiêu token;
+ :Trả kết quả; không tự tạo phiên đăng nhập;
+ stop
+else (đăng ký email)
+ :Kiểm họ tên/email/mật khẩu/xác nhận\nvà email chưa tồn tại;
+ if (Hợp lệ?) then (không)
+  :Trả lỗi trường/trùng email; không tạo tài khoản;
+  stop
+ endif
+ :Cam kết tài khoản chưa xác minh\n+ token + yêu cầu gửi thư (D02);
+ :Trả trạng thái đăng ký/yêu cầu gửi;\nchưa được đặt đơn;
+ :Sau cam kết, worker gọi nhà cung cấp mail;
+ if (Provider nhận gửi?) then (không)
+  :Giữ yêu cầu chờ để thử lại;\nkhông xóa tài khoản hoặc xác minh giả;
+ else (có)
+  :Ghi kết quả gửi; chờ người dùng mở liên kết;
+ endif
+endif
+stop
+footer TC_AUTH_SC020 | TC_AUTH_SC021
+@enduml

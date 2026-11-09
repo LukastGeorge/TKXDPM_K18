@@ -1,0 +1,33 @@
+@startuml
+!include style.iuml
+title DFD02 - DFD dữ liệu đặt đơn và kho
+caption Kho và mã ưu đãi: QD-01/02 đã chốt; chi tiết còn mở xem BR; thiết kế chưa có code
+left to right direction
+rectangle "E1 Khách đã xác thực" as C
+usecase "1.0\nXác minh yêu cầu và tạo đơn" as P
+rectangle "D1 Tài khoản/phiên\n[kho dữ liệu]" as A
+rectangle "D2 Giỏ có owner/version\n[kho dữ liệu]" as Cart
+rectangle "D3 Danh mục/giá/chính sách\n[kho dữ liệu]" as Price
+rectangle "D4 Tồn H,R + reservation\n[kho dữ liệu]" as Stock
+rectangle "D5 Mã ưu đãi/quota\n[kho dữ liệu]" as Promo
+rectangle "D6 Đơn/snapshot/requestKey\n[kho dữ liệu]" as Order
+C --> P : key, cartVersion, quoteRef,\nthông tin nhận hàng, COD
+A --> P : accountId, role, verifiedEmail, session
+Cart --> P : dòng giỏ của đúng chủ
+Price --> P : giá hiện hành, thành phần bộ,\nquan hệ mua kèm, version
+Stock --> P : lượng thực tế, giữ và khả dụng
+Promo --> P : điều kiện/lượt/thời hạn
+Order --> P : đơn cũ theo owner + key
+P --> Stock : lượng giữ theo SKU và orderId
+P --> Promo : lượt đang giữ theo orderId
+P --> Order : snapshot giá/đơn + key/fingerprint
+P --> Cart : các dòng đã đặt cần bỏ, version mới
+P --> C : đơn cũ/mới hoặc lỗi/requote
+legend bottom
+ DFD lôgic với ký hiệu kho dữ liệu được ghi nhãn D1..D6.
+ Mũi tên là dữ liệu, không phải lời gọi và không quyết định thứ tự.
+ Các ghi D2/D4/D5/D6 cùng ranh giới D01 đề xuất; lỗi thì không cam kết dở.
+ Kho/giá vẫn là QD-01/chi tiết giá còn chờ duyệt ngoài QD-02.
+endlegend
+footer TC_CHECKOUT_SC034 | TC_CHECKOUT_SC037
+@enduml

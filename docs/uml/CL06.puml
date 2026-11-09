@@ -1,0 +1,72 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL06 - Xác thực — dịch vụ thật nằm ngoài core
+caption Thiết kế đề xuất; chưa có code. REQ-F18/F19; email + Facebook thật; policy linking và TTL còn mở
+top to bottom direction
+interface IdentityInputBoundary <<interface>> #DCEEFF {
+  + register(request: RegisterRequest): void
+  + verifyEmail(request: VerifyEmailRequest): void
+  + login(request: LoginRequest): void
+  + logout(request: LogoutRequest): void
+  + facebookCallback(request: FacebookCallbackRequest): void
+}
+class IdentityInteractor <<use case>> #E2EFFC {
+  - accounts: AccountPort
+  - mailJobs: MailJobPort
+  - facebook: FacebookIdentityPort
+  - output: IdentityOutputBoundary
+  --
+  + register(request: RegisterRequest): void
+  + verifyEmail(request: VerifyEmailRequest): void
+  + login(request: LoginRequest): void
+  + logout(request: LogoutRequest): void
+  + facebookCallback(request: FacebookCallbackRequest): void
+}
+interface IdentityOutputBoundary <<interface>> #DCEEFF {
+  + present(response: IdentityResponse): void
+}
+class IdentityPresenter <<adapter>> #EEF0F4 {
+  + present(response: IdentityResponse): void
+  + viewModel(): IdentityViewModel
+}
+interface FacebookIdentityPort <<interface>> #DCEEFF {
+  + exchange(code: String): ExternalIdentityResult
+}
+class FacebookAdapter <<adapter>> #EEF0F4 {
+  + exchange(code: String): ExternalIdentityResult
+}
+interface MailDeliveryPort <<interface>> #DCEEFF {
+  + send(message: VerificationMessage): MailSendResult
+}
+class RealMailAdapter <<adapter>> #EEF0F4 {
+  + send(message: VerificationMessage): MailSendResult
+}
+class MailJobWorker <<application / proposed>> #F0F6ED {
+  - mail: MailDeliveryPort
+  - jobs: MailJobPort
+  --
+  + processPending(): void
+}
+IdentityInteractor ..|> IdentityInputBoundary
+IdentityInteractor --> IdentityOutputBoundary : output
+IdentityPresenter ..|> IdentityOutputBoundary
+IdentityInteractor --> FacebookIdentityPort : gọi ngoài transaction
+FacebookAdapter ..|> FacebookIdentityPort
+MailJobWorker --> MailDeliveryPort : sau commit
+RealMailAdapter ..|> MailDeliveryPort
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml

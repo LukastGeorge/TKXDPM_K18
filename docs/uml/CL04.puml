@@ -1,0 +1,74 @@
+@startuml
+!include style.iuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+hide empty members
+skinparam titleFontSize 24
+skinparam legendFontSize 16
+title CL04 - Đặt COD — hợp đồng của một cam kết
+caption Thiết kế đề xuất; chưa có code. D01 transaction + D03 locking là thiết kế đề xuất; chưa có bằng chứng PostgreSQL
+top to bottom direction
+interface PlaceOrderInputBoundary <<interface>> #DCEEFF {
+  + execute(request: PlaceOrderRequest): void
+}
+class PlaceOrderRequest <<request>> #F0F6ED {
+  subject: Subject
+  cartId: CartId
+  cartVersion: long
+  acceptedQuote: QuoteReference
+  delivery: DeliveryData
+  requestKey: RequestKey
+}
+class PlaceOrderInteractor <<use case>> #E2EFFC {
+  - unitOfWork: CheckoutUnitOfWork
+  - output: PlaceOrderOutputBoundary
+  - prices: PricingService
+  --
+  + execute(request: PlaceOrderRequest): void
+}
+interface PlaceOrderOutputBoundary <<interface>> #DCEEFF {
+  + present(response: PlaceOrderResponse): void
+}
+class OrderPresenter <<adapter>> #EEF0F4 {
+  - model: OrderViewModel
+  --
+  + present(response: PlaceOrderResponse): void
+  + viewModel(): OrderViewModel
+}
+class PlaceOrderResponse <<response>> #F0F6ED {
+  status: CheckoutStatus
+  order: OrderSnapshot [0..1]
+  newQuote: PriceQuoteData [0..1]
+  errors: ValidationError [0..*]
+}
+interface CheckoutUnitOfWork <<interface>> #DCEEFF {
+  + run(work: CheckoutWork): CheckoutResult
+}
+interface CheckoutContext <<interface>> #DCEEFF {
+  + claim(subject: Subject, key: RequestKey, digest: Digest): ClaimResult
+  + loadCart(id: CartId, owner: Subject): Cart
+  + lockStock(lines: SkuQuantityList): StockSnapshot
+  + stage(order: Order, changes: CheckoutChanges): void
+}
+class PostgresCheckoutUnitOfWork <<adapter>> #EEF0F4 {
+  + run(work: CheckoutWork): CheckoutResult
+}
+PlaceOrderInteractor ..|> PlaceOrderInputBoundary
+PlaceOrderInputBoundary ..> PlaceOrderRequest : input
+PlaceOrderInteractor --> PlaceOrderOutputBoundary : output
+OrderPresenter ..|> PlaceOrderOutputBoundary
+PlaceOrderOutputBoundary ..> PlaceOrderResponse : output
+PlaceOrderInteractor --> CheckoutUnitOfWork : cam kết nguyên tử
+PostgresCheckoutUnitOfWork ..|> CheckoutUnitOfWork
+CheckoutUnitOfWork ..> CheckoutContext : truyền context vào work
+legend bottom left
+  Nét đứt, mũi tên thường: dependency.
+  Nét đứt, tam giác rỗng: realization (implements).
+  Nét liền, mũi tên thường: association có hướng.
+  Thoi đặc ở đầu chứa: composition.
+  Kiểu dữ liệu phụ: xem HOP_DONG_DU_LIEU.md.
+  Thiết kế dự kiến; chưa có mã ứng dụng.
+endlegend
+@enduml
