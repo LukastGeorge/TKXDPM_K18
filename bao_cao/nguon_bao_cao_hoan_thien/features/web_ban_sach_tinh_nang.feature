@@ -24,7 +24,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Người chưa đăng nhập xem được danh sách sách đang giới thiệu
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC001 @SC001 @REQ-F01 @BR-002 @BR-031 @s1
+    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC001 @SC001 @REQ-F01 @BR-002 @BR-031 @s1 @happy_path
     Scenario: Xem danh sách sách mà không cần đăng nhập
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -36,7 +36,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And hệ thống không yêu cầu tôi đăng nhập để xem danh sách
 
     # SC002 -> TC_CATALOG_SC002; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC002 @SC002 @assumption_P_DETAIL @approved_policy @REQ-F01 @BR-002 @BR-031
+    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC002 @SC002 @assumption_P_DETAIL @approved_policy @REQ-F01 @BR-002 @BR-031 @happy_path
     Scenario: Sách ngừng hiển thị không xuất hiện trong danh sách công khai
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -47,7 +47,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       But danh sách không có "S002"
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC003 @SC003 @REQ-F01 @BR-002 @BR-031 @s1
+    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC003 @SC003 @REQ-F01 @BR-002 @BR-031 @s1 @unhappy_path
     Scenario: Danh mục chưa có sách hiển thị
       Given tất cả sách trong danh mục đã ngừng hiển thị
       When guest mở danh sách sách
@@ -55,7 +55,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không hiển thị lỗi hệ thống hoặc một sản phẩm giả
 
     # SC004 -> TC_CATALOG_SC004; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC004 @SC004 @assumption_P_DETAIL @approved_policy @REQ-F01 @BR-002 @BR-031
+    @catalog @REQ_CATALOG_001 @TC_CATALOG_SC004 @SC004 @assumption_P_DETAIL @approved_policy @REQ-F01 @BR-002 @BR-031 @happy_path
     Scenario: Chuyển trang khi có nhiều sách
       Given danh mục thử có đúng 13 sách đang hiển thị với mã và tên khác nhau
       And cấu hình phân trang thử là 12 sách mỗi trang
@@ -73,7 +73,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Người xem mở được thông tin chi tiết của một sách
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC005 @SC005 @REQ-F02 @BR-001 @BR-002 @s1
+    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC005 @SC005 @REQ-F02 @BR-001 @BR-002 @s1 @happy_path
     Scenario: Mở chi tiết từ danh sách sách
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       When guest chọn xem chi tiết sách "S001" từ danh sách
@@ -82,7 +82,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giá hiển thị là 120000 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC006 @SC006 @REQ-F02 @BR-001 @BR-002 @s1
+    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC006 @SC006 @REQ-F02 @BR-001 @BR-002 @s1 @unhappy_path
     Scenario: Xem một mã sách không tồn tại
       Given danh mục thử không có mã sách KHONG_TON_TAI
       When guest mở chi tiết sách có mã "KHONG_TON_TAI"
@@ -90,7 +90,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không cho thêm mã sách đó vào giỏ
 
     # SC007 -> TC_CATALOG_SC007; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC007 @SC007 @assumption_P_DETAIL @approved_policy @REQ-F02 @BR-001 @BR-002
+    @catalog @REQ_CATALOG_002 @TC_CATALOG_SC007 @SC007 @assumption_P_DETAIL @approved_policy @REQ-F02 @BR-001 @BR-002 @unhappy_path
     Scenario: Mở lại đường dẫn của sách đã ngừng hiển thị
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And sách "S001" đã ngừng hiển thị
@@ -107,7 +107,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giỏ hàng] Chọn mua sách từ danh sách hoặc chi tiết sẽ đưa sách vào giỏ
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_001 @TC_CART_SC008 @SC008 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_001 @TC_CART_SC008 @SC008 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1 @happy_path
     Scenario Outline: Thêm một sách từ hai vị trí được đề yêu cầu [<case_id>]
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -123,7 +123,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CART_SC008_R02 | màn hình chi tiết |
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_001 @TC_CART_SC009 @SC009 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_001 @TC_CART_SC009 @SC009 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1 @happy_path
     Scenario: Thêm lại sách đã có trong giỏ
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -133,7 +133,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And thành tiền của dòng là 360000 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_001 @TC_CART_SC010 @SC010 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_001 @TC_CART_SC010 @SC010 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1 @unhappy_path
     Scenario: Không thêm được sách hết hàng
       Given dữ liệu gốc sách S003 tên "Truyện ngắn chọn lọc", giá niêm yết 90000 VND, tồn ban đầu 0, giữ chỗ 0, tác giả 3, NXB thử, thể loại TL02 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -143,7 +143,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ vẫn trống
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_001 @TC_CART_SC011 @SC011 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_001 @TC_CART_SC011 @SC011 @REQ-F03 @BR-003 @BR-004 @BR-013 @BR-016 @s1 @unhappy_path
     Scenario: Thêm sách làm tổng số lượng vượt tồn kho
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -161,7 +161,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giỏ hàng] Giỏ hàng thể hiện đúng các sách người dùng đã chọn
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_002 @TC_CART_SC012 @SC012 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1
+    @cart @REQ_CART_002 @TC_CART_SC012 @SC012 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1 @happy_path
     Scenario: Xem giỏ và tổng tiền của nhiều sách
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -177,7 +177,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tổng tiền sách là 420000 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_002 @TC_CART_SC013 @SC013 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1
+    @cart @REQ_CART_002 @TC_CART_SC013 @SC013 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1 @unhappy_path
     Scenario: Xem giỏ chưa có sách
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And guest có giỏ hàng trống
@@ -187,7 +187,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không cho tạo đơn từ giỏ trống
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_002 @TC_CART_SC014 @SC014 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1
+    @cart @REQ_CART_002 @TC_CART_SC014 @SC014 @REQ-F04 @BR-003 @BR-004 @BR-016 @s1 @happy_path
     Scenario: Hai guest không dùng chung giỏ hàng
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -206,7 +206,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giỏ hàng] Sửa số lượng bằng không sẽ bỏ sách khỏi giỏ
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_003 @TC_CART_SC015 @SC015 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_003 @TC_CART_SC015 @SC015 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1 @happy_path
     Scenario: Đổi số lượng và tính lại thành tiền
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -216,7 +216,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And thành tiền và tổng tiền sách đều là 360000 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_003 @TC_CART_SC016 @SC016 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_003 @TC_CART_SC016 @SC016 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1 @happy_path
     Scenario: Số lượng bằng 0 chỉ bỏ dòng sách được chọn
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -228,7 +228,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tổng tiền sách là 180000 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_003 @TC_CART_SC017 @SC017 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_003 @TC_CART_SC017 @SC017 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1 @happy_path
     Scenario: Bỏ sách cuối cùng khỏi giỏ bằng số lượng 0
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -238,7 +238,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tổng tiền sách là 0 VND
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_003 @TC_CART_SC018 @SC018 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_003 @TC_CART_SC018 @SC018 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1 @unhappy_path
     Scenario Outline: Từ chối số lượng không hợp lệ mà giữ nguyên giỏ [<case_id>]
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -256,7 +256,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CART_SC018_R05 | 11       | Số lượng vượt tồn kho khả dụng 10 |
 
     # S1 đã duyệt theo xác nhận tiếp tục triển khai; tag không phải kết quả test.
-    @cart @REQ_CART_003 @TC_CART_SC019 @SC019 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1
+    @cart @REQ_CART_003 @TC_CART_SC019 @SC019 @REQ-F04 @BR-003 @BR-013 @BR-016 @s1 @happy_path
     Scenario: Chấp nhận số lượng đúng bằng tồn kho
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -274,7 +274,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Guest đăng ký tài khoản bằng email
 
     # SC020 -> TC_AUTH_SC020; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_001 @TC_AUTH_SC020 @SC020 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030
+    @auth @REQ_AUTH_001 @TC_AUTH_SC020 @SC020 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030 @happy_path
     Scenario: Đăng ký email với thông tin hợp lệ
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And chưa có tài khoản dùng email "banmoi@example.test"
@@ -287,7 +287,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And phản hồi đăng ký không hiển thị lại mật khẩu
 
     # SC021 -> TC_AUTH_SC021; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_001 @TC_AUTH_SC021 @SC021 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030
+    @auth @REQ_AUTH_001 @TC_AUTH_SC021 @SC021 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030 @unhappy_path
     Scenario: Email đã có tài khoản sau khi chuẩn hóa
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       When guest đăng ký với email "  KH01@EXAMPLE.TEST  " và các trường còn lại hợp lệ
@@ -296,7 +296,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And thông tin tài khoản "KH01" không thay đổi
 
     # SC022 -> TC_AUTH_SC022; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_001 @TC_AUTH_SC022 @SC022 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030
+    @auth @REQ_AUTH_001 @TC_AUTH_SC022 @SC022 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030 @unhappy_path
     Scenario Outline: Kiểm tra các trường đăng ký email [<case_id>]
       Given các email mới trong bảng đăng ký chưa được sử dụng
       When guest đăng ký với họ tên "<họ tên>", email "<email>", mật khẩu "<mật khẩu>" và xác nhận "<xác nhận>"
@@ -313,7 +313,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_AUTH_SC022_R06 | Người mua | moi@example.test   | Sach#2026 | Sach#2027 | Xác nhận mật khẩu không khớp |
 
     # SC023 -> TC_AUTH_SC023; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_001 @TC_AUTH_SC023 @SC023 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030
+    @auth @REQ_AUTH_001 @TC_AUTH_SC023 @SC023 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F18 @REQ-F19 @BR-026 @BR-028 @BR-030 @unhappy_path
     Scenario: Không tự đăng ký thành admin bằng dữ liệu bị sửa
       Given website đang hoạt động với dữ liệu độc lập và người truy cập là guest
       When guest gửi đăng ký hợp lệ kèm giá trị vai trò "admin" do guest tự thêm
@@ -330,7 +330,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Guest đăng ký qua tài khoản mạng xã hội được website hỗ trợ
 
     # SC024 -> TC_AUTH_SC024; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_002 @TC_AUTH_SC024 @SC024 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028
+    @auth @REQ_AUTH_002 @TC_AUTH_SC024 @SC024 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028 @happy_path
     Scenario: Đăng ký bằng nhà cung cấp xã hội đã cấu hình
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And chưa có tài khoản cho định danh "SOCIAL-001" của nhà cung cấp được cấu hình
@@ -341,7 +341,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And website không yêu cầu hoặc lưu mật khẩu của tài khoản mạng xã hội
 
     # SC025 -> TC_AUTH_SC025; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_002 @TC_AUTH_SC025 @SC025 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028
+    @auth @REQ_AUTH_002 @TC_AUTH_SC025 @SC025 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028 @unhappy_path
     Scenario Outline: Không tạo tài khoản khi luồng đăng ký xã hội chưa thành công [<case_id>]
       Given guest bắt đầu đăng ký qua nhà cung cấp được cấu hình
       When kết quả xác thực là "<kết quả>"
@@ -356,7 +356,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_AUTH_SC025_R03 | Dữ liệu xác thực không hợp lệ        |
 
     # SC026 -> TC_AUTH_SC026; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_002 @TC_AUTH_SC026 @SC026 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028
+    @auth @REQ_AUTH_002 @TC_AUTH_SC026 @SC026 @assumption_P_DETAIL @approved_policy @REQ-F05 @REQ-F19 @BR-026 @BR-027 @BR-028 @unhappy_path
     Scenario: Không chiếm tài khoản email bằng đăng ký xã hội
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
@@ -375,7 +375,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Đăng nhập đúng tài khoản và đăng xuất kết thúc quyền truy cập của phiên
 
     # SC027 -> TC_AUTH_SC027; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_003 @TC_AUTH_SC027 @SC027 @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028
+    @auth @REQ_AUTH_003 @TC_AUTH_SC027 @SC027 @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028 @happy_path
     Scenario Outline: Đăng nhập tài khoản đang hoạt động [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -390,7 +390,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_AUTH_SC027_R02 | admin@example.test | admin    | QT01         |
 
     # SC028 -> TC_AUTH_SC028; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_003 @TC_AUTH_SC028 @SC028 @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028
+    @auth @REQ_AUTH_003 @TC_AUTH_SC028 @SC028 @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028 @unhappy_path
     Scenario Outline: Không đăng nhập được bằng thông tin không đúng [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       When guest đăng nhập bằng "<email>" và mật khẩu "<mật khẩu>"
@@ -403,7 +403,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_AUTH_SC028_R02 | chuatontai@example.test | MatKhau#2026 |
 
     # SC029 -> TC_AUTH_SC029; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_003 @TC_AUTH_SC029 @SC029 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028
+    @auth @REQ_AUTH_003 @TC_AUTH_SC029 @SC029 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028 @unhappy_path
     Scenario: Tài khoản bị khóa không đăng nhập được
       Given tài khoản KH03 có email khoa@example.test, vai trò customer, mật khẩu thử MatKhau#2026, bị khóa
       When guest đăng nhập bằng "khoa@example.test" và mật khẩu đúng
@@ -411,7 +411,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không cấp phiên đăng nhập
 
     # SC030 -> TC_AUTH_SC030; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_003 @TC_AUTH_SC030 @SC030 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028
+    @auth @REQ_AUTH_003 @TC_AUTH_SC030 @SC030 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028 @happy_path
     Scenario: Đăng xuất làm phiên hiện tại mất quyền customer
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản "KH01" đang đăng nhập
@@ -421,7 +421,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       But danh mục sách công khai vẫn cho guest truy cập
 
     # SC031 -> TC_AUTH_SC031; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_003 @TC_AUTH_SC031 @SC031 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028
+    @auth @REQ_AUTH_003 @TC_AUTH_SC031 @SC031 @assumption_P_DETAIL @approved_policy @REQ-F06 @BR-016 @BR-017 @BR-026 @BR-028 @happy_path
     Scenario: Giữ giỏ guest khi đăng nhập trong cùng phiên
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -440,7 +440,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đặt hàng] Tài khoản đăng nhập được lập đơn từ giỏ hợp lệ
 
     # SC032 -> TC_CHECKOUT_SC032; có căn cứ/đã chốt trong phạm vi mô tả
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC032 @SC032 @confirmed_stock @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC032 @SC032 @confirmed_stock @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @happy_path
     Scenario Outline: Customer và admin được mua vào giỏ như guest [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -456,7 +456,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CHECKOUT_SC032_R02 | QT01      |
 
     # SC033 -> TC_CHECKOUT_SC033; có căn cứ/đã chốt trong phạm vi mô tả
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC033 @SC033 @confirmed_stock @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC033 @SC033 @confirmed_stock @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario: Guest cần đăng nhập trước khi thanh toán
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -467,7 +467,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ vẫn giữ 1 quyển "S001"
 
     # SC034 -> TC_CHECKOUT_SC034; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC034 @SC034 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC034 @SC034 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @happy_path
     Scenario Outline: Lập đơn COD giữ hàng trước khi giao và chưa ghi nhận đã thu tiền [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -490,7 +490,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CHECKOUT_SC034_R02 | QT01      |
 
     # SC035 -> TC_CHECKOUT_SC035; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC035 @SC035 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC035 @SC035 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario: Không lập đơn từ giỏ rỗng
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -500,7 +500,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo đơn hoặc giao dịch thanh toán
 
     # SC036 -> TC_CHECKOUT_SC036; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC036 @SC036 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC036 @SC036 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario Outline: Thiếu trường bắt buộc trong thông tin nhận hàng [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -518,7 +518,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CHECKOUT_SC036_R03 | Địa chỉ nhận hàng |
 
     # SC037 -> TC_CHECKOUT_SC037; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC037 @SC037 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC037 @SC037 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario: Tồn kho giảm sau khi khách thêm sách vào giỏ
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -531,7 +531,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo giao dịch thanh toán
 
     # SC038 -> TC_CHECKOUT_SC038; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC038 @SC038 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC038 @SC038 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario: Sách trong giỏ đã ngừng bán trước khi đặt hàng
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -543,7 +543,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo đơn hoặc giao dịch thanh toán
 
     # SC039 -> TC_CHECKOUT_SC039; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC039 @SC039 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029
+    @checkout @REQ_CHECKOUT_001 @TC_CHECKOUT_SC039 @SC039 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F07 @REQ-F17 @REQ-F20 @BR-013 @BR-014 @BR-018 @BR-019 @BR-022 @BR-026 @BR-029 @unhappy_path
     Scenario: Giá thay đổi phải được xác nhận lại trước thanh toán
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -563,7 +563,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đơn hàng] Khách hàng xem được trạng thái các đơn thuộc tài khoản của mình
 
     # SC047 -> TC_ORDER_SC047; có căn cứ/đã chốt trong phạm vi mô tả
-    @order @REQ_ORDER_001 @TC_ORDER_SC047 @SC047 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028
+    @order @REQ_ORDER_001 @TC_ORDER_SC047 @SC047 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028 @happy_path
     Scenario: Xem danh sách và chi tiết trạng thái đơn COD của mình
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -574,7 +574,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And trạng thái thanh toán là "Chưa thu", phương thức là "COD"
 
     # SC048 -> TC_ORDER_SC048; có căn cứ/đã chốt trong phạm vi mô tả
-    @order @REQ_ORDER_001 @TC_ORDER_SC048 @SC048 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028
+    @order @REQ_ORDER_001 @TC_ORDER_SC048 @SC048 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028 @unhappy_path
     Scenario: Khách hàng chưa có đơn
       Given tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -584,7 +584,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không hiển thị đơn của tài khoản khác
 
     # SC049 -> TC_ORDER_SC049; có căn cứ/đã chốt trong phạm vi mô tả
-    @order @REQ_ORDER_001 @TC_ORDER_SC049 @SC049 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028
+    @order @REQ_ORDER_001 @TC_ORDER_SC049 @SC049 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028 @unhappy_path
     Scenario: Customer không xem được đơn của customer khác qua mã đơn
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -595,7 +595,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And thông báo không có quyền truy cập hoặc không tìm thấy đơn trong phạm vi tài khoản
 
     # SC050 -> TC_ORDER_SC050; có căn cứ/đã chốt trong phạm vi mô tả
-    @order @REQ_ORDER_001 @TC_ORDER_SC050 @SC050 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028
+    @order @REQ_ORDER_001 @TC_ORDER_SC050 @SC050 @confirmed_stock @REQ-F07 @REQ-F22 @BR-022 @BR-025 @BR-028 @unhappy_path
     Scenario: Xem mã đơn không tồn tại
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -613,7 +613,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Quản trị] Admin tìm kiếm được sách thể loại tài khoản và đơn hàng
 
     # SC051 -> TC_ADMIN_SC051; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @admin @REQ_ADMIN_001 @TC_ADMIN_SC051 @SC051 @assumption_P_DETAIL @approved_policy @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028
+    @admin @REQ_ADMIN_001 @TC_ADMIN_SC051 @SC051 @assumption_P_DETAIL @approved_policy @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028 @happy_path
     Scenario Outline: Tìm đúng thông tin trong từng nhóm quản trị [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -633,7 +633,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_ADMIN_SC051_R04 | Đơn hàng  | DH01              | DH01    |
 
     # SC052 -> TC_ADMIN_SC052; có căn cứ/đã chốt trong phạm vi mô tả
-    @admin @REQ_ADMIN_001 @TC_ADMIN_SC052 @SC052 @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028
+    @admin @REQ_ADMIN_001 @TC_ADMIN_SC052 @SC052 @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028 @unhappy_path
     Scenario: Tìm kiếm không có kết quả
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And "QT01" đang đăng nhập quản trị
@@ -642,7 +642,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And dữ liệu danh mục không thay đổi
 
     # SC053 -> TC_ADMIN_SC053; có căn cứ/đã chốt trong phạm vi mô tả
-    @admin @REQ_ADMIN_001 @TC_ADMIN_SC053 @SC053 @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028
+    @admin @REQ_ADMIN_001 @TC_ADMIN_SC053 @SC053 @REQ-F08 @REQ-F09 @REQ-F22 @BR-002 @BR-025 @BR-028 @unhappy_path
     Scenario Outline: Guest và customer không dùng được chức năng quản trị [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And người truy cập có trạng thái "<trạng thái>"
@@ -671,7 +671,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Admin quản lý thông tin sách và khả năng xuất hiện trên website
 
     # SC054 -> TC_CATALOG_SC054; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC054 @SC054 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC054 @SC054 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @happy_path
     Scenario: Tạo sách mới chưa tự phát sinh hàng trong kho
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And thể loại TL01 là Kỹ thuật và TL02 là Văn học đang tồn tại
@@ -685,7 +685,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And guest xem được sách với tình trạng hết hàng
 
     # SC055 -> TC_CATALOG_SC055; có căn cứ/đã chốt trong phạm vi mô tả
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC055 @SC055 @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC055 @SC055 @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @happy_path
     Scenario: Sửa thông tin sách và công khai thông tin mới
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -696,7 +696,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo một sách khác thay cho bản ghi đã sửa
 
     # SC056 -> TC_CATALOG_SC056; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC056 @SC056 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC056 @SC056 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @unhappy_path
     Scenario Outline: Không lưu dữ liệu sách không hợp lệ [<case_id>]
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -715,7 +715,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CATALOG_SC056_R06 | Thể loại | KHONG_TON_TAI | Thể loại không tồn tại    |
 
     # SC057 -> TC_CATALOG_SC057; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC057 @SC057 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC057 @SC057 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @happy_path
     Scenario: Kiểm kê về 0 được ghi nhận bằng nghiệp vụ kho có lý do
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -726,7 +726,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And sách vẫn được giới thiệu là hết hàng và không thể mua mới
 
     # SC058 -> TC_CATALOG_SC058; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC058 @SC058 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC058 @SC058 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @happy_path
     Scenario: Ngừng hiển thị sách mà giữ lịch sử đơn
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -738,7 +738,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chi tiết "DH01" vẫn giữ tên, số lượng và đơn giá tại thời điểm đặt đơn
 
     # SC059 -> TC_CATALOG_SC059; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC059 @SC059 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028
+    @catalog @REQ_CATALOG_003 @TC_CATALOG_SC059 @SC059 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-001 @BR-002 @BR-004 @BR-013 @BR-022 @BR-028 @happy_path
     Scenario: Sửa giá sách không làm thay đổi đơn đã tạo
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -756,7 +756,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Admin quản lý thể loại dùng để phân loại sách
 
     # SC060 -> TC_CATALOG_SC060; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC060 @SC060 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028
+    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC060 @SC060 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028 @happy_path
     Scenario: Thêm thể loại mới để phân loại sách
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And "QT01" đang đăng nhập quản trị
@@ -764,7 +764,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       Then thể loại được lưu và có thể chọn khi thêm sách
 
     # SC061 -> TC_CATALOG_SC061; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC061 @SC061 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028
+    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC061 @SC061 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028 @unhappy_path
     Scenario Outline: Từ chối thể loại không hợp lệ [<case_id>]
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And thể loại TL01 là Kỹ thuật và TL02 là Văn học đang tồn tại
@@ -779,7 +779,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_CATALOG_SC061_R02 | TL03 |          | Tên thể loại là bắt buộc |
 
     # SC062 -> TC_CATALOG_SC062; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC062 @SC062 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028
+    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC062 @SC062 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028 @happy_path
     Scenario: Xóa thể loại chưa có sách sử dụng
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And "QT01" đang đăng nhập và thể loại "TL03" tồn tại nhưng không có sách nào sử dụng
@@ -788,7 +788,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And các thể loại khác không thay đổi
 
     # SC063 -> TC_CATALOG_SC063; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC063 @SC063 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028
+    @catalog @REQ_CATALOG_004 @TC_CATALOG_SC063 @SC063 @assumption_P_DETAIL @approved_policy @REQ-F09 @BR-002 @BR-028 @unhappy_path
     Scenario: Không xóa thể loại đang có sách
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And thể loại TL01 là Kỹ thuật và TL02 là Văn học đang tồn tại
@@ -809,7 +809,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Admin xem và quản lý thông tin tài khoản customer
 
     # SC064 -> TC_AUTH_SC064; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_004 @TC_AUTH_SC064 @SC064 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028
+    @auth @REQ_AUTH_004 @TC_AUTH_SC064 @SC064 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028 @happy_path
     Scenario: Xem và sửa thông tin cơ bản của customer
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -820,7 +820,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And màn hình quản trị không hiển thị mật khẩu của customer
 
     # SC065 -> TC_AUTH_SC065; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_004 @TC_AUTH_SC065 @SC065 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028
+    @auth @REQ_AUTH_004 @TC_AUTH_SC065 @SC065 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028 @happy_path
     Scenario: Khóa customer ngăn đăng nhập và sử dụng phiên cũ
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -832,7 +832,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And lịch sử đơn của "KH01" vẫn còn để admin quản lý
 
     # SC066 -> TC_AUTH_SC066; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_004 @TC_AUTH_SC066 @SC066 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028
+    @auth @REQ_AUTH_004 @TC_AUTH_SC066 @SC066 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028 @happy_path
     Scenario: Mở khóa customer
       Given tài khoản KH03 có email khoa@example.test, vai trò customer, mật khẩu thử MatKhau#2026, bị khóa
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -843,7 +843,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tự tạo thêm tài khoản hoặc đặt lại mật khẩu của "KH03"
 
     # SC067 -> TC_AUTH_SC067; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_004 @TC_AUTH_SC067 @SC067 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028
+    @auth @REQ_AUTH_004 @TC_AUTH_SC067 @SC067 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028 @unhappy_path
     Scenario: Không xóa cứng customer có lịch sử đơn
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -853,7 +853,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tài khoản và đơn hàng cũ vẫn có thể được admin tra cứu
 
     # SC068 -> TC_AUTH_SC068; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_004 @TC_AUTH_SC068 @SC068 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028
+    @auth @REQ_AUTH_004 @TC_AUTH_SC068 @SC068 @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F22 @BR-025 @BR-026 @BR-028 @unhappy_path
     Scenario: Sửa tài khoản không tồn tại
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And "QT01" đang đăng nhập quản trị
@@ -870,7 +870,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đơn hàng] Admin quản lý đơn trực tuyến mà giữ đúng nội dung và quyền sở hữu đơn
 
     # SC069 -> TC_ORDER_SC069; có căn cứ/đã chốt trong phạm vi mô tả
-    @order @REQ_ORDER_002 @TC_ORDER_SC069 @SC069 @confirmed_stock @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028
+    @order @REQ_ORDER_002 @TC_ORDER_SC069 @SC069 @confirmed_stock @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028 @happy_path
     Scenario: Admin xem đơn của các customer để xử lý
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -883,7 +883,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And xem được các sách, số lượng, tổng tiền, thông tin nhận hàng và hai trạng thái của đơn
 
     # SC070 -> TC_ORDER_SC070; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_002 @TC_ORDER_SC070 @SC070 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028
+    @order @REQ_ORDER_002 @TC_ORDER_SC070 @SC070 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028 @happy_path
     Scenario: Xác nhận đơn COD không đòi khách trả tiền trước
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -896,7 +896,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tồn thực tế và lượng giữ chỗ chưa thay đổi
 
     # SC072 -> TC_ORDER_SC072; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_002 @TC_ORDER_SC072 @SC072 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028
+    @order @REQ_ORDER_002 @TC_ORDER_SC072 @SC072 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028 @unhappy_path
     Scenario Outline: Không chuyển trạng thái COD ngược hoặc bỏ qua bước [<case_id>]
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -912,7 +912,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_ORDER_SC072_R03 | Hoàn tất     | Đã thu   | Chờ xác nhận |
 
     # SC073 -> TC_ORDER_SC073; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_002 @TC_ORDER_SC073 @SC073 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028
+    @order @REQ_ORDER_002 @TC_ORDER_SC073 @SC073 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F09 @REQ-F17 @BR-014 @BR-015 @BR-019 @BR-028 @happy_path
     Scenario: Hủy đơn COD trước khi bàn giao sẽ trả lại lượng hàng giữ chỗ
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -935,7 +935,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Kho] Kho phân biệt hàng thực tế hàng giữ chỗ và hàng còn được bán
 
     # KHO01 -> TC_INV_KHO01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO01 @KHO01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO01 @KHO01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @happy_path
     Scenario: Xem số lượng có thể bán khi một phần hàng đã giữ cho đơn
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -945,7 +945,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And khách chỉ được đặt thêm tối đa 7 quyển theo tồn khả dụng tại lúc đặt
 
     # KHO02 -> TC_INV_KHO02; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO02 @KHO02 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO02 @KHO02 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @happy_path
     Scenario: Ghi nhận nhập thêm sách bằng phiếu nhập
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -955,7 +955,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And lịch sử kho có một lần nhập tăng 5 gắn với "PN001", người thực hiện và lý do
 
     # KHO03 -> TC_INV_KHO03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO03 @KHO03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO03 @KHO03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @happy_path
     Scenario: Gửi lại phiếu nhập đã xác nhận không tăng hàng lần nữa
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And phiếu "PN001" đã nhập 5 quyển "S001" làm tồn thực tế tăng từ 10 lên 15
@@ -964,7 +964,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And lịch sử chỉ có một lần nhập cho "PN001"
 
     # KHO09 -> TC_INV_KHO09; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO09 @KHO09 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO09 @KHO09 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @unhappy_path
     Scenario: Nhập kho cho mã chưa có trong danh mục bị từ chối
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And "QT01" đang đăng nhập và danh mục chưa có mã "SKU-KHONG-TON-TAI"
@@ -973,7 +973,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo tồn kho hoặc phiếu nhập thành công cho mã không tồn tại
 
     # KHO04 -> TC_INV_KHO04; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO04 @KHO04 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO04 @KHO04 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @unhappy_path
     Scenario Outline: Từ chối số lượng nhập không hợp lệ [<case_id>]
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -990,7 +990,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_INV_KHO04_R04 | abc      |
 
     # KHO05 -> TC_INV_KHO05; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_001 @TC_INV_KHO05 @KHO05 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028
+    @inventory @REQ_INV_001 @TC_INV_KHO05 @KHO05 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @BR-013 @BR-024 @BR-028 @unhappy_path
     Scenario: Kiểm kê không được làm tồn thực tế nhỏ hơn số hàng đã giữ
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1009,7 +1009,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Kho] Chỉ bàn giao vận chuyển mới xuất hàng đã giữ cho đơn
 
     # KHO06 -> TC_INV_KHO06; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_002 @TC_INV_KHO06 @KHO06 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024
+    @inventory @REQ_INV_002 @TC_INV_KHO06 @KHO06 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024 @happy_path
     Scenario: Bàn giao đơn COD làm giảm tồn thực tế và lượng giữ của cùng đơn
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1021,7 +1021,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And lịch sử có đúng một phiếu xuất 3 quyển gắn với "DH01" và "BG001"
 
     # KHO07 -> TC_INV_KHO07; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_002 @TC_INV_KHO07 @KHO07 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024
+    @inventory @REQ_INV_002 @TC_INV_KHO07 @KHO07 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024 @happy_path
     Scenario: Xác nhận bàn giao lặp không xuất kho hai lần
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And "DH01" đã bàn giao bằng "BG001" làm tồn thực tế "S001" giảm từ 10 xuống 7
@@ -1030,7 +1030,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không phát sinh phiếu xuất hoặc lần thu tiền mới
 
     # SC046 -> TC_INV_SC046; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_002 @TC_INV_SC046 @SC046 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024
+    @inventory @REQ_INV_002 @TC_INV_SC046 @SC046 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024 @unhappy_path
     Scenario: Hai khách đồng thời đặt quyển sách cuối chỉ một đơn được giữ hàng
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -1044,7 +1044,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tài khoản nào bị ghi nhận đã trả tiền khi mới đặt COD
 
     # KHO08 -> TC_INV_KHO08; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @inventory @REQ_INV_002 @TC_INV_KHO08 @KHO08 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024
+    @inventory @REQ_INV_002 @TC_INV_KHO08 @KHO08 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-023 @BR-024 @unhappy_path
     Scenario: Hủy sau khi bàn giao không được giả lập trả hàng vào kho
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And "DH01" đã bàn giao 2 quyển "S001", đang giao và tồn thực tế đã giảm từ 10 xuống 8
@@ -1062,7 +1062,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Bán giá thường tính tiền theo đúng đơn giá và số lượng khách chọn
 
     # BH01 -> TC_PRICE_BH01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_001 @TC_PRICE_BH01 @BH01 @confirmed_stock @confirmed_price_detail @approved_policy @REQ-F11 @BR-004 @BR-014
+    @pricing @REQ_PRICE_001 @TC_PRICE_BH01 @BH01 @confirmed_stock @confirmed_price_detail @approved_policy @REQ-F11 @BR-004 @BR-014 @happy_path
     Scenario: Mua sách theo giá thường không có ưu đãi
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1081,7 +1081,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Giảm giá sản phẩm chỉ áp dụng trong khoảng thời gian đã cấu hình
 
     # BH02 -> TC_PRICE_BH02; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_002 @TC_PRICE_BH02 @BH02 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005
+    @pricing @REQ_PRICE_002 @TC_PRICE_BH02 @BH02 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005 @happy_path
     Scenario Outline: Kiểm tra chính xác thời điểm bắt đầu và kết thúc giảm giá [<case_id>]
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1100,7 +1100,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PRICE_BH02_R04 | 2026-10-30T09:00:00+07:00 | 120000  | 240000     |
 
     # BH03 -> TC_PRICE_BH03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_002 @TC_PRICE_BH03 @BH03 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005
+    @pricing @REQ_PRICE_002 @TC_PRICE_BH03 @BH03 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005 @happy_path
     Scenario: Làm tròn xuống số VND tiền giảm
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And một sách có giá niêm yết 99999 VND và đang giảm 15 phần trăm
@@ -1109,7 +1109,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giá bán là 85000 VND
 
     # BH04 -> TC_PRICE_BH04; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_002 @TC_PRICE_BH04 @BH04 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005
+    @pricing @REQ_PRICE_002 @TC_PRICE_BH04 @BH04 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F12 @BR-004 @BR-005 @unhappy_path
     Scenario Outline: Không kích hoạt cấu hình giảm giá không hợp lệ [<case_id>]
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1135,7 +1135,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Coupon và voucher giảm tiền theo quy ước riêng và điều kiện công khai
 
     # BH05 -> TC_PRICE_BH05; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH05 @BH05 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH05 @BH05 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @happy_path
     Scenario: Coupon giảm phần trăm cho giỏ đạt giá trị tối thiểu
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1149,7 +1149,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chưa tiêu hoặc giữ lượt dùng mã chỉ vì xem báo giá
 
     # BH06 -> TC_PRICE_BH06; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH06 @BH06 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH06 @BH06 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @happy_path
     Scenario: Voucher cố định chỉ dùng cho tài khoản được cấp
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1162,7 +1162,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chưa ghi nhận voucher đã sử dụng
 
     # BH07 -> TC_PRICE_BH07; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH07 @BH07 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH07 @BH07 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @unhappy_path
     Scenario Outline: Từ chối mã không đủ điều kiện và giữ nguyên giá giỏ [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -1186,7 +1186,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PRICE_BH07_R07 | Chiến dịch hết hạn mức khả dụng     | Mã đã hết hạn mức            |
 
     # BH08 -> TC_PRICE_BH08; có căn cứ/đã chốt trong phạm vi mô tả
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH08 @BH08 @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH08 @BH08 @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @unhappy_path
     Scenario: Không cộng dồn coupon và voucher trên một đơn
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1197,7 +1197,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And khách có thể chủ động bỏ mã cũ rồi báo giá lại với mã khác
 
     # BH09 -> TC_PRICE_BH09; có căn cứ/đã chốt trong phạm vi mô tả
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH09 @BH09 @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH09 @BH09 @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @unhappy_path
     Scenario Outline: Chính sách cơ sở không cộng mã với chế độ giá đặc biệt [<case_id>]
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And giỏ đang sử dụng "<chế độ>" và có báo giá hợp lệ trước khi nhập mã
@@ -1213,7 +1213,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PRICE_BH09_R04 | Mua đính kèm      |
 
     # BH10 -> TC_PRICE_BH10; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH10 @BH10 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH10 @BH10 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @happy_path
     Scenario: Voucher không tạo số tiền phải trả âm hoặc tiền thừa được hoàn
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1224,7 +1224,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không phát sinh khoản hoàn 30000 VND hoặc số dư voucher mới
 
     # BH11 -> TC_PRICE_BH11; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_003 @TC_PRICE_BH11 @BH11 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009
+    @pricing @REQ_PRICE_003 @TC_PRICE_BH11 @BH11 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F13 @BR-006 @BR-007 @BR-008 @BR-009 @unhappy_path
     Scenario: Mã hết hạn sau báo giá phải được xác nhận lại trước tạo đơn
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
@@ -1244,7 +1244,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Giá sỉ theo tổng số lượng của cùng một mã sách trong giỏ
 
     # BH12 -> TC_PRICE_BH12; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_004 @TC_PRICE_BH12 @BH12 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010
+    @pricing @REQ_PRICE_004 @TC_PRICE_BH12 @BH12 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010 @happy_path
     Scenario Outline: Áp dụng đúng ngưỡng số lượng bán sỉ [<case_id>]
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1260,7 +1260,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PRICE_BH12_R03 | 11       | 100000  | 1100000    |
 
     # BH13 -> TC_PRICE_BH13; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_004 @TC_PRICE_BH13 @BH13 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010
+    @pricing @REQ_PRICE_004 @TC_PRICE_BH13 @BH13 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010 @happy_path
     Scenario: Không nhân chồng giảm giá sản phẩm lên đơn giá sỉ
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1271,7 +1271,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không giảm thêm 10 phần trăm lên đơn giá sỉ
 
     # BH14 -> TC_PRICE_BH14; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_004 @TC_PRICE_BH14 @BH14 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010
+    @pricing @REQ_PRICE_004 @TC_PRICE_BH14 @BH14 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F14 @BR-005 @BR-008 @BR-010 @happy_path
     Scenario: Giảm số lượng xuống dưới ngưỡng sỉ phải báo lại giá
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1289,7 +1289,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Combo có giá riêng nhưng dùng tồn của tất cả sách thành phần
 
     # BH15 -> TC_PRICE_BH15; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_005 @TC_PRICE_BH15 @BH15 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023
+    @pricing @REQ_PRICE_005 @TC_PRICE_BH15 @BH15 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023 @happy_path
     Scenario: Mua hai combo giữ đúng số sách thành phần
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1304,7 +1304,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo một kho combo độc lập để trừ thêm lần nữa
 
     # BH16 -> TC_PRICE_BH16; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_005 @TC_PRICE_BH16 @BH16 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023
+    @pricing @REQ_PRICE_005 @TC_PRICE_BH16 @BH16 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023 @unhappy_path
     Scenario: Thiếu một thành phần thì không giữ dở các thành phần còn lại
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1318,7 +1318,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ vẫn giữ lựa chọn combo để khách điều chỉnh
 
     # BH17 -> TC_PRICE_BH17; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_005 @TC_PRICE_BH17 @BH17 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023
+    @pricing @REQ_PRICE_005 @TC_PRICE_BH17 @BH17 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F15 @BR-011 @BR-013 @BR-014 @BR-023 @unhappy_path
     Scenario: Cộng gộp cùng SKU khi vừa mua lẻ vừa mua trong combo
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1339,7 +1339,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Mua đính kèm là dòng có tính tiền và cần khách chủ động chọn
 
     # BH18 -> TC_PRICE_BH18; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_006 @TC_PRICE_BH18 @BH18 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014
+    @pricing @REQ_PRICE_006 @TC_PRICE_BH18 @BH18 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014 @happy_path
     Scenario Outline: Khách chủ động mua thêm sách hoặc phụ kiện theo sách chính [<case_id>]
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1358,7 +1358,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PRICE_BH18_R02 | S002    | 180000     | 150000  | 270000 |
 
     # BH19 -> TC_PRICE_BH19; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_006 @TC_PRICE_BH19 @BH19 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014
+    @pricing @REQ_PRICE_006 @TC_PRICE_BH19 @BH19 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014 @happy_path
     Scenario: Không tự thêm món đính kèm khi khách chưa chọn
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1369,7 +1369,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không thêm dòng hoặc tính tiền "PK01"
 
     # BH20 -> TC_PRICE_BH20; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_006 @TC_PRICE_BH20 @BH20 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014
+    @pricing @REQ_PRICE_006 @TC_PRICE_BH20 @BH20 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014 @unhappy_path
     Scenario: Không lấy giá mua kèm khi không có sách chính
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1380,7 +1380,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tự chuyển thành mua giá thường nếu khách chưa xác nhận
 
     # BH21 -> TC_PRICE_BH21; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_006 @TC_PRICE_BH21 @BH21 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014
+    @pricing @REQ_PRICE_006 @TC_PRICE_BH21 @BH21 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014 @unhappy_path
     Scenario: Không mua kèm vượt tỷ lệ hoặc số lượng tồn khả dụng
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1391,7 +1391,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ không bị tăng số tiền hoặc số lượng mua kèm
 
     # BH22 -> TC_PRICE_BH22; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_006 @TC_PRICE_BH22 @BH22 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014
+    @pricing @REQ_PRICE_006 @TC_PRICE_BH22 @BH22 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F16 @BR-012 @BR-013 @BR-014 @unhappy_path
     Scenario: Món đính kèm hết hàng không được ghi vào đơn như đã có hàng
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1412,7 +1412,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giỏ hàng] Sửa giỏ phải tính lại ưu đãi và giữ quan hệ giữa món chính và món mua kèm
 
     # GH01 -> TC_CART_GH01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @cart @REQ_CART_004 @TC_CART_GH01 @GH01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018
+    @cart @REQ_CART_004 @TC_CART_GH01 @GH01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018 @happy_path
     Scenario: Giảm sách chính làm giảm số món mua kèm tối đa với thông báo rõ ràng
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1425,7 +1425,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chưa giữ kho hoặc thu tiền
 
     # GH02 -> TC_CART_GH02; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @cart @REQ_CART_004 @TC_CART_GH02 @GH02 @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018
+    @cart @REQ_CART_004 @TC_CART_GH02 @GH02 @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018 @happy_path
     Scenario: Bỏ món chính bằng số lượng 0 đồng thời bỏ dòng mua kèm phụ thuộc
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1437,7 +1437,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tự chuyển "PK01" thành món mua giá thường
 
     # GH03 -> TC_CART_GH03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @cart @REQ_CART_004 @TC_CART_GH03 @GH03 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018
+    @cart @REQ_CART_004 @TC_CART_GH03 @GH03 @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F04 @REQ-F16 @BR-003 @BR-008 @BR-012 @BR-018 @unhappy_path
     Scenario: Sửa giỏ làm mất điều kiện tối thiểu thì gỡ mã và báo lại tổng tiền
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1457,7 +1457,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Email được xác minh bằng liên kết đúng tài khoản dùng một lần có hạn
 
     # XT01 -> TC_AUTH_XT01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_005 @TC_AUTH_XT01 @XT01 @assumption_P_AUTH_TTL @approved_policy @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030
+    @auth @REQ_AUTH_005 @TC_AUTH_XT01 @XT01 @assumption_P_AUTH_TTL @approved_policy @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030 @happy_path
     Scenario: Đăng ký email phát sinh yêu cầu xác minh tài khoản mới
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And email "moi@example.test" chưa được sử dụng và kênh mail mô phỏng đang hoạt động
@@ -1467,7 +1467,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And thư không chứa mật khẩu người dùng
 
     # XT02 -> TC_AUTH_XT02; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_005 @TC_AUTH_XT02 @XT02 @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030
+    @auth @REQ_AUTH_005 @TC_AUTH_XT02 @XT02 @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030 @happy_path
     Scenario: Xác minh bằng liên kết hợp lệ trước khi hết hạn
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And tài khoản "KH-MOI" chưa xác minh email và có liên kết hợp lệ chưa dùng
@@ -1477,7 +1477,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo tài khoản mới hoặc nâng vai trò lên admin
 
     # XT03 -> TC_AUTH_XT03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_005 @TC_AUTH_XT03 @XT03 @assumption_P_DETAIL @assumption_P_AUTH_TTL @approved_policy @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030
+    @auth @REQ_AUTH_005 @TC_AUTH_XT03 @XT03 @assumption_P_DETAIL @assumption_P_AUTH_TTL @approved_policy @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030 @unhappy_path
     Scenario Outline: Không xác minh bằng liên kết sai hoặc hết hạn [<case_id>]
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And "KH-MOI" chưa xác minh email
@@ -1491,7 +1491,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_AUTH_XT03_R02 | Đã đến đúng thời điểm hết hạn |
 
     # XT04 -> TC_AUTH_XT04; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_005 @TC_AUTH_XT04 @XT04 @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030
+    @auth @REQ_AUTH_005 @TC_AUTH_XT04 @XT04 @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030 @unhappy_path
     Scenario: Mở lại liên kết đã dùng không thực hiện xác minh lần hai
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And "KH-MOI" đã xác minh thành công bằng liên kết "TOKEN-01"
@@ -1501,7 +1501,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo thêm tài khoản hoặc thư xác minh tự động
 
     # XT05 -> TC_AUTH_XT05; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_005 @TC_AUTH_XT05 @XT05 @confirmed_stock @confirmed_email_before_checkout @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030
+    @auth @REQ_AUTH_005 @TC_AUTH_XT05 @XT05 @confirmed_stock @confirmed_email_before_checkout @REQ-F18 @REQ-F19 @BR-026 @BR-029 @BR-030 @unhappy_path
     Scenario: Tài khoản chưa xác minh vẫn đăng nhập được nhưng chưa được đặt đơn
       Given một customer đang hoạt động, đã đăng nhập nhưng chưa xác minh email và có giỏ hợp lệ
       When customer đó yêu cầu đặt đơn
@@ -1518,7 +1518,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Facebook xác thực theo định danh nhà cung cấp và dữ liệu trả về được kiểm tra
 
     # XT06 -> TC_AUTH_XT06; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_006 @TC_AUTH_XT06 @XT06 @REQ-F19 @BR-026 @BR-027
+    @auth @REQ_AUTH_006 @TC_AUTH_XT06 @XT06 @REQ-F19 @BR-026 @BR-027 @happy_path
     Scenario: Facebook nhận diện lại tài khoản đã liên kết mà không tạo bản sao
       Given đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
       And customer "KH-FB" đã liên kết với định danh Facebook "FB-001"
@@ -1529,7 +1529,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And website không yêu cầu mật khẩu Facebook
 
     # XT07 -> TC_AUTH_XT07; có căn cứ/đã chốt trong phạm vi mô tả
-    @auth @REQ_AUTH_006 @TC_AUTH_XT07 @XT07 @REQ-F19 @BR-026 @BR-027
+    @auth @REQ_AUTH_006 @TC_AUTH_XT07 @XT07 @REQ-F19 @BR-026 @BR-027 @unhappy_path
     Scenario: Kết quả Facebook không thuộc phiên bắt đầu xác thực bị từ chối
       Given guest đã bắt đầu đăng nhập Facebook trong phiên A
       When kết quả xác thực bị sửa hoặc không khớp yêu cầu đã bắt đầu từ phiên A
@@ -1545,7 +1545,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đơn hàng] Tạo hủy và giữ quyền ưu đãi của đơn phải nhất quán
 
     # DH01 -> TC_ORDER_DH01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH01 @DH01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH01 @DH01 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @happy_path
     Scenario Outline: Khách hủy đơn của mình trước khi bàn giao vận chuyển [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1563,7 +1563,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_ORDER_DH01_R02 | Đã xác nhận  |
 
     # DH02 -> TC_ORDER_DH02; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH02 @DH02 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH02 @DH02 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @unhappy_path
     Scenario: Khách không được hủy đơn của người khác
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -1574,7 +1574,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And đơn, kho và quyền ưu đãi của "DH02" không thay đổi
 
     # DH03 -> TC_ORDER_DH03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH03 @DH03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH03 @DH03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @unhappy_path
     Scenario: Nhấn đặt COD hai lần cùng mã yêu cầu chỉ tạo một đơn và một lần giữ hàng
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1586,7 +1586,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ không chứa các dòng đã đặt và không có tiền đã thu
 
     # DH04 -> TC_ORDER_DH04; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH04 @DH04 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH04 @DH04 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @unhappy_path
     Scenario: Trùng mã yêu cầu nhưng nội dung khác không sửa đơn đã tạo
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And dữ liệu gốc sách S002 tên "Thiết kế phần mềm", giá niêm yết 180000 VND, tồn ban đầu 5, giữ chỗ 0, tác giả 2, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1598,7 +1598,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không tạo thêm đơn
 
     # DH05 -> TC_ORDER_DH05; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH05 @DH05 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH05 @DH05 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @unhappy_path
     Scenario: Hai khách tranh lượt coupon cuối không cùng nhận ưu đãi vượt hạn mức
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -1613,7 +1613,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And hệ thống không tạo đơn thứ hai theo giá cao hơn khi khách chưa đồng ý
 
     # DH06 -> TC_ORDER_DH06; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH06 @DH06 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH06 @DH06 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @happy_path
     Scenario: Hủy đơn giải phóng đúng một lần lượt voucher đang giữ
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1626,7 +1626,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không có lần giải phóng làm tăng lượt voucher hoặc tồn khả dụng quá mức ban đầu
 
     # DH07 -> TC_ORDER_DH07; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_003 @TC_ORDER_DH07 @DH07 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025
+    @order @REQ_ORDER_003 @TC_ORDER_DH07 @DH07 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F21 @REQ-F22 @BR-009 @BR-015 @BR-022 @BR-023 @BR-024 @BR-025 @happy_path
     Scenario: Sửa chương trình sau khi đặt không sửa giá khách đã chấp nhận
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
@@ -1644,7 +1644,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Thanh toán COD] COD chỉ được ghi đã thu khi xác nhận giao thành công và đúng số tiền
 
     # TT01 -> TC_PAY_TT01; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT01 @TT01 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT01 @TT01 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @happy_path
     Scenario: Giao COD thành công ghi nhận tiền một lần và không xuất kho lần nữa
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1657,7 +1657,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tồn thực tế "S001" vẫn là 9, giữ chỗ 0, khả dụng 9
 
     # TT02 -> TC_PAY_TT02; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT02 @TT02 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT02 @TT02 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @unhappy_path
     Scenario Outline: Không xác nhận đã thu đủ bằng số tiền không khớp [<case_id>]
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And đơn COD "DH01" đang giao, chưa thu và cần thu 120000 VND
@@ -1673,7 +1673,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
         | TC_PAY_TT02_R03 | 120001  |
 
     # TT03 -> TC_PAY_TT03; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT03 @TT03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT03 @TT03 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @unhappy_path
     Scenario: Giao COD không thành công không được ghi nhận đã thu hoặc tự nhập hàng trả
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1684,7 +1684,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And tồn thực tế "S001" vẫn là 9 cho tới khi có nghiệp vụ nhận hàng trả riêng
 
     # TT04 -> TC_PAY_TT04; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT04 @TT04 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT04 @TT04 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @happy_path
     Scenario: Gửi lại cùng xác nhận thu COD không thu tiền hoặc dùng ưu đãi hai lần
       Given dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1695,7 +1695,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And trạng thái đơn, tồn kho và số lượt ưu đãi đã dùng không thay đổi
 
     # TT05 -> TC_PAY_TT05; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT05 @TT05 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT05 @TT05 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @unhappy_path
     Scenario: Khách không tự đánh dấu đơn COD của mình đã thu tiền
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1705,7 +1705,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And đơn và thanh toán không thay đổi
 
     # TT06 -> TC_PAY_TT06; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT06 @TT06 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT06 @TT06 @confirmed_stock @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @unhappy_path
     Scenario: Đơn COD chưa xuất giao không được báo hoàn tất và đã thu
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1715,7 +1715,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không ghi tiền đã thu hoặc xuất kho để bỏ qua các bước còn thiếu
 
     # TT07 -> TC_PAY_TT07; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @payment @REQ_PAY_001 @TC_PAY_TT07 @TT07 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028
+    @payment @REQ_PAY_001 @TC_PAY_TT07 @TT07 @confirmed_stock @confirmed_price_detail @assumption_P_DETAIL @approved_policy @REQ-F17 @REQ-F21 @BR-009 @BR-019 @BR-020 @BR-021 @BR-024 @BR-028 @happy_path
     Scenario: Đơn được giảm về 0 không phát sinh khoản thu COD giả
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And đơn "DH01" có snapshot tiền phải trả 0 VND và thanh toán "Không cần thu"
@@ -1734,7 +1734,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Khách được tìm và xem sách công khai theo thông tin đã xuất bản
 
     # NEW001 -> TC_CATALOG_NEW001; có căn cứ/đã chốt trong phạm vi mô tả
-    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW001 @NEW001 @REQ-F23 @BR-031
+    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW001 @NEW001 @REQ-F23 @BR-031 @happy_path
     Scenario: Xem thông tin giới thiệu website đã công khai
       Given thông tin giới thiệu đã xuất bản ghi tên "Nhà sách thử nghiệm" và email "lienhe@example.test"
       When guest mở trang giới thiệu
@@ -1742,7 +1742,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không thấy thông tin quản trị hoặc dữ liệu tài khoản nội bộ
 
     # NEW002 -> TC_CATALOG_NEW002; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW002 @NEW002 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031
+    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW002 @NEW002 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031 @happy_path
     Scenario: Tìm sách theo tên và lọc theo thể loại
       Given thể loại TL01 là Kỹ thuật và TL02 là Văn học đang tồn tại
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1755,7 +1755,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không có sách đã ngừng hiển thị hoặc dữ liệu của tài khoản
 
     # NEW003 -> TC_CATALOG_NEW003; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW003 @NEW003 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031
+    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW003 @NEW003 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031 @unhappy_path
     Scenario: Tìm và lọc không có kết quả không phải lỗi hệ thống
       Given thể loại TL01 là Kỹ thuật và TL02 là Văn học đang tồn tại
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1767,7 +1767,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And danh mục và giỏ hàng không thay đổi
 
     # NEW004 -> TC_CATALOG_NEW004; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW004 @NEW004 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031
+    @catalog @REQ_CATALOG_005 @TC_CATALOG_NEW004 @NEW004 @assumption_P_SEARCH @approved_policy @REQ-F23 @BR-031 @unhappy_path
     Scenario: Từ chối bộ lọc có khoảng giá không hợp lệ
       Given guest đang xem danh mục công khai
       When guest gửi giá tối thiểu 200000 VND lớn hơn giá tối đa 100000 VND
@@ -1783,7 +1783,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đặt hàng] Backend xác minh lại báo giá và dữ liệu trước khi cam kết tạo đơn
 
     # NEW005 -> TC_CHECKOUT_NEW005; có căn cứ/đã chốt trong phạm vi mô tả
-    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW005 @NEW005 @confirmed_stock @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024
+    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW005 @NEW005 @confirmed_stock @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024 @unhappy_path
     Scenario: Giá frontend bị sửa không được dùng làm giá đơn
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1795,7 +1795,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chưa tạo đơn, giữ kho, giữ lượt mã hoặc xóa giỏ
 
     # NEW006 -> TC_CHECKOUT_NEW006; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW006 @NEW006 @confirmed_stock @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024
+    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW006 @NEW006 @confirmed_stock @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024 @unhappy_path
     Scenario: Lỗi giữa giữ kho và ghi đơn không để lại dữ liệu dở dang
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1809,7 +1809,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And khách nhận lỗi có thể thử lại, không nhận xác nhận đã đặt đơn
 
     # NEW007 -> TC_CHECKOUT_NEW007; có căn cứ/đã chốt trong phạm vi mô tả
-    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW007 @NEW007 @confirmed_stock @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024
+    @checkout @REQ_CHECKOUT_002 @TC_CHECKOUT_NEW007 @NEW007 @confirmed_stock @REQ-F20 @REQ-F21 @BR-018 @BR-022 @BR-023 @BR-024 @unhappy_path
     Scenario: Mất phản hồi sau cam kết rồi thử lại chỉ nhận lại đơn đã tạo
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1829,7 +1829,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giỏ hàng] Chỉ chủ sở hữu giỏ được sửa giỏ của mình
 
     # NEW008 -> TC_CART_NEW008; có căn cứ/đã chốt trong phạm vi mô tả
-    @cart @REQ_CART_005 @TC_CART_NEW008 @NEW008 @REQ-F22 @BR-016 @BR-025 @BR-028
+    @cart @REQ_CART_005 @TC_CART_NEW008 @NEW008 @REQ-F22 @BR-016 @BR-025 @BR-028 @unhappy_path
     Scenario: Không sửa giỏ tài khoản khác bằng cách thay mã giỏ
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And tài khoản KH02 có email kh02@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
@@ -1850,7 +1850,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Xác thực] Gửi thư xác minh được theo dõi và phục hồi khi dịch vụ mail lỗi
 
     # NEW009 -> TC_AUTH_NEW009; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_007 @TC_AUTH_NEW009 @NEW009 @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F19 @BR-026 @BR-030
+    @auth @REQ_AUTH_007 @TC_AUTH_NEW009 @NEW009 @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F19 @BR-026 @BR-030 @unhappy_path
     Scenario: Mail tạm lỗi không làm tài khoản mới mất hoặc được xác minh giả
       Given email moi@example.test chưa tồn tại và dịch vụ mail mô phỏng tạm không hoạt động
       When guest đăng ký tài khoản email hợp lệ
@@ -1859,7 +1859,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And không trả mật khẩu hoặc cấp quyền đặt đơn cho tài khoản chưa xác minh
 
     # NEW010 -> TC_AUTH_NEW010; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @auth @REQ_AUTH_007 @TC_AUTH_NEW010 @NEW010 @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F19 @BR-026 @BR-030
+    @auth @REQ_AUTH_007 @TC_AUTH_NEW010 @NEW010 @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F19 @BR-026 @BR-030 @happy_path
     Scenario: Gửi lại thư đang chờ không tạo thêm tài khoản
       Given tài khoản KH-MOI chưa xác minh và yêu cầu gửi thư MAIL01 đang chờ do lần gửi trước thất bại
       And dịch vụ mail mô phỏng đã hoạt động lại
@@ -1877,7 +1877,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Kho] Kiểm kê yêu cầu dữ liệu và quyền hợp lệ trước khi thay đổi kho
 
     # NEW011 -> TC_INV_NEW011; có căn cứ/đã chốt trong phạm vi mô tả
-    @inventory @REQ_INV_003 @TC_INV_NEW011 @NEW011 @confirmed_stock @REQ-F10 @BR-013 @BR-028
+    @inventory @REQ_INV_003 @TC_INV_NEW011 @NEW011 @confirmed_stock @REQ-F10 @BR-013 @BR-028 @unhappy_path
     Scenario: Không điều chỉnh kho thiếu lý do
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1895,7 +1895,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Thanh toán COD] Xác nhận thu COD phải đúng đơn và đúng nội dung yêu cầu
 
     # NEW012 -> TC_PAY_NEW012; có căn cứ/đã chốt trong phạm vi mô tả
-    @payment @REQ_PAY_002 @TC_PAY_NEW012 @NEW012 @confirmed_stock @REQ-F17 @REQ-F21 @BR-020 @BR-024
+    @payment @REQ_PAY_002 @TC_PAY_NEW012 @NEW012 @confirmed_stock @REQ-F17 @REQ-F21 @BR-020 @BR-024 @unhappy_path
     Scenario: Mã thu COD đã dùng không được ghi lại với đơn hoặc số tiền khác
       Given cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
       And COD001 đã ghi thu 120000 VND cho đơn DH01
@@ -1912,7 +1912,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Giá và khuyến mãi] Cấu hình các hình thức bán được quản trị và công bố trước khi khách chọn
 
     # NEW013 -> TC_PRICE_NEW013; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_007 @TC_PRICE_NEW013 @NEW013 @confirmed_price_detail @approved_policy @REQ-F15 @REQ-F16 @BR-011 @BR-012 @BR-028
+    @pricing @REQ_PRICE_007 @TC_PRICE_NEW013 @NEW013 @confirmed_price_detail @approved_policy @REQ-F15 @REQ-F16 @BR-011 @BR-012 @BR-028 @happy_path
     Scenario: Admin cấu hình combo có thành phần và giá hợp lệ
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1925,7 +1925,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And chưa tạo tồn combo riêng hoặc giữ tồn thành phần
 
     # NEW014 -> TC_PRICE_NEW014; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @pricing @REQ_PRICE_007 @TC_PRICE_NEW014 @NEW014 @confirmed_price_detail @approved_policy @REQ-F15 @REQ-F16 @BR-011 @BR-012 @BR-028
+    @pricing @REQ_PRICE_007 @TC_PRICE_NEW014 @NEW014 @confirmed_price_detail @approved_policy @REQ-F15 @REQ-F16 @BR-011 @BR-012 @BR-028 @unhappy_path
     Scenario: Không tạo quan hệ mua kèm không có sản phẩm chính hợp lệ
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And cấu hình thử không có phí giao hàng hoặc phí COD và không có ưu đãi khác ngoài mô tả của kịch bản
@@ -1944,7 +1944,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Danh mục] Sửa thể loại giữ nguyên mã và liên kết đang sử dụng
 
     # NEW015 -> TC_CATALOG_NEW015; có căn cứ/đã chốt trong phạm vi mô tả
-    @catalog @REQ_CATALOG_006 @TC_CATALOG_NEW015 @NEW015 @REQ-F09 @BR-002 @BR-028
+    @catalog @REQ_CATALOG_006 @TC_CATALOG_NEW015 @NEW015 @REQ-F09 @BR-002 @BR-028 @happy_path
     Scenario: Đổi tên thể loại không thay mã hoặc mất liên kết sách
       Given tài khoản QT01 có email admin@example.test, vai trò admin, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And đồng hồ thử được kiểm soát tại 2026-10-29T10:00:00+07:00 trừ mốc thời gian nêu riêng trong kịch bản
@@ -1962,7 +1962,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đặt hàng] Kết quả cam kết chưa biết được giải quyết qua cùng khóa yêu cầu
 
     # NEW016 -> TC_CHECKOUT_NEW016; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @checkout @REQ_CHECKOUT_003 @TC_CHECKOUT_NEW016 @NEW016 @confirmed_stock @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F21 @BR-024
+    @checkout @REQ_CHECKOUT_003 @TC_CHECKOUT_NEW016 @NEW016 @confirmed_stock @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F21 @BR-024 @unhappy_path
     Scenario Outline: Retry sau mất kết quả cam kết không tạo nhiều hơn một đơn [<case_id>]
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -1988,7 +1988,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   Rule: [Đơn hàng] Lỗi hủy trước cam kết không để trạng thái và lượng giữ lệch nhau
 
     # NEW017 -> TC_ORDER_NEW017; chính sách đã được chủ đề tài duyệt; không đồng nghĩa test đã chạy
-    @order @REQ_ORDER_004 @TC_ORDER_NEW017 @NEW017 @confirmed_stock @confirmed_price_detail @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F21 @BR-009 @BR-015 @BR-024
+    @order @REQ_ORDER_004 @TC_ORDER_NEW017 @NEW017 @confirmed_stock @confirmed_price_detail @assumption_D_TRANSACTION_ASYNC @approved_policy @design_decision @REQ-F21 @BR-009 @BR-015 @BR-024 @unhappy_path
     Scenario: Lỗi sau dự kiến giải phóng nhưng trước cam kết hủy giữ nguyên đơn gốc
       Given tài khoản KH01 có email kh01@example.test, vai trò customer, mật khẩu thử MatKhau#2026, hoạt động và email đã xác minh
       And dữ liệu gốc sách S001 tên "Java căn bản", giá niêm yết 120000 VND, tồn ban đầu 10, giữ chỗ 0, tác giả 1, NXB thử, thể loại TL01 và ảnh mô tả đang hiển thị
@@ -2005,7 +2005,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @inventory @REQ_INV_004
   Rule: Bổ sung hợp đồng REQ_INV_004 — Hai giỏ cùng chọn hàng không giữ hoặc làm giảm tồn
 
-    @inventory @REQ_INV_004 @TC_INV_REV001 @REQ-F10 @REQ-F21 @BR-013 @BR-014 @confirmed_scope @s1
+    @inventory @REQ_INV_004 @TC_INV_REV001 @REQ-F10 @REQ-F21 @BR-013 @BR-014 @confirmed_scope @s1 @happy_path
     Scenario: Hai giỏ cùng chọn hàng không giữ hoặc làm giảm tồn
       Given S001 có tồn thực tế 1, giữ chỗ 0 và hai guest A B có giỏ riêng trống
       And guest A đã thêm 1 S001 vào giỏ A, kho vẫn thực tế 1 và giữ chỗ 0
@@ -2017,7 +2017,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @order @REQ_ORDER_005
   Rule: Bổ sung hợp đồng REQ_ORDER_005 — Hủy lặp không cộng hàng thực tế hoặc giải phóng giữ chỗ lần hai
 
-    @order @REQ_ORDER_005 @TC_ORDER_REV002 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-024 @confirmed_scope
+    @order @REQ_ORDER_005 @TC_ORDER_REV002 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-024 @confirmed_scope @happy_path
     Scenario: Hủy lặp không cộng hàng thực tế hoặc giải phóng giữ chỗ lần hai
       Given KH01 đang đăng nhập và sở hữu đơn COD DH01 đã hủy trước bàn giao, không có ưu đãi
       And DH01 trước khi hủy giữ 2 S001, lượng giữ đó đã được giải phóng một lần
@@ -2030,7 +2030,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @pricing @REQ_PRICE_008
   Rule: Bổ sung hợp đồng REQ_PRICE_008 — Giỏ có cả giá thường và giá đặc biệt không nhận thêm mã
 
-    @pricing @REQ_PRICE_008 @TC_PRICE_REV003 @REQ-F13 @REQ-F14 @REQ-F15 @REQ-F16 @BR-006 @BR-007 @BR-008 @confirmed_scope
+    @pricing @REQ_PRICE_008 @TC_PRICE_REV003 @REQ-F13 @REQ-F14 @REQ-F15 @REQ-F16 @BR-006 @BR-007 @BR-008 @confirmed_scope @unhappy_path
     Scenario Outline: Giỏ có cả giá thường và giá đặc biệt không nhận thêm mã [<case_id>]
       Given KH01 có giỏ gồm một dòng giá thường 120000 VND và một dòng "<chế độ>" đã có báo giá hợp lệ
       And "<loại mã>" đang hiệu lực, đủ lượt và thuộc KH01 nếu là voucher
@@ -2049,7 +2049,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @auth @REQ_AUTH_008
   Rule: Bổ sung hợp đồng REQ_AUTH_008 — Facebook đăng nhập thành công không bỏ qua xác minh email trước đặt đơn
 
-    @auth @REQ_AUTH_008 @TC_AUTH_REV004 @REQ-F18 @REQ-F19 @BR-026 @BR-027 @BR-029 @confirmed_scope
+    @auth @REQ_AUTH_008 @TC_AUTH_REV004 @REQ-F18 @REQ-F19 @BR-026 @BR-027 @BR-029 @confirmed_scope @unhappy_path
     Scenario: Facebook đăng nhập thành công không bỏ qua xác minh email trước đặt đơn
       Given KH01 có phiên đăng nhập hợp lệ do Facebook thật xác thực và chưa xác minh email trong website
       And KH01 có giỏ hợp lệ và kho còn đủ hàng
@@ -2061,7 +2061,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @catalog @REQ_CATALOG_007
   Rule: Bổ sung hợp đồng REQ_CATALOG_007 — Hai ấn bản trùng tên được quản lý bằng hai SKU riêng
 
-    @catalog @REQ_CATALOG_007 @TC_CATALOG_REV005 @REQ-F02 @REQ-F09 @REQ-F10 @BR-001 @BR-002 @approved_policy @assumption_P_EDITION
+    @catalog @REQ_CATALOG_007 @TC_CATALOG_REV005 @REQ-F02 @REQ-F09 @REQ-F10 @BR-001 @BR-002 @approved_policy @assumption_P_EDITION @happy_path
     Scenario: Hai ấn bản trùng tên được quản lý bằng hai SKU riêng
       Given đề xuất P-EDITION dùng SKU làm định danh bán và tồn của từng ấn bản
       And sách S101 và S102 cùng tên "Lập trình Java", khác ấn bản và có giá 100000 và 150000 VND
@@ -2073,7 +2073,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @cart @REQ_CART_006
   Rule: Bổ sung hợp đồng REQ_CART_006 — Gộp hai giỏ sau đăng nhập giữ đủ lựa chọn và báo giá lại
 
-    @cart @REQ_CART_006 @TC_CART_REV006 @REQ-F04 @REQ-F06 @BR-003 @BR-016 @BR-017 @BR-018 @approved_policy @assumption_P_MERGE
+    @cart @REQ_CART_006 @TC_CART_REV006 @REQ-F04 @REQ-F06 @BR-003 @BR-016 @BR-017 @BR-018 @approved_policy @assumption_P_MERGE @happy_path
     Scenario: Gộp hai giỏ sau đăng nhập giữ đủ lựa chọn và báo giá lại
       Given đề xuất P-MERGE cộng số lượng các dòng cùng SKU và cùng chế độ giá, giữ riêng dòng khác chế độ hoặc khác liên kết món chính
       And guest có 1 S001 giá thường và KH01 có giỏ đã lưu 2 S001 giá thường
@@ -2083,7 +2083,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And đánh dấu nguồn giỏ guest đã được chuyển đúng một lần
       And không giữ kho và không đưa giỏ của người khác vào kết quả
 
-    @cart @REQ_CART_006 @TC_CART_REV007 @REQ-F04 @REQ-F06 @BR-003 @BR-016 @BR-017 @BR-018 @approved_policy @assumption_P_MERGE
+    @cart @REQ_CART_006 @TC_CART_REV007 @REQ-F04 @REQ-F06 @BR-003 @BR-016 @BR-017 @BR-018 @approved_policy @assumption_P_MERGE @unhappy_path
     Scenario: Gộp giỏ vượt khả dụng không tự cắt hoặc mất lựa chọn
       Given đề xuất P-MERGE kiểm toàn bộ trước khi gộp, nếu vượt khả dụng thì giữ hai bản giỏ để chủ giỏ điều chỉnh
       And guest có 2 S001 và giỏ đã lưu KH01 có 3 S001, S001 chỉ còn khả dụng 4
@@ -2092,7 +2092,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And giỏ đã lưu KH01 vẫn 3 và nguồn giỏ guest vẫn 2, chỉ KH01 trong phiên đó được xử lý
       And không tự cắt một quyển, không mất dòng và không giữ hàng
 
-    @cart @REQ_CART_006 @TC_CART_REV008 @REQ-F04 @REQ-F06 @REQ-F21 @BR-016 @BR-017 @BR-024 @approved_policy @assumption_P_MERGE
+    @cart @REQ_CART_006 @TC_CART_REV008 @REQ-F04 @REQ-F06 @REQ-F21 @BR-016 @BR-017 @BR-024 @approved_policy @assumption_P_MERGE @happy_path
     Scenario: Thử lại gộp giỏ đã cam kết không cộng số lượng lần nữa
       Given đề xuất P-MERGE định danh nguồn giỏ guest và tài khoản đích cho một lần chuyển
       And nguồn guest G01 có 1 S001 đã gộp vào giỏ KH01 có 2 S001 thành 3 S001
@@ -2104,7 +2104,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @inventory @REQ_INV_005
   Rule: Bổ sung hợp đồng REQ_INV_005 — Hủy và bàn giao đồng thời chỉ một chuyển trạng thái được cam kết
 
-    @inventory @REQ_INV_005 @TC_INV_REV009 @REQ-F10 @REQ-F17 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-019 @BR-023 @BR-024 @approved_policy @assumption_P_STATE
+    @inventory @REQ_INV_005 @TC_INV_REV009 @REQ-F10 @REQ-F17 @REQ-F21 @BR-013 @BR-014 @BR-015 @BR-019 @BR-023 @BR-024 @approved_policy @assumption_P_STATE @unhappy_path
     Scenario: Hủy và bàn giao đồng thời chỉ một chuyển trạng thái được cam kết
       Given đề xuất P-STATE cho phép chủ đơn hủy trước bàn giao và admin bàn giao đơn đã xác nhận
       And đơn DH01 đã xác nhận, giữ 2 S001, S001 có thực tế 10 và giữ chỗ 2
@@ -2114,7 +2114,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       And nếu bàn giao thắng thì DH01 đang giao, thực tế 8, giữ chỗ 0, khả dụng 8
       And thao tác thua nhận xung đột hoặc trạng thái hiện tại và không ghi biến động kho thứ hai
 
-    @inventory @REQ_INV_005 @TC_INV_REV010 @REQ-F10 @REQ-F21 @BR-013 @BR-024 @BR-028 @approved_policy @assumption_P_DETAIL
+    @inventory @REQ_INV_005 @TC_INV_REV010 @REQ-F10 @REQ-F21 @BR-013 @BR-024 @BR-028 @approved_policy @assumption_P_DETAIL @unhappy_path
     Scenario: Nhập kho lặp mã nhưng đổi nội dung bị từ chối
       Given QT01 đang có quyền quản trị kho
       And PN001 đã nhập 5 S001, tồn thực tế hiện là 15, giữ chỗ 0
@@ -2122,7 +2122,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
       Then trả lỗi mã phiếu đã dùng cho nội dung khác
       And tồn thực tế vẫn 15, giữ chỗ 0, chỉ có bút toán nhập 5 ban đầu
 
-    @inventory @REQ_INV_005 @TC_INV_REV013 @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-019 @BR-024 @approved_policy @assumption_P_STATE
+    @inventory @REQ_INV_005 @TC_INV_REV013 @REQ-F10 @REQ-F21 @BR-013 @BR-014 @BR-019 @BR-024 @approved_policy @assumption_P_STATE @unhappy_path
     Scenario: Lỗi ghi bàn giao không để tồn và đơn lệch trạng thái
       Given phương án D01 cam kết đồng thời trạng thái đơn, giữ chỗ, tồn và lịch sử bàn giao
       And QT01 có quyền bàn giao, DH01 đã xác nhận giữ 2 S001, tồn thực tế 10 và giữ chỗ 2
@@ -2134,7 +2134,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @pricing @REQ_PRICE_009
   Rule: Bổ sung hợp đồng REQ_PRICE_009 — Coupon kiểm tra ngưỡng tối thiểu tại hai phía biên
 
-    @pricing @REQ_PRICE_009 @TC_PRICE_REV011 @REQ-F13 @BR-006 @BR-009 @approved_policy @assumption_P_PROMO_DETAIL
+    @pricing @REQ_PRICE_009 @TC_PRICE_REV011 @REQ-F13 @BR-006 @BR-009 @approved_policy @assumption_P_PROMO_DETAIL @happy_path @unhappy_path @mixed_path
     Scenario Outline: Coupon kiểm tra ngưỡng tối thiểu tại hai phía biên [<case_id>]
       Given đề xuất P-PROMO-DETAIL quy định ngưỡng áp dụng gồm đúng mức tối thiểu
       And KH01 có giỏ giá thường <tổng> VND, không phí và không ưu đãi khác
@@ -2151,7 +2151,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @auth @REQ_AUTH_009
   Rule: Bổ sung hợp đồng REQ_AUTH_009 — Email thật được nhận gửi vẫn không đồng nghĩa đã xác minh
 
-    @auth @REQ_AUTH_009 @TC_AUTH_REV012 @REQ-F18 @REQ-F19 @BR-026 @BR-030 @confirmed_scope
+    @auth @REQ_AUTH_009 @TC_AUTH_REV012 @REQ-F18 @REQ-F19 @BR-026 @BR-030 @confirmed_scope @unhappy_path
     Scenario: Email thật được nhận gửi vẫn không đồng nghĩa đã xác minh
       Given tài khoản KH01 được tạo hợp lệ nhưng chưa xác minh email
       And yêu cầu gửi liên kết xác minh cho KH01 đã cam kết
@@ -2163,7 +2163,7 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @checkout @REQ_CHECKOUT_004
   Rule: Bổ sung hợp đồng REQ_CHECKOUT_004 — Giá được xác nhận lại mới được dùng để tạo đơn
 
-    @checkout @REQ_CHECKOUT_004 @TC_CHECKOUT_REV014 @REQ-F07 @REQ-F20 @BR-014 @BR-018 @BR-022 @approved_policy @assumption_P_REQUOTE
+    @checkout @REQ_CHECKOUT_004 @TC_CHECKOUT_REV014 @REQ-F07 @REQ-F20 @BR-014 @BR-018 @BR-022 @approved_policy @assumption_P_REQUOTE @happy_path
     Scenario: Giá được xác nhận lại mới được dùng để tạo đơn
       Given đề xuất P-REQUOTE không tự tạo đơn khi báo giá thay đổi
       And KH01 đã xác minh email, có giỏ 1 S001 và đã nhận báo giá mới 130000 VND thay báo giá cũ 120000 VND
@@ -2176,14 +2176,14 @@ Feature: Khách mua sách và cửa hàng quản lý việc bán giao và thu ti
   @cart @REQ_CART_006 @REQ-F22 @BR-016
   Rule: S1 bảo vệ chủ giỏ guest và phiên bản đã đọc
 
-    @s1 @TC_CART_S1_OWNER @REQ-F22 @BR-016
+    @s1 @TC_CART_S1_OWNER @REQ-F22 @BR-016 @unhappy_path
     Scenario: Guest không sửa giỏ của phiên khác bằng mã giỏ
       Given guest A có 2 quyển S001 và guest B có giỏ riêng trống
       When guest B gửi thay số lượng trên mã giỏ A thành 1
       Then phản hồi từ chối không chứa dữ liệu giỏ A
       And giỏ A vẫn có 2 S001 và giỏ B vẫn trống
 
-    @s1 @TC_CART_S1_VERSION @REQ-F04 @BR-003 @BR-024
+    @s1 @TC_CART_S1_VERSION @REQ-F04 @BR-003 @BR-024 @unhappy_path
     Scenario: Phiên bản giỏ cũ không ghi đè thay đổi đã lưu
       Given guest có giỏ S001 số lượng 2 ở phiên bản 1
       And một yêu cầu khác đã đổi S001 thành 3 ở phiên bản 2
